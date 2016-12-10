@@ -6,8 +6,7 @@ install:
 - "./travis/install-prerequisites.sh"
 script:
 - "./travis/build.sh"
-after_success:
-  "./travis/deploy.sh"
+after_success: "./travis/deploy.sh"
 env:
   global:
   - BINTRAY_USER=bploeckelman
@@ -20,4 +19,6 @@ cache:
   - travis/android-sdk-linux
 before_cache:
 - rm -f "$HOME/.gradle/caches/modules-2/modules-2.lock"
-
+deploy:
+  key:
+    secure: TOi3s6DYTQlpqa+iAifzxTtwvlhBcC2mZiSU1zSk1z259inuUfOaJutfb42y332C/TqM/NiUGbiKCLfbzLDN/84/vv2ZSZHO4eEqKh97RXfLzESNE6rmdLUiaCHEmR9jMAUfJzTje4n32bun9jJ4KqEzy9gh31z+PAUzw7koh8SXfmMuY71kApKLGbsTiEAW4IZz432/kdhQO87E1j/epvQPg9teh3CPZN4sz04GLQEbkSOwi5acVXdWEso6gmQq2o9VlWBB/QeIkGwzdtPs9oYzfHGB3tMWO+ZAZqSY4DlCuYi+MrOtz0iTDSMnU7PzEELbwaIPXFE+pAuyUf+WL1xxpBWgHBb+yruBLiUUgEkVAV6SNxFZ+AAtsXH+4E+GWc37cX6kaYSNRjSVwV7wkiLwDvUgvsqqkZY094/UK32nk+ctQr4GN/9DkDQ2RW41G7m/sjDdbgUPJZL6pkAN/4Op3AlqnABMkMrCoqmy6I74XD9XhuYVjROahCs9Cnp3TtVrAcy2Q9I3l/9ENjGzmKO/6vGdld2Ca3nHgCKS9Gv9zoE7EQ49my2vQWAmZ24OOEwevIESwrHttiUmYnMdo/ta+BdBtAERYsckGbxLEUXCJBzD44n0OM3dRRC1zx+c5PXpLNARs1Dy/cx8wr6AxfFII3sQvJtQ/dVkuanju9Y=
