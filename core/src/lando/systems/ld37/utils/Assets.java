@@ -54,7 +54,7 @@ public class Assets {
 
         mgr = new AssetManager();
         mgr.load("images/white-pixel.png", Texture.class, nearestParams);
-        mgr.load("images/white-box.png", Texture.class, nearestParams);
+        mgr.load("images/white-box.png", Texture.class, linearParams);
         mgr.load("images/brain-outline.png", Texture.class, linearParams);
         mgr.load("images/brain-detail.png", Texture.class, linearParams);
 

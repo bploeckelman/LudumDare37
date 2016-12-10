@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import lando.systems.ld37.screens.BaseScreen;
 import lando.systems.ld37.screens.GameScreen;
 import lando.systems.ld37.utils.Assets;
+import lando.systems.ld37.world.LevelInfo;
 
 public class LudumDare37 extends ApplicationAdapter {
 
@@ -24,7 +25,7 @@ public class LudumDare37 extends ApplicationAdapter {
 		game = this;
 
 		batch = Assets.batch;
-        setScreen(new GameScreen());
+        setScreen(new GameScreen(LevelInfo.Stage.Infancy));
 	}
 
 	@Override
