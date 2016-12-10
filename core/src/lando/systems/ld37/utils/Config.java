@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color;
  * Created by dsgraham on 12/10/16.
  */
 public class Config {
-    public static int GameWidth = 640;
-    public static int GameHeight = 480;
-    public Color backgroundColor = new Color(0,0,0,1);
+    public static int gameWidth = 640;
+    public static int gameHeight = 480;
+    public static Color bgColor = new Color(0,0,0,1);
 }

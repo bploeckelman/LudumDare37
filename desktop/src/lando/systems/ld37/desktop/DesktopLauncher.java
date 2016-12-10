@@ -8,8 +8,8 @@ import lando.systems.ld37.LudumDare37;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = Config.GameWidth;
-		config.height = Config.GameHeight;
+		config.width = Config.gameWidth;
+		config.height = Config.gameHeight;
 		new LwjglApplication(new LudumDare37(), config);
 	}
 }
