@@ -1,6 +1,7 @@
 package lando.systems.ld37.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,6 +20,7 @@ public class GameScreen extends BaseScreen {
     Array<Wall> walls;
     private static int wallsWide = 15;
     private static int wallMargin = 2;
+    private boolean showDetail = false;
 
     public GameScreen(){
         super();
@@ -31,6 +33,12 @@ public class GameScreen extends BaseScreen {
         for (Wall w : walls){
             w.update(dt);
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            showDetail = !showDetail;
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
+        }
     }
 
     @Override
@@ -40,10 +48,13 @@ public class GameScreen extends BaseScreen {
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        batch.draw(Assets.brainOutline, 0, -60f);
+        if (showDetail) {
+            batch.draw(Assets.brainDetail, 0, -60f);
+        }
         for (Wall w : walls){
             w.render(batch);
         }
-
         batch.end();
     }
 
