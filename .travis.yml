@@ -1,0 +1,23 @@
+language: java
+jdk: oraclejdk7
+notifications:
+  email: false
+install:
+- "./travis/install-prerequisites.sh"
+script:
+- "./travis/build.sh"
+after_success:
+  "./travis/deploy.sh"
+env:
+  global:
+  - BINTRAY_USER=bploeckelman
+  - BINTRAY_REPO=LudumDare
+  - secure: RH7TGfqWsv5Bc5l3zX8xVBED+ydjyx7XL9EWvH/tYq+3jrr7NkkUl+MWxiGt623UBYhjyArI7x3UVBCeKr1l36v7U9EE2o4y80re9LibfWp/Xr1MXbQjHxk94ckLDOP3XLOXf6BqWnUeN3Sd7oQPXQ+pNcdIZvzQ5hMRI0r/jFQ8Q0hC9eaZMDO7Zqb9/r7wy1SsV//3YJpgFzBGrRxBzoEVKQCIR0AhotRWTMODro0wrf6+JhIvaXRLyXJHiPFighiXSk6iKeD5w5QvnMnBcjyuF8QP9xu8vL9Ol6MdKZlSh2mMKhHL53lcHgGNT+249RAC+PzVNRqhQl2XBn4sOHgwlZyGn1UOspn5GFojcFzLeZZjq9d2aszQCLqM7hzpV495L1MzjHAIR3mFFQTP2FLtTHu2kYQh1408rL9fhqX5jUTI1kYbyJJWQSDhviqY7AkPdiN1Wr8/EDht1/75zCw4f7d0yJqA1BUNY2CfnIAXzKEO6RpvedZfHblCRZJ/EdU2/4nNKxd7pFgCm7Gk1L/v9sCsXSs/FsRDcIS23VdC74TJxYXjccMlX/MaxRFRtFdtkXrOUUgOJ0zSMWO+OB8Yiextq9sS1j62Ljr6YkL6ttC4+/+VLl+2VzaIjF3QrFABZOON/wYcfdnow9LD8/mLHmtQk62qmm65iQN97tY=
+cache:
+  directories:
+  - "$HOME/.gradle/caches"
+  - "$HOME/.gradle/wrapper"
+  - travis/android-sdk-linux
+before_cache:
+- rm -f "$HOME/.gradle/caches/modules-2/modules-2.lock"
+
