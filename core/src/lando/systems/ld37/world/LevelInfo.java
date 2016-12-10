@@ -5,6 +5,7 @@ package lando.systems.ld37.world;
  */
 public class LevelInfo {
     public enum Stage {Infancy, Toddler, Primary, Secondary, College, Work, Marriage, Career, Family, Retirement, Death}
+    public String mapName = "levels/level-test.tmx";
     public float crackTimer;
     public float crackSpeed;
     public float playerSpeed;
