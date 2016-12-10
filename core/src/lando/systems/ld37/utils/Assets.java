@@ -34,6 +34,8 @@ public class Assets {
     public static BitmapFont font;
     public static ShaderProgram fontShader;
 
+    public static Texture whitePixel;
+
     public static boolean initialized;
 
     public static void load() {
@@ -69,6 +71,8 @@ public class Assets {
         if (!mgr.update()) return mgr.getProgress();
         if (initialized) return 1f;
         initialized = true;
+
+        whitePixel = mgr.get("images/white-pixel.png", Texture.class);
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import lando.systems.ld37.utils.Assets;
 import lando.systems.ld37.utils.Config;
 
 /**
@@ -15,9 +16,7 @@ public class GameScreen extends BaseScreen {
 
     public GameScreen(){
         super();
-
-        debugTex = new Texture("badlogic.jpg");
-
+        debugTex = Assets.whitePixel;
     }
 
     @Override
