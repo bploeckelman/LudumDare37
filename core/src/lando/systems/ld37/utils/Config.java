@@ -1,4 +1,4 @@
-package lando.systems.ld37;
+package lando.systems.ld37.utils;
 
 import com.badlogic.gdx.graphics.Color;
 
