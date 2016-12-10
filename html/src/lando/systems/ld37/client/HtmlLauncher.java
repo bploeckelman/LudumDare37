@@ -3,13 +3,14 @@ package lando.systems.ld37.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
+import lando.systems.ld37.Config;
 import lando.systems.ld37.LudumDare37;
 
 public class HtmlLauncher extends GwtApplication {
 
         @Override
         public GwtApplicationConfiguration getConfig () {
-                return new GwtApplicationConfiguration(480, 320);
+                return new GwtApplicationConfiguration(Config.GameWidth, Config.GameHeight);
         }
 
         @Override
