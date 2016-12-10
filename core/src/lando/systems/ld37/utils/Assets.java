@@ -35,6 +35,7 @@ public class Assets {
     public static ShaderProgram fontShader;
 
     public static Texture whitePixel;
+    public static Texture whiteBox;
 
     public static boolean initialized;
 
@@ -51,6 +52,8 @@ public class Assets {
 
         mgr = new AssetManager();
         mgr.load("images/white-pixel.png", Texture.class, nearestParams);
+        mgr.load("images/white-box.png", Texture.class, nearestParams);
+
 
         if (tween == null) {
             tween = new TweenManager();
@@ -73,6 +76,7 @@ public class Assets {
         initialized = true;
 
         whitePixel = mgr.get("images/white-pixel.png", Texture.class);
+        whiteBox = mgr.get("images/white-box.png", Texture.class);
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);
