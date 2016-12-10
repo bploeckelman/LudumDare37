@@ -15,7 +15,7 @@ public class LevelInfo {
             case Infancy:
                 crackTimer = 3f;
                 crackSpeed = 2f;
-                playerFixSpeed = 5f;
+                playerFixSpeed = 10f;
                 playerSpeed = 100;
                 break;
             case Toddler:

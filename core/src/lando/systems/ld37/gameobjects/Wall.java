@@ -16,6 +16,7 @@ public class Wall {
     float crackSpeed;
     public boolean cracking;
     Color healthColor;
+    public boolean hovered;
 
     public Wall(Rectangle bounds, float crackSpeed){
         this.bounds = bounds;
@@ -23,6 +24,7 @@ public class Wall {
         this.cracking = false;
         this.crackSpeed = crackSpeed;
         healthColor = new Color();
+        hovered = false;
     }
 
     public void update(float dt){
@@ -32,17 +34,26 @@ public class Wall {
         if (health < 0){
             health = 0;
         }
+        hovered = false;
     }
 
-    public void render(SpriteBatch batch){
+    public void render(SpriteBatch batch, Player player){
+        if (this == player.wall){
+            batch.setColor(Color.GREEN);
+        }
+        else if (hovered){
+            batch.setColor(Color.YELLOW);
+        } else {
+            batch.setColor(Color.WHITE);
+        }
         batch.draw(Assets.whiteBox, bounds.x, bounds.y, bounds.width, bounds.height);
         if (health < 100){
             batch.setColor(Color.BLACK);
             batch.draw(
                     Assets.whitePixel,
-                    bounds.x,
+                    bounds.x + 5,
                     bounds.y + bounds.height/2,
-                    bounds.width, // Full health
+                    bounds.width - 10, // Full health
                     5
             );
             float n = health / 100;
@@ -50,9 +61,9 @@ public class Wall {
             batch.setColor(healthColor);
             batch.draw(
                     Assets.whitePixel,
-                    bounds.x,
+                    bounds.x + 5,
                     bounds.y + bounds.height/2,
-                    n * bounds.width,
+                    n * (bounds.width - 10),
                     5
             );
         }

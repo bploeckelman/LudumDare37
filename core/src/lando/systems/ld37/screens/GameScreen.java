@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import lando.systems.ld37.gameobjects.Player;
 import lando.systems.ld37.gameobjects.Wall;
@@ -22,6 +23,7 @@ public class GameScreen extends BaseScreen {
 
     private static int wallsWide = 16;
     private static int wallMargin = 2;
+    private static float clickDistance = 50;
     private boolean showDetail = false;
     private LevelInfo.Stage stage;
 
@@ -48,7 +50,7 @@ public class GameScreen extends BaseScreen {
         movementVec = new Vector2();
         tempVec2 = new Vector2();
         tempRec = new Rectangle();
-        player = new Player();
+        player = new Player(levelInfo);
     }
 
     @Override
@@ -67,6 +69,20 @@ public class GameScreen extends BaseScreen {
             w.update(dt);
             if (w.destroyed()){
                 // you lost this stage
+            }
+        }
+
+        Vector3 touchPoint = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(touchPoint);
+        if (player.center.dst(touchPoint.x, touchPoint.y) < clickDistance){
+            for (Wall w : walls){
+                if (w.bounds.contains(touchPoint.x, touchPoint.y)){
+                    w.hovered = true;
+                    if (Gdx.input.justTouched()) {
+                        player.wall = w;
+                    }
+                    break;
+                }
             }
         }
 
@@ -94,7 +110,7 @@ public class GameScreen extends BaseScreen {
         }
 //        batch.draw(Assets.whiteBox, gameBounds.x, gameBounds.y, gameBounds.width, gameBounds.height);
         for (Wall w : walls){
-            w.render(batch);
+            w.render(batch, player);
         }
 
         player.render(batch);
