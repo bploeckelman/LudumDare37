@@ -54,7 +54,7 @@ public class Dialogue extends InputAdapter {
     private Array<String> currentMessageLines;
     private GlyphLayout finalLayout = new GlyphLayout();
     private GlyphLayout measuringLayout = new GlyphLayout();
-    private GlyphLayout pressEnterLayout = new GlyphLayout(Assets.font8pt, "PRESS ENTER...");
+    private GlyphLayout pressEnterLayout = new GlyphLayout(Assets.font8pt, "CLICK / ENTER...");
     private Color pressEnterColor = new Color(1f, 1f, 1f, 1f);
 
     // Time Tracking
@@ -206,6 +206,20 @@ public class Dialogue extends InputAdapter {
         return true;
     }
 
+    @Override
+    public boolean touchUp (int screenX, int screenY, int pointer, int button) {
+        if (!isShown) return false;
+        if (pointer == 0) {
+            if (atEndOfMessage) {
+                if (!allowClose) return false;
+                nextMessage();
+            } else {
+                fastForward = true;
+            }
+        }
+        return true;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     private float getFontDrawX() {
@@ -303,7 +317,7 @@ public class Dialogue extends InputAdapter {
                 float pressEnterAlpha = Math.abs(MathUtils.sin(pressEnterTime * 2.5f));
                 pressEnterColor.a = pressEnterAlpha;
                 Assets.font8pt.setColor(1, 1, 1, pressEnterAlpha);
-                Assets.font8pt.draw(batch, "PRESS ENTER...", pressEnterX, pressEnterY);
+                Assets.font8pt.draw(batch, "CLICK / ENTER...", pressEnterX, pressEnterY);
                 Assets.font8pt.setColor(1,1,1,1);
             }
 
