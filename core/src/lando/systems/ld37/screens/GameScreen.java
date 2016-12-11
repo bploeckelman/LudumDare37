@@ -24,20 +24,18 @@ public class GameScreen extends BaseScreen {
     private float runningTime;
     private MutableFloat detailAlpha = new MutableFloat(0f);
     private GameInfo gameInfo;
-    private Dialogue dialogue;
     private Array<String> messages;
     private Level level;
 
     public GameScreen(){
         super();
         gameInfo = new GameInfo();
-        dialogue = new Dialogue();
         messages = new Array<String>();
         level = new Level(gameInfo.currentStage);
         runningTime = 0;
 
         Gdx.input.setInputProcessor(
-                new InputMultiplexer(dialogue, this)
+                new InputMultiplexer(level.dialogue, this)
         );
     }
 
@@ -45,7 +43,6 @@ public class GameScreen extends BaseScreen {
     public void update(float dt) {
         runningTime += dt;
 
-        dialogue.update(dt);
         level.update(dt, camera);
         if (level.isTimeUp() || level.isWallDestroyed()){
             stageCompleted(false);
@@ -54,7 +51,6 @@ public class GameScreen extends BaseScreen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && detailAlpha.floatValue() == 0f) {
             detailAlpha.setValue(0.05f);
             Tween.to(detailAlpha, -1, 1.0f).target(0f).ease(Quint.OUT).start(Assets.tween);
-            dialogue.show(10, 10, (int) camera.viewportWidth - 20, (int) camera.viewportHeight / 4, TextHelper.get("test"));
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -93,7 +89,7 @@ public class GameScreen extends BaseScreen {
         batch.draw(Assets.brainDetail, 0, -60f);
         batch.setColor(1f, 1f, 1f, 1f);
 
-        dialogue.render(batch);
+        level.dialogue.render(batch);
         batch.end();
     }
 

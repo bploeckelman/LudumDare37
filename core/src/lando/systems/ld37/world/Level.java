@@ -25,6 +25,8 @@ import lando.systems.ld37.gameobjects.Player;
 import lando.systems.ld37.gameobjects.Wall;
 import lando.systems.ld37.utils.Assets;
 import lando.systems.ld37.utils.Config;
+import lando.systems.ld37.utils.Dialogue;
+import lando.systems.ld37.utils.TextHelper;
 
 /**
  * Created by Brian on 12/10/2016.
@@ -40,23 +42,29 @@ public class Level {
     public Vector2 upperRight;
     public float crackTimer = 3;
     public float gameTimer = 60;
+    public Dialogue dialogue;
 
     LevelInfo levelInfo;
+    LevelInfo.Stage currentStage;
     Player player;
     TiledMap map;
     TiledMapRenderer mapRenderer;
     Array<Wall> walls;
     Array<Npc> npcs;
 
+    private Rectangle dialogueRect = new Rectangle();
     private Vector2 movementVec = new Vector2();
     private Vector3 touchPoint = new Vector3();
+    private int scriptSegment;
     private boolean wallDestroyed;
     private boolean timeUp;
     private boolean inScript;
+    private boolean scriptReady;
 
 
     public Level(LevelInfo.Stage stage) {
         levelInfo = new LevelInfo(stage);
+        currentStage = stage;
         player = new Player(levelInfo);
         map = (new TmxMapLoader()).load(levelInfo.mapName);
         mapRenderer = new OrthoCachedTiledMapRenderer(map);
@@ -68,16 +76,20 @@ public class Level {
         wallDestroyed = false;
         timeUp = false;
 
-        inScript = true;
-        initializeScript(stage);
+        dialogue = new Dialogue();
+        dialogueRect = new Rectangle(10, (int) (3f / 4f * Config.gameHeight) - 10, Config.gameWidth - 20, Config.gameHeight / 4);
+        initializeScript();
     }
 
     public void update(float dt, OrthographicCamera camera) {
+        updateScript(dt);
+        dialogue.update(dt);
+
         for (Npc npc : npcs) {
             npc.update(dt);
         }
+
         if (inScript) {
-            // DO SCRIPTED THINGS UNTIL DONE...
             return;
         }
 
@@ -212,44 +224,90 @@ public class Level {
         player.update(dt);
     }
 
-    private void initializeScript(LevelInfo.Stage stage) {
-        if (stage == LevelInfo.Stage.Infancy) {
-            // spawn npcs
-            final Npc mom = new Npc(
-                    "Mom",
-                    gameBounds.x + gameBounds.width / 2f,
-                    gameBounds.y + gameBounds.height / 2f + 64f,
-                    32f, 32f,
-                    new TextureRegion(Assets.whiteBox)
-            );
-            npcs.add(mom);
+    private void initializeScript() {
+        inScript = true;
+        scriptReady = false;
+        scriptSegment = 0;
 
-            // start dialog sequences
-            mom.say("Fuck this shit", 10f);
+        switch (currentStage) {
+            case Infancy: {
+                final Npc mom = new Npc(
+                        "Mom",
+                        gameBounds.x + gameBounds.width / 2f,
+                        gameBounds.y + gameBounds.height / 2f + 64f,
+                        32f, 32f,
+                        new TextureRegion(Assets.whiteBox)
+                );
+                npcs.add(mom);
 
-            // trigger movements
-            float doorPosY = gameBounds.y + gameBounds.height;
-            Timeline.createSequence()
-                    .push(
-                Tween.to(mom.bounds, RectangleAccessor.Y, 10f)
-                        .target(doorPosY)
-                        .ease(Linear.INOUT)
-                    )
-                    .push(
-                Tween.call(new TweenCallback() {
-                               @Override
-                               public void onEvent(int type, BaseTween<?> source) {
-                                   npcs.removeValue(mom, true);
-                                   inScript = false;
-                               }
-                           }
-                    ))
-                    .start(Assets.tween);
+                float duration = 5f;
+                mom.say("Fuck this shit", duration);
+
+                float doorPosY = gameBounds.y + gameBounds.height;
+                Timeline.createSequence()
+                        .push(Tween.to(mom.bounds, RectangleAccessor.Y, duration)
+                                   .target(doorPosY)
+                                   .ease(Linear.INOUT))
+                        .push(Tween.call(new TweenCallback() {
+                                   @Override
+                                   public void onEvent(int type, BaseTween<?> source) {
+                                       npcs.removeValue(mom, true);
+                                       scriptReady = true;
+                                   }
+                              }))
+                        .start(Assets.tween);
+            }
+            break;
+//        case FOO: {}
+            default: {
+                inScript = false;
+            }
         }
-        // else if (stage == ...) {}
-        else {
-            inScript = false;
+    }
+
+    private void updateScript(float dt) {
+        switch (currentStage) {
+            case Infancy:
+            {
+                switch (scriptSegment) {
+                    case 0:
+                    {
+//                        if (!dialogue.isActive()) {
+                        if (scriptReady) {
+                            scriptSegment++;
+                            showDialogue("Record scratch... freeze frame...",
+                                         "I bet you're wondering how I got here.");
+                        }
+                    }
+                    break;
+                    case 1:
+                    {
+                        if (!dialogue.isActive()) {
+                            scriptSegment++;
+                            showDialogue("Well, its a long story, but I'm going to tell you anyway.");
+                        }
+                    }
+                    break;
+                    case 2:
+                    {
+                        if (!dialogue.isActive()) {
+                            scriptSegment++;
+                            showDialogue("A long time ago, in the year 1876, ramble... ramble...",
+                                         "Gotta catch 'em all!");
+                            inScript = false;
+                        }
+                    }
+                    break;
+                    // case N: {} break;
+                }
+            }
+            break;
+            // case FOO: {} break;
         }
+    }
+
+    private void showDialogue(String... messages) {
+        dialogue.show((int) dialogueRect.x, (int) dialogueRect.y, (int) dialogueRect.width, (int) dialogueRect.height, messages);
     }
 
 }
