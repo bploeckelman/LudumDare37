@@ -1,6 +1,7 @@
 package lando.systems.ld37.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import lando.systems.ld37.utils.Config;
@@ -8,7 +9,7 @@ import lando.systems.ld37.utils.Config;
 /**
  * Created by dsgraham on 12/10/16.
  */
-public abstract class BaseScreen {
+public abstract class BaseScreen extends InputAdapter {
     public OrthographicCamera camera;
     public OrthographicCamera hudCamera;
 

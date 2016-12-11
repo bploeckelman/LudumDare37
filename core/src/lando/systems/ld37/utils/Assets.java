@@ -9,10 +9,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -42,6 +39,8 @@ public class Assets {
     public static Texture brainOutline;
     public static Texture brainDetail;
 
+    public static NinePatch speechBubble;
+
     public static boolean initialized;
 
     public static void load() {
@@ -60,6 +59,7 @@ public class Assets {
         mgr.load("images/white-box.png", Texture.class, linearParams);
         mgr.load("images/brain-outline.png", Texture.class, linearParams);
         mgr.load("images/brain-detail.png", Texture.class, linearParams);
+        mgr.load("images/speech-bubble.png", Texture.class, nearestParams);
 
         if (tween == null) {
             tween = new TweenManager();
@@ -89,6 +89,7 @@ public class Assets {
         whiteBox = mgr.get("images/white-box.png", Texture.class);
         brainOutline = mgr.get("images/brain-outline.png", Texture.class);
         brainDetail = mgr.get("images/brain-detail.png", Texture.class);
+        speechBubble = new NinePatch(mgr.get("images/speech-bubble.png", Texture.class), 11, 3, 3, 10);
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);
