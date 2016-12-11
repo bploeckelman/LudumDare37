@@ -14,10 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.Array;
 import lando.systems.ld37.accessors.RectangleAccessor;
 import lando.systems.ld37.gameobjects.KeyItem;
@@ -27,7 +24,6 @@ import lando.systems.ld37.gameobjects.Wall;
 import lando.systems.ld37.utils.Assets;
 import lando.systems.ld37.utils.Config;
 import lando.systems.ld37.utils.Dialogue;
-import lando.systems.ld37.utils.TextHelper;
 
 /**
  * Created by Brian on 12/10/2016.
@@ -36,7 +32,7 @@ public class Level {
 
     private static int wallsWide = 16;
     private static int wallMargin = 2;
-    private static float clickDistance = 50;
+    public static float clickDistance = 70;
 
     public Rectangle gameBounds;
     public Vector2 lowerLeft;
@@ -128,11 +124,11 @@ public class Level {
 
         touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(touchPoint);
-        if (player.center.dst(touchPoint.x, touchPoint.y) < clickDistance){
-            for (Wall w : walls){
-                if (w.bounds.contains(touchPoint.x, touchPoint.y)){
+        for (Wall w: walls){
+            if (w.bounds.contains(touchPoint.x, touchPoint.y)){
+                if (player.center.dst(w.center) < clickDistance) {
                     w.hovered = true;
-                    if (Gdx.input.justTouched()) {
+                    if (Gdx.input.justTouched()){
                         player.wall = w;
                     }
                     break;
@@ -234,13 +230,83 @@ public class Level {
         if (player.pos.x + movementVec.x < lowerLeft.x){
             movementVec.x = lowerLeft.x - player.pos.x;
         }
-
-        if (!movementVec.epsilonEquals(0,0,.1f)) {
-            player.wall = null;
-            player.pos.add(movementVec);
+        for (KeyItem k : keyItems){
+            movementWithRect(movementVec, k.bounds);
         }
 
+        // TODO check game objects here
+
+        player.pos.add(movementVec);
+
         player.update(dt);
+    }
+
+    Vector2 tmpUL = new Vector2();
+    Vector2 tmpUR = new Vector2();
+    Vector2 tmpLL = new Vector2();
+    Vector2 tmpLR = new Vector2();
+    Vector2 tmpInt = new Vector2();
+    Vector2 nor = new Vector2();
+    Vector2 undesired = new Vector2();
+    private void movementWithRect(Vector2 mVec, Rectangle bounds){
+        if (mVec.epsilonEquals(0,0,.1f)) return; // Don't waste time when movement is 0
+        tmpUL.set(player.pos.x, player.pos.y + player.width);
+        tmpUR.set(player.pos.x + player.width, player.pos.y + player.width);
+        tmpLL.set(player.pos.x, player.pos.y);
+        tmpLR.set(player.pos.x + player.width, player.pos.y);
+
+        // up
+        if (mVec.y > 0) {
+            if (Intersector.intersectSegments(tmpUL.x, tmpUL.y, tmpUL.x + mVec.x, tmpUL.y + mVec.y,
+                    bounds.x, bounds.y, bounds.x + bounds.width, bounds.y, tmpInt) ||
+                    Intersector.intersectSegments(tmpUR.x, tmpUR.y, tmpUR.x + mVec.x, tmpUR.y + mVec.y,
+                            bounds.x, bounds.y, bounds.x + bounds.width, bounds.y, tmpInt)) {
+                nor.set(0, -1);
+                float dot = nor.dot(mVec);
+                undesired.set(nor.scl(dot));
+                mVec.sub(undesired);
+            }
+        }
+
+        // down
+        if (mVec.y < 0) {
+            if (Intersector.intersectSegments(tmpLL.x, tmpLL.y, tmpLL.x + mVec.x, tmpLL.y + mVec.y,
+                    bounds.x, bounds.y + bounds.height, bounds.x + bounds.width, bounds.y + bounds.height, tmpInt) ||
+                    Intersector.intersectSegments(tmpLR.x, tmpLR.y, tmpLR.x + mVec.x, tmpLR.y + mVec.y,
+                            bounds.x, bounds.y + bounds.height, bounds.x + bounds.width, bounds.y + bounds.height, tmpInt)) {
+                nor.set(0, 1);
+                float dot = nor.dot(mVec);
+                undesired.set(nor.scl(dot));
+                mVec.sub(undesired);
+            }
+        }
+
+        // right
+        if (mVec.x > 0) {
+            if (Intersector.intersectSegments(tmpUR.x, tmpUR.y, tmpUR.x + mVec.x, tmpUR.y + mVec.y,
+                    bounds.x, bounds.y, bounds.x, bounds.y + bounds.height, tmpInt) ||
+                    Intersector.intersectSegments(tmpLR.x, tmpLR.y, tmpLR.x + mVec.x, tmpLR.y + mVec.y,
+                            bounds.x, bounds.y, bounds.x, bounds.y + bounds.height, tmpInt)) {
+                nor.set(-1, 0);
+                float dot = nor.dot(mVec);
+                undesired.set(nor.scl(dot));
+                mVec.sub(undesired);
+            }
+        }
+
+        // left
+        if (mVec.x < 0) {
+            if (Intersector.intersectSegments(tmpUL.x, tmpUL.y, tmpUL.x + mVec.x, tmpUL.y + mVec.y,
+                    bounds.x + bounds.width, bounds.y, bounds.x + bounds.width, bounds.y + bounds.height, tmpInt) ||
+                    Intersector.intersectSegments(tmpLL.x, tmpLL.y, tmpLL.x + mVec.x, tmpLL.y + mVec.y,
+                            bounds.x + bounds.width, bounds.y, bounds.x + bounds.width, bounds.y + bounds.height, tmpInt)) {
+                nor.set(1, 0);
+                float dot = nor.dot(mVec);
+                undesired.set(nor.scl(dot));
+                mVec.sub(undesired);
+            }
+        }
+
     }
 
     private void initializeScript() {

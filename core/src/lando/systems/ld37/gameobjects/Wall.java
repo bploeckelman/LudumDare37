@@ -18,6 +18,7 @@ public class Wall {
     Color healthColor;
     public boolean hovered;
     int type;
+    public Vector2 center;
 
     public Wall(int type, Rectangle bounds, float crackSpeed){
         this.type = type;
@@ -27,6 +28,7 @@ public class Wall {
         this.crackSpeed = crackSpeed;
         healthColor = new Color();
         hovered = false;
+        center = new Vector2(bounds.x + bounds.width/2, bounds.y + bounds.height/2);
     }
 
     public void update(float dt){

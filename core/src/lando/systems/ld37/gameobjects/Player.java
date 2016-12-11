@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld37.utils.Assets;
 import lando.systems.ld37.utils.Config;
+import lando.systems.ld37.world.Level;
 import lando.systems.ld37.world.LevelInfo;
 
 /**
@@ -30,6 +31,11 @@ public class Player {
             if (wall.health >= 100){
                 wall.health = 100;
                 wall.cracking = false;
+                wall = null;
+            }
+        }
+        if (wall != null){
+            if (center.dst(wall.center) > Level.clickDistance){
                 wall = null;
             }
         }
