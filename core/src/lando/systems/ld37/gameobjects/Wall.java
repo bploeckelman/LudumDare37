@@ -44,15 +44,15 @@ public class Wall {
             batch.setColor(Color.GREEN);
         }
         else if (hovered){
-            batch.setColor(Color.YELLOW);
+            batch.setColor(Color.ORANGE);
         } else {
             batch.setColor(Color.WHITE);
         }
         batch.draw(Assets.walls[type], bounds.x, bounds.y, bounds.width, bounds.height);
         if (health < 100){
-            if ((type | 1) == 1 || (type | 4) == 4) {
+            if ((type & 1) == 1 || (type & 4) == 4) {
                 float yOffest = 0;
-                if ((type | 1) == 1) yOffest = bounds.height - 5;
+                if ((type & 1) == 1) yOffest = bounds.height - 5;
                 batch.setColor(Color.BLACK);
                 batch.draw(
                         Assets.whitePixel,
@@ -73,7 +73,7 @@ public class Wall {
                 );
             } else {
                 float xOffest = 0;
-                if ((type | 8) == 8) xOffest = bounds.width - 5;
+                if ((type & 0x8) == 0x8) xOffest = bounds.width - 5;
                 batch.setColor(Color.BLACK);
                 batch.draw(
                         Assets.whitePixel,
