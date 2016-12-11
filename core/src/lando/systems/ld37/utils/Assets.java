@@ -41,6 +41,7 @@ public class Assets {
     public static Texture brainOutline;
     public static Texture brainDetail;
     public static TextureRegion[] walls;
+    public static TextureRegion keyInfant;
 
     public static TextureAtlas atlas;
 
@@ -116,6 +117,8 @@ public class Assets {
         walls[13] = atlas.findRegion("wall-top"); //BS
         walls[14] = atlas.findRegion("wall-top"); // BS
         walls[15] = atlas.findRegion("wall-top");
+
+        keyInfant = atlas.findRegion("key-infancy");
 
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);

@@ -20,6 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import lando.systems.ld37.accessors.RectangleAccessor;
+import lando.systems.ld37.gameobjects.KeyItem;
 import lando.systems.ld37.gameobjects.Npc;
 import lando.systems.ld37.gameobjects.Player;
 import lando.systems.ld37.gameobjects.Wall;
@@ -61,8 +62,12 @@ public class Level {
     private boolean inScript;
     private boolean scriptReady;
 
+    private Array<KeyItem> keyItems;
 
-    public Level(LevelInfo.Stage stage) {
+
+    public Level(GameInfo gameInfo) {
+        keyItems = new Array<KeyItem>();
+        LevelInfo.Stage stage = gameInfo.currentStage;
         levelInfo = new LevelInfo(stage);
         currentStage = stage;
         player = new Player(levelInfo);
@@ -76,6 +81,12 @@ public class Level {
         wallDestroyed = false;
         timeUp = false;
 
+        keyItems.add(new KeyItem(stage, true));
+        for (LevelInfo.Stage s :gameInfo.neurosis.keys()){
+            if (gameInfo.neurosis.get(s)){
+                keyItems.add(new KeyItem(s, false));
+            }
+        }
         dialogue = new Dialogue();
         dialogueRect = new Rectangle(10, (int) (3f / 4f * Config.gameHeight) - 10, Config.gameWidth - 20, Config.gameHeight / 4);
         initializeScript();
@@ -84,6 +95,10 @@ public class Level {
     public void update(float dt, OrthographicCamera camera) {
         updateScript(dt);
         dialogue.update(dt);
+
+        for (KeyItem k : keyItems){
+            k.update(dt);
+        }
 
         for (Npc npc : npcs) {
             npc.update(dt);
@@ -148,6 +163,10 @@ public class Level {
             camera.update();
         }
         batch.begin();
+
+        for (KeyItem k : keyItems){
+            k.render(batch);
+        }
 
         for (Wall w : walls){
             w.render(batch, player);
