@@ -14,6 +14,7 @@ public class LevelInfo {
     public LevelInfo(Stage stage){
         switch (stage){
             case Infancy:
+                mapName = "levels/level-nursery.tmx";
                 crackTimer = 3f;
                 crackSpeed = 2f;
                 playerFixSpeed = 10f;
