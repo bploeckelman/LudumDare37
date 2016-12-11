@@ -31,6 +31,8 @@ public class LudumDare37 extends ApplicationAdapter {
 	@Override
 	public void render () {
 		float dt = Math.min(Gdx.graphics.getDeltaTime(), 1f / 30f);
+		Assets.tween.update(dt);
+		Assets.particleManager.update(dt);
 		screen.update(dt);
 		screen.render(batch);
 	}

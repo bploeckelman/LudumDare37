@@ -20,6 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import lando.systems.ld37.accessors.*;
+import lando.systems.ld37.utils.particles.ParticleManager;
 
 /**
  * Created by Brian on 12/10/2016.
@@ -28,6 +29,7 @@ public class Assets {
 
     public static AssetManager mgr;
     public static TweenManager tween;
+    public static ParticleManager particleManager;
     public static SpriteBatch batch;
     public static ShapeRenderer shapes;
     public static GlyphLayout layout;
@@ -66,6 +68,10 @@ public class Assets {
             Tween.registerAccessor(Vector2.class, new Vector2Accessor());
             Tween.registerAccessor(Vector3.class, new Vector3Accessor());
             Tween.registerAccessor(OrthographicCamera.class, new CameraAccessor());
+        }
+
+        if (particleManager == null){
+            particleManager = new ParticleManager();
         }
 
         batch = new SpriteBatch();

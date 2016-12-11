@@ -15,7 +15,7 @@ public class LevelInfo {
         switch (stage){
             case Infancy:
                 crackTimer = 3f;
-                crackSpeed = 2f;
+                crackSpeed = 20f;
                 playerFixSpeed = 10f;
                 playerSpeed = 100;
                 break;

@@ -19,6 +19,7 @@ import lando.systems.ld37.gameobjects.Player;
 import lando.systems.ld37.gameobjects.Wall;
 import lando.systems.ld37.utils.Assets;
 import lando.systems.ld37.utils.Config;
+import lando.systems.ld37.world.GameInfo;
 import lando.systems.ld37.world.LevelInfo;
 
 /**
@@ -29,8 +30,10 @@ public class GameScreen extends BaseScreen {
     private static int wallsWide = 16;
     private static int wallMargin = 2;
     private static float clickDistance = 50;
+
     private boolean showDetail = false;
     private LevelInfo.Stage stage;
+    private GameInfo gameInfo;
 
     public Rectangle gameBounds;
     public Vector2 lowerLeft;
@@ -50,6 +53,7 @@ public class GameScreen extends BaseScreen {
 
     public GameScreen(LevelInfo.Stage stage){
         super();
+        this.stage = stage;
         levelInfo = new LevelInfo(stage);
         buildWalls(levelInfo.crackSpeed);
         map = (new TmxMapLoader()).load(levelInfo.mapName);
@@ -61,13 +65,15 @@ public class GameScreen extends BaseScreen {
         tempVec2 = new Vector2();
         tempRec = new Rectangle();
         player = new Player(levelInfo);
+        gameInfo = new GameInfo();
     }
 
     @Override
     public void update(float dt) {
         gameTimer -= dt;
         if (gameTimer < 0){
-            // completed
+            gameInfo.addStageComplete(stage, false);
+            stageCompleted();
         }
 
         crackTimer -= dt;
@@ -78,7 +84,8 @@ public class GameScreen extends BaseScreen {
         for (Wall w : walls){
             w.update(dt);
             if (w.destroyed()){
-                // you lost this stage
+                gameInfo.addStageComplete(stage, true);
+                stageCompleted();
             }
         }
 
@@ -194,5 +201,9 @@ public class GameScreen extends BaseScreen {
                 }
             }
         }
+    }
+
+    private void stageCompleted(){
+        // TODO show things on end, move to next stage, etc.
     }
 }
