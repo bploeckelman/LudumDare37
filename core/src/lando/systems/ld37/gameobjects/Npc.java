@@ -43,7 +43,6 @@ public class Npc {
                 speechTimer = 0f;
             }
         }
-        Gdx.app.log("SpeechTimer/Bounds.Y", name + ": " + Float.toString(speechTimer) + ", " + bounds.y);
     }
 
     public void draw(SpriteBatch batch) {
