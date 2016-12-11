@@ -44,12 +44,8 @@ public class GameScreen extends BaseScreen {
         runningTime += dt;
 
         level.update(dt, camera);
-        if (level.isTimeUp()){
-            stageCompleted(false);
-        }
-
-        if (level.isWallDestroyed()){
-            stageCompleted(true);
+        if (level.isLevelComplete()){
+            stageCompleted();
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && detailAlpha.floatValue() == 0f) {
@@ -97,8 +93,7 @@ public class GameScreen extends BaseScreen {
         batch.end();
     }
 
-    private void stageCompleted(boolean contracted){
-        gameInfo.addStageComplete(gameInfo.currentStage, contracted);
+    private void stageCompleted(){
         gameInfo.nextStage();
         level = new Level(gameInfo);
         // TODO show things on end, etc.

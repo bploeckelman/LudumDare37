@@ -4,7 +4,9 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.equations.Elastic;
 import aurelienribon.tweenengine.equations.Linear;
+import aurelienribon.tweenengine.primitives.MutableFloat;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -54,15 +56,18 @@ public class Level {
     private Vector2 movementVec = new Vector2();
     private Vector3 touchPoint = new Vector3();
     private int scriptSegment;
-    private boolean wallDestroyed;
-    private boolean timeUp;
+    private boolean levelCompleted;
+    private boolean levelStarted;
     private boolean inScript;
     private boolean scriptReady;
 
     private Array<KeyItem> keyItems;
+    private GameInfo gameInfo;
+    private MutableFloat overlayAlpha;
 
 
     public Level(GameInfo gameInfo) {
+        this.gameInfo = gameInfo;
         keyItems = new Array<KeyItem>();
         LevelInfo.Stage stage = gameInfo.currentStage;
         levelInfo = new LevelInfo(stage);
@@ -75,8 +80,6 @@ public class Level {
         npcs = new Array<Npc>();
 
         buildWalls(levelInfo.crackSpeed);
-        wallDestroyed = false;
-        timeUp = false;
 
         keyItems.add(new KeyItem(stage, true));
         for (LevelInfo.Stage s :gameInfo.neurosis.keys()){
@@ -86,10 +89,11 @@ public class Level {
         }
         dialogue = new Dialogue();
         dialogueRect = new Rectangle(10, (int) (3f / 4f * Config.gameHeight) - 10, Config.gameWidth - 20, Config.gameHeight / 4);
-        initializeScript();
+        initializeLevel();
     }
 
     public void update(float dt, OrthographicCamera camera) {
+        if (!levelStarted) return;
         updateScript(dt);
         dialogue.update(dt);
 
@@ -107,7 +111,7 @@ public class Level {
 
         gameTimer -= dt;
         if (gameTimer < 0) {
-            timeUp = true;
+            finishLevel(false);
         }
 
         crackTimer -= dt;
@@ -119,7 +123,7 @@ public class Level {
         for (Wall w : walls){
             w.update(dt);
             if (w.destroyed()){
-                wallDestroyed = true;
+                finishLevel(true);
             }
         }
 
@@ -161,9 +165,7 @@ public class Level {
         }
         batch.begin();
 
-        for (KeyItem k : keyItems){
-            k.render(batch);
-        }
+
 
         for (Wall w : walls){
             w.render(batch, player);
@@ -179,20 +181,23 @@ public class Level {
 
         player.render(batch);
 
-        if (!inScript) {
-            batch.draw(Assets.clockFace, camera.viewportWidth - 60, 10, 50, 50);
-            batch.setColor(Color.RED);
-            batch.draw(Assets.whitePixel, camera.viewportWidth - 36, 35, 1, 0, 2, 17, 1, 1, gameTimer * 6f);
-            batch.setColor(Color.WHITE);
+        for (KeyItem k : keyItems){
+            k.render(batch);
         }
+
+        batch.draw(Assets.clockFace, camera.viewportWidth - 60, 10, 50, 50);
+        batch.setColor(Color.RED);
+        batch.draw(Assets.whitePixel, camera.viewportWidth - 36, 35, 1, 0, 2, 17, 1, 1, gameTimer * 6f);
+        batch.setColor(Color.WHITE);
+
+
+        batch.setColor(0,0,0,overlayAlpha.floatValue());
+        batch.draw(Assets.whitePixel, 0, 0, camera.viewportWidth, camera.viewportHeight);
+        batch.setColor(Color.WHITE);
     }
 
-    public boolean isWallDestroyed() {
-        return wallDestroyed;
-    }
-
-    public boolean isTimeUp() {
-        return timeUp;
+    public boolean isLevelComplete(){
+        return levelCompleted;
     }
 
     private void buildWalls(float crackSpeed){
@@ -412,6 +417,7 @@ public class Level {
                     case 4:
                         if (!dialogue.isActive()){
                             inScript = false;
+                            scriptSegment++;
                         }
                         break;
 
@@ -426,5 +432,55 @@ public class Level {
     private void showDialogue(String... messages) {
         dialogue.show((int) dialogueRect.x, (int) dialogueRect.y, (int) dialogueRect.width, (int) dialogueRect.height, messages);
     }
+
+    private void initializeLevel(){
+        levelStarted = false;
+        overlayAlpha = new MutableFloat(1);
+        Tween.to(overlayAlpha, 1, 2)
+                .target(0)
+                .setCallback(new TweenCallback() {
+                    @Override
+                    public void onEvent(int i, BaseTween<?> baseTween) {
+                        initializeScript();
+                        levelStarted = true;
+                    }
+                })
+                .start(Assets.tween);
+
+    }
+
+    private void finishLevel(boolean contracted){
+        gameInfo.addStageComplete(gameInfo.currentStage, contracted);
+        inScript = true;
+        KeyItem keyItem = null;
+        for (KeyItem k : keyItems){
+            if (k.active) keyItem = k;
+        }
+        if (keyItem == null) return; // Shouldn't happen
+        Tween outcomeTween;
+        if (contracted){
+            Rectangle b = keyItem.getInactiveBounds();
+            outcomeTween = Tween.to(keyItem.bounds, RectangleAccessor.XYWH, 3)
+                    .target(b.x, b.y, b.width, b.height)
+                    .waypoint(Config.gameWidth / 2, 350, 50, 50);
+        }   else {
+            Rectangle b = keyItem.bounds;
+            outcomeTween = Tween.to(keyItem.bounds, RectangleAccessor.XYWH, 2)
+                    .target(b.x + b.width/2,b.y + b.height/2, 0, 0)
+                    .ease(Elastic.IN);
+        }
+
+        Timeline.createSequence()
+                .push(outcomeTween)
+                .push(Tween.to(overlayAlpha, 1, 2)
+                           .target(1))
+                .push(Tween.call(new TweenCallback() {
+                    @Override
+                    public void onEvent(int i, BaseTween<?> baseTween) {
+                        levelCompleted = true;
+                    }
+                })).start(Assets.tween);
+    }
+
 
 }

@@ -17,7 +17,7 @@ import lando.systems.ld37.world.LevelInfo;
  */
 public class KeyItem {
     LevelInfo.Stage stage;
-    boolean active;
+    public boolean active;
     public Rectangle bounds;
     public TextureRegion tex;
     public MutableFloat angle;
@@ -31,20 +31,20 @@ public class KeyItem {
         floatOffset = new Vector2();
         this.accum = new Vector2(0,0);
 
+
         switch(stage){
             case Infancy:
                 tex = Assets.keyInfant;
-                bounds = new Rectangle(Config.gameWidth/2, Config.gameHeight - 70, 40, 40);
                 break;
             default:
                 tex = Assets.keyInfant;
-                bounds = new Rectangle(30, 30, 30, 30);
 
         }
 
         if (active){
             bounds = new Rectangle(Config.gameWidth /2 - 20, Config.gameHeight/2, 20, 20);
         } else {
+            bounds = getInactiveBounds();
             this.accum = new Vector2(MathUtils.random(0.1f, 1f),
                     MathUtils.random(0.1f, 1f));
             angle = new MutableFloat(MathUtils.random(-5f, 5f));
@@ -74,5 +74,14 @@ public class KeyItem {
                 1f,
                 1f,
                 angle.floatValue());
+    }
+
+    public Rectangle getInactiveBounds(){
+        switch (stage){
+            case Infancy:
+                return new Rectangle(Config.gameWidth/2, Config.gameHeight - 70, 40, 40);
+            default:
+                return new Rectangle(Config.gameWidth/2, Config.gameHeight - 70, 40, 40);
+        }
     }
 }

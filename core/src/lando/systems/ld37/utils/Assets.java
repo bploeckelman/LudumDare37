@@ -72,6 +72,7 @@ public class Assets {
         if (tween == null) {
             tween = new TweenManager();
             Tween.setCombinedAttributesLimit(4);
+            Tween.setWaypointsLimit(2);
             Tween.registerAccessor(Color.class, new ColorAccessor());
             Tween.registerAccessor(Rectangle.class, new RectangleAccessor());
             Tween.registerAccessor(Vector2.class, new Vector2Accessor());
