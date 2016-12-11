@@ -37,7 +37,7 @@ public class Level {
     public Rectangle gameBounds;
     public Vector2 lowerLeft;
     public Vector2 upperRight;
-    public float crackTimer = 3;
+    public float crackTimer = .5f;
     public float gameTimer = 60;
     public Dialogue dialogue;
 
@@ -70,7 +70,7 @@ public class Level {
         map = (new TmxMapLoader()).load(levelInfo.mapName);
         mapRenderer = new OrthoCachedTiledMapRenderer(map);
         ((OrthoCachedTiledMapRenderer) mapRenderer).setBlending(true);
-        crackTimer = levelInfo.crackTimer;
+        crackTimer = .5f;
         npcs = new Array<Npc>();
 
         buildWalls(levelInfo.crackSpeed);
@@ -166,6 +166,10 @@ public class Level {
 
         for (Wall w : walls){
             w.render(batch, player);
+        }
+
+        for (Wall w : walls){
+            w.renderOutline(batch);
         }
 
         for (Npc n : npcs) {
@@ -326,7 +330,7 @@ public class Level {
                 npcs.add(mom);
 
                 float duration = 5f;
-                mom.say("Fuck this shit", duration);
+                mom.say("$%#@ $# )#*@#", duration);
 
                 float doorPosY = gameBounds.y + gameBounds.height;
                 Timeline.createSequence()
@@ -379,10 +383,30 @@ public class Level {
                             scriptSegment++;
                             showDialogue("A long time ago, in the year 1876, ramble... ramble...",
                                          "Gotta catch 'em all!");
-                            inScript = false;
                         }
                     }
                     break;
+                    case 3:{
+                        if (!dialogue.isActive()){
+                            inScript = false;
+                        }
+                        for (Wall w : walls){
+                            if (w.cracking) {
+                                w.tutorialWall = true;
+                                inScript = true;
+                                showDialogue("There is a crack forming in your walls.",
+                                            "Move(WASD) next to it and click on it to repair it.");
+                                scriptSegment++;
+                            }
+                        }
+                    }
+                    break;
+                    case 4:
+                        if (!dialogue.isActive()){
+                            inScript = false;
+                        }
+                        break;
+
                     // case N: {} break;
                 }
             }

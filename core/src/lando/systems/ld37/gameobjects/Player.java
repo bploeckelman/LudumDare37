@@ -31,6 +31,7 @@ public class Player {
             if (wall.health >= 100){
                 wall.health = 100;
                 wall.cracking = false;
+                wall.tutorialWall = false;
                 wall = null;
             }
         }

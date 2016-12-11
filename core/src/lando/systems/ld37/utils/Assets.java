@@ -46,6 +46,7 @@ public class Assets {
     public static TextureAtlas atlas;
 
     public static NinePatch speechBubble;
+    public static NinePatch outline;
 
     public static boolean initialized;
 
@@ -100,23 +101,27 @@ public class Assets {
         brainDetail = mgr.get("images/brain-detail.png", Texture.class);
         speechBubble = new NinePatch(mgr.get("images/speech-bubble.png", Texture.class), 3, 11, 3, 10);
 
+        TextureRegion wallRegion = atlas.findRegion("walls");
+
         walls = new TextureRegion[16];
         walls[0] = atlas.findRegion("wall-top");  // BS
-        walls[1] = atlas.findRegion("wall-top");
-        walls[2] = atlas.findRegion("wall-left");
-        walls[3] = atlas.findRegion("wall-top-left");
-        walls[4] = atlas.findRegion("wall-bottom");
+        walls[1] = new TextureRegion(wallRegion, 256, 0, 64, 64);  // TOP
+        walls[2] = new TextureRegion(wallRegion, 192, 64, 64, 64); // LEFT
+        walls[3] = new TextureRegion(wallRegion, 192, 0, 64, 64);  // TOP LEFT
+        walls[4] = new TextureRegion(wallRegion, 256, 128, 64, 64); // BOTTOM
         walls[5] = atlas.findRegion("wall-top"); // BS can't happen
-        walls[6] = atlas.findRegion("wall-bottom-left");
+        walls[6] = new TextureRegion(wallRegion, 192, 128, 64, 64); // BOTTOM LEFT
         walls[7] = atlas.findRegion("wall-top"); // BS can't happen
-        walls[8] = atlas.findRegion("wall-right");
-        walls[9] = atlas.findRegion("wall-top-right");
+        walls[8] = new TextureRegion(wallRegion, 320, 64, 64, 64); // RIGHT
+        walls[9] = new TextureRegion(wallRegion, 320, 0, 64, 64); // TOP RIGHT
         walls[10] = atlas.findRegion("wall-top"); // can't happen
         walls[11] = atlas.findRegion("wall-top"); // BS
-        walls[12] = atlas.findRegion("wall-bottom-right");
+        walls[12] = new TextureRegion(wallRegion, 320, 128, 64, 64); // BOTTOM RIGHT
         walls[13] = atlas.findRegion("wall-top"); //BS
         walls[14] = atlas.findRegion("wall-top"); // BS
-        walls[15] = atlas.findRegion("wall-top");
+        walls[15] = atlas.findRegion("wall-top"); // BS
+
+        outline = new NinePatch(atlas.findRegion("outline"), 5, 5, 5, 5);
 
         keyInfant = atlas.findRegion("key-infancy");
 

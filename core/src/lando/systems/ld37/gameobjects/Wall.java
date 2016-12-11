@@ -19,6 +19,8 @@ public class Wall {
     public boolean hovered;
     int type;
     public Vector2 center;
+    public boolean tutorialWall;
+    public float accum;
 
     public Wall(int type, Rectangle bounds, float crackSpeed){
         this.type = type;
@@ -28,10 +30,13 @@ public class Wall {
         this.crackSpeed = crackSpeed;
         healthColor = new Color();
         hovered = false;
+        tutorialWall = false;
         center = new Vector2(bounds.x + bounds.width/2, bounds.y + bounds.height/2);
+        accum = 0;
     }
 
     public void update(float dt){
+        accum += dt;
         if (cracking){
             health -= crackSpeed * dt;
         }
@@ -47,10 +52,11 @@ public class Wall {
         }
         else if (hovered){
             batch.setColor(Color.ORANGE);
-        } else {
-            batch.setColor(Color.WHITE);
+        }  else {
+                batch.setColor(Color.WHITE);
         }
         batch.draw(Assets.walls[type], bounds.x, bounds.y, bounds.width, bounds.height);
+
         if (health < 100){
             if ((type & 1) == 1 || (type & 4) == 4) {
                 float yOffest = 0;
@@ -97,6 +103,15 @@ public class Wall {
             }
         }
         batch.setColor(Color.WHITE);
+    }
+
+    public void renderOutline(SpriteBatch batch){
+        if (tutorialWall){
+            float alpha = ((float)Math.sin(accum * 5) + 1f) / 2f;
+            batch.setColor(new Color(1,1,1,alpha));
+            Assets.outline.draw(batch, bounds.x - 4, bounds.y - 4, bounds.width + 8, bounds.height + 8);
+            batch.setColor(Color.WHITE);
+        }
     }
 
     public boolean destroyed(){
