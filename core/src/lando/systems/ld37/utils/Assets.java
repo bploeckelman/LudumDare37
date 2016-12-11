@@ -36,12 +36,13 @@ public class Assets {
     public static ShaderProgram shimmerShader;
     public static ShaderProgram featherShader;
 
-    public static Texture whitePixel;
+    public static TextureRegion whitePixel;
     public static Texture whiteBox;
     public static Texture brainOutline;
     public static Texture brainDetail;
     public static TextureRegion[] walls;
     public static TextureRegion keyInfant;
+    public static TextureRegion clockFace;
 
     public static TextureAtlas atlas;
 
@@ -95,7 +96,6 @@ public class Assets {
         if (initialized) return 1f;
         initialized = true;
 
-        whitePixel = mgr.get("images/white-pixel.png", Texture.class);
         whiteBox = mgr.get("images/white-box.png", Texture.class);
         brainOutline = mgr.get("images/brain-outline.png", Texture.class);
         brainDetail = mgr.get("images/brain-detail.png", Texture.class);
@@ -121,7 +121,9 @@ public class Assets {
         walls[14] = atlas.findRegion("wall-top"); // BS
         walls[15] = atlas.findRegion("wall-top"); // BS
 
+        whitePixel = atlas.findRegion("white-pixel");
         outline = new NinePatch(atlas.findRegion("outline"), 5, 5, 5, 5);
+        clockFace = atlas.findRegion("clock-face");
 
         keyInfant = atlas.findRegion("key-infancy");
 

@@ -7,6 +7,7 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.equations.Linear;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -177,6 +178,13 @@ public class Level {
         }
 
         player.render(batch);
+
+        if (!inScript) {
+            batch.draw(Assets.clockFace, camera.viewportWidth - 60, 10, 50, 50);
+            batch.setColor(Color.RED);
+            batch.draw(Assets.whitePixel, camera.viewportWidth - 36, 35, 1, 0, 2, 17, 1, 1, gameTimer * 6f);
+            batch.setColor(Color.WHITE);
+        }
     }
 
     public boolean isWallDestroyed() {
