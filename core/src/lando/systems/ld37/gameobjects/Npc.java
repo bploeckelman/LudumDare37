@@ -60,7 +60,7 @@ public class Npc {
     }
 
     private void drawSpeechBubble(SpriteBatch batch) {
-        float scale = 0.4f;
+        float scale = 1.0f;
         float prevScale = Assets.font.getData().scaleX;
         Assets.font.getData().setScale(scale);
         Assets.layout.setText(Assets.font, speechText);
@@ -68,7 +68,7 @@ public class Npc {
 
         Assets.speechBubble.draw(batch,
                 centerPos.x - Assets.layout.width - 20,
-                centerPos.y + 10,
+                centerPos.y + 5,
                 Assets.layout.width + 20,
                 Assets.layout.height + 20
         );

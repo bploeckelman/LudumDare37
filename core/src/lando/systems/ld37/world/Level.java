@@ -247,6 +247,9 @@ public class Level {
                     .start(Assets.tween);
         }
         // else if (stage == ...) {}
+        else {
+            inScript = false;
+        }
     }
 
 }

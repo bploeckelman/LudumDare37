@@ -146,6 +146,17 @@ public class Dialogue extends InputAdapter {
                 CPS_DEFAULT);
     }
 
+    public void show(int startTileX, int startTileY, int width, int height, String... messages) {
+        show(
+                startTileX,
+                startTileY,
+                width,
+                height,
+                new Array<String>(messages),
+                SHOW_PRESS_ENTER_DEFAULT,
+                CPS_DEFAULT);
+    }
+
     public void show(int startTileX, int startTileY, int width, int height, Array<String> messages, boolean allowClose) {
         show(
                 startTileX,

@@ -97,7 +97,7 @@ public class Assets {
         whiteBox = mgr.get("images/white-box.png", Texture.class);
         brainOutline = mgr.get("images/brain-outline.png", Texture.class);
         brainDetail = mgr.get("images/brain-detail.png", Texture.class);
-        speechBubble = new NinePatch(mgr.get("images/speech-bubble.png", Texture.class), 11, 3, 3, 10);
+        speechBubble = new NinePatch(mgr.get("images/speech-bubble.png", Texture.class), 3, 11, 3, 10);
 
         walls = new TextureRegion[16];
         walls[0] = atlas.findRegion("wall-top");  // BS
@@ -142,6 +142,8 @@ public class Assets {
         if (!featherShader.isCompiled()) {
             Gdx.app.error("featherShader", "compilation failed:\n" + featherShader.getLog());
         }
+
+        TextHelper.load();
 
         return 1f;
     }

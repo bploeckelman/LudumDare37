@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Array;
 import lando.systems.ld37.utils.Assets;
 import lando.systems.ld37.utils.Config;
 import lando.systems.ld37.utils.Dialogue;
+import lando.systems.ld37.utils.TextHelper;
 import lando.systems.ld37.world.GameInfo;
 import lando.systems.ld37.world.Level;
 
@@ -53,10 +54,7 @@ public class GameScreen extends BaseScreen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && detailAlpha.floatValue() == 0f) {
             detailAlpha.setValue(0.05f);
             Tween.to(detailAlpha, -1, 1.0f).target(0f).ease(Quint.OUT).start(Assets.tween);
-            Array<String> message = new Array<String>(new String[] {
-                    "This is a very long message, you'd be surprised just how long it is. No really, I'm not joking here..."
-            });
-            dialogue.show(10, 10, (int) camera.viewportWidth - 20, (int) camera.viewportHeight / 4, message);
+            dialogue.show(10, 10, (int) camera.viewportWidth - 20, (int) camera.viewportHeight / 4, TextHelper.get("test"));
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
