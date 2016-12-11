@@ -50,24 +50,49 @@ public class Wall {
         }
         batch.draw(Assets.walls[type], bounds.x, bounds.y, bounds.width, bounds.height);
         if (health < 100){
-            batch.setColor(Color.BLACK);
-            batch.draw(
-                    Assets.whitePixel,
-                    bounds.x + 5,
-                    bounds.y + bounds.height/2,
-                    bounds.width - 10, // Full health
-                    5
-            );
-            float n = health / 100;
-            healthColor = Utils.hsvToRgb(((n * 120f) - 20) / 365f, 1.0f, 1.0f, healthColor);
-            batch.setColor(healthColor);
-            batch.draw(
-                    Assets.whitePixel,
-                    bounds.x + 5,
-                    bounds.y + bounds.height/2,
-                    n * (bounds.width - 10),
-                    5
-            );
+            if ((type | 1) == 1 || (type | 4) == 4) {
+                float yOffest = 0;
+                if ((type | 1) == 1) yOffest = bounds.height - 5;
+                batch.setColor(Color.BLACK);
+                batch.draw(
+                        Assets.whitePixel,
+                        bounds.x + 4,
+                        bounds.y + yOffest - 1,
+                        bounds.width - 8, // Full health
+                        7
+                );
+                float n = health / 100;
+                healthColor = Utils.hsvToRgb(((n * 120f) - 20) / 365f, 1.0f, 1.0f, healthColor);
+                batch.setColor(healthColor);
+                batch.draw(
+                        Assets.whitePixel,
+                        bounds.x + 5,
+                        bounds.y + yOffest,
+                        n * (bounds.width - 10),
+                        5
+                );
+            } else {
+                float xOffest = 0;
+                if ((type | 8) == 8) xOffest = bounds.width - 5;
+                batch.setColor(Color.BLACK);
+                batch.draw(
+                        Assets.whitePixel,
+                        bounds.x + xOffest -1,
+                        bounds.y + 4,
+                        7,
+                        bounds.height - 8 // Full health
+                );
+                float n = health / 100;
+                healthColor = Utils.hsvToRgb(((n * 120f) - 20) / 365f, 1.0f, 1.0f, healthColor);
+                batch.setColor(healthColor);
+                batch.draw(
+                        Assets.whitePixel,
+                        bounds.x + xOffest,
+                        bounds.y + 5,
+                        5,
+                        n * (bounds.height - 10)
+                );
+            }
         }
         batch.setColor(Color.WHITE);
     }

@@ -9,7 +9,7 @@ uniform sampler2D u_texture;
 
 
 void main() {
-	float n = -u_time/2.0;
+	float n = -u_time/20.0;
 	float x = v_texCoords.x/4.0+n/12.0;
 	float y = v_texCoords.y/4.0-sin(n/10.0);
 	vec4 sampledColor = texture2D(u_texture, v_texCoords);
