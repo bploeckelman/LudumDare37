@@ -35,6 +35,7 @@ public class Assets {
     public static GlyphLayout layout;
     public static BitmapFont font;
     public static ShaderProgram fontShader;
+    public static ShaderProgram shimmerShader;
 
     public static Texture whitePixel;
     public static Texture whiteBox;
@@ -97,6 +98,13 @@ public class Assets {
                 Gdx.files.internal("shaders/dist.frag"));
         if (!fontShader.isCompiled()) {
             Gdx.app.error("fontShader", "compilation failed:\n" + fontShader.getLog());
+        }
+
+//        ShaderProgram.pedantic = false;
+        shimmerShader = new ShaderProgram(Gdx.files.internal("shaders/default.vert"),
+                Gdx.files.internal("shaders/shimmer.frag"));
+        if (!shimmerShader.isCompiled()) {
+            Gdx.app.error("shimmerShader", "compilation failed:\n" + shimmerShader.getLog());
         }
 
         return 1f;

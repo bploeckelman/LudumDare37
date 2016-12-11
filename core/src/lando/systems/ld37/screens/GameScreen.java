@@ -2,6 +2,7 @@ package lando.systems.ld37.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,6 +32,7 @@ public class GameScreen extends BaseScreen {
     private static int wallMargin = 2;
     private static float clickDistance = 50;
 
+    private float runningTime;
     private boolean showDetail = false;
     private GameInfo gameInfo;
 
@@ -53,10 +55,13 @@ public class GameScreen extends BaseScreen {
         super();
         gameInfo = new GameInfo();
         startLevel();
+        runningTime = 0;
     }
 
     @Override
     public void update(float dt) {
+        runningTime += dt;
+
         gameTimer -= dt;
         if (gameTimer < 0){
             stageCompleted(false);
@@ -104,7 +109,16 @@ public class GameScreen extends BaseScreen {
         Gdx.gl.glClearColor(Config.bgColor.r, Config.bgColor.g, Config.bgColor.b, Config.bgColor.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        batch.setShader(Assets.shimmerShader);
+        Assets.shimmerShader.begin();
+        Assets.shimmerShader.setUniformf("u_time", runningTime);
+        batch.begin();
         batch.setProjectionMatrix(camera.combined);
+        batch.draw(Assets.whitePixel, 0, 0, camera.viewportWidth, camera.viewportHeight);
+        batch.end();
+        Assets.shimmerShader.end();
+        batch.setShader(null);
+
         batch.begin();
         batch.draw(Assets.brainOutline, 0, -60f);
         if (showDetail) {
