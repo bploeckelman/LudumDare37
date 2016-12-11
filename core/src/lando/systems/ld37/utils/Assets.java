@@ -33,11 +33,15 @@ public class Assets {
     public static BitmapFont font;
     public static ShaderProgram fontShader;
     public static ShaderProgram shimmerShader;
+    public static ShaderProgram featherShader;
 
     public static Texture whitePixel;
     public static Texture whiteBox;
     public static Texture brainOutline;
     public static Texture brainDetail;
+    public static TextureRegion[] walls;
+
+    public static TextureAtlas atlas;
 
     public static NinePatch speechBubble;
 
@@ -78,6 +82,9 @@ public class Assets {
         batch = new SpriteBatch();
         shapes = new ShapeRenderer();
         layout = new GlyphLayout();
+
+        atlas = new TextureAtlas(Gdx.files.internal("images/sheets/sprites.atlas"));
+
     }
 
     public static float update() {
@@ -90,6 +97,25 @@ public class Assets {
         brainOutline = mgr.get("images/brain-outline.png", Texture.class);
         brainDetail = mgr.get("images/brain-detail.png", Texture.class);
         speechBubble = new NinePatch(mgr.get("images/speech-bubble.png", Texture.class), 11, 3, 3, 10);
+
+        walls = new TextureRegion[16];
+        walls[0] = atlas.findRegion("wall-top");  // BS
+        walls[1] = atlas.findRegion("wall-top");
+        walls[2] = atlas.findRegion("wall-left");
+        walls[3] = atlas.findRegion("wall-top-left");
+        walls[4] = atlas.findRegion("wall-bottom");
+        walls[5] = atlas.findRegion("wall-top"); // BS can't happen
+        walls[6] = atlas.findRegion("wall-bottom-left");
+        walls[7] = atlas.findRegion("wall-top"); // BS can't happen
+        walls[8] = atlas.findRegion("wall-right");
+        walls[9] = atlas.findRegion("wall-top-right");
+        walls[10] = atlas.findRegion("wall-top"); // can't happen
+        walls[11] = atlas.findRegion("wall-top"); // BS
+        walls[12] = atlas.findRegion("wall-bottom-right");
+        walls[13] = atlas.findRegion("wall-top"); //BS
+        walls[14] = atlas.findRegion("wall-top"); // BS
+        walls[15] = atlas.findRegion("wall-top");
+
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);
@@ -106,6 +132,12 @@ public class Assets {
                 Gdx.files.internal("shaders/shimmer.frag"));
         if (!shimmerShader.isCompiled()) {
             Gdx.app.error("shimmerShader", "compilation failed:\n" + shimmerShader.getLog());
+        }
+
+        featherShader = new ShaderProgram(Gdx.files.internal("shaders/default.vert"),
+                Gdx.files.internal("shaders/feather.frag"));
+        if (!featherShader.isCompiled()) {
+            Gdx.app.error("featherShader", "compilation failed:\n" + featherShader.getLog());
         }
 
         return 1f;

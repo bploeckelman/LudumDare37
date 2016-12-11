@@ -66,11 +66,18 @@ public class GameScreen extends BaseScreen {
         batch.draw(Assets.whitePixel, 0, 0, camera.viewportWidth, camera.viewportHeight);
         batch.end();
         Assets.shimmerShader.end();
+
+        batch.setShader(Assets.featherShader);
+        Assets.featherShader.begin();
+        Assets.featherShader.setUniformf("u_time", runningTime);
+        batch.begin();
+        batch.setProjectionMatrix(camera.combined);
+        batch.draw(Assets.brainOutline, 0, -60f);
+        batch.end();
+        Assets.featherShader.end();
         batch.setShader(null);
 
         batch.begin();
-        batch.draw(Assets.brainOutline, 0, -60f);
-
         level.draw(batch, camera);
 
         batch.setColor(1f, 1f, 1f, detailAlpha.floatValue());

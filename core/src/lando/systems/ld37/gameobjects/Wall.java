@@ -17,8 +17,10 @@ public class Wall {
     public boolean cracking;
     Color healthColor;
     public boolean hovered;
+    int type;
 
-    public Wall(Rectangle bounds, float crackSpeed){
+    public Wall(int type, Rectangle bounds, float crackSpeed){
+        this.type = type;
         this.bounds = bounds;
         this.health = 100;
         this.cracking = false;
@@ -46,7 +48,7 @@ public class Wall {
         } else {
             batch.setColor(Color.WHITE);
         }
-        batch.draw(Assets.whiteBox, bounds.x, bounds.y, bounds.width, bounds.height);
+        batch.draw(Assets.walls[type], bounds.x, bounds.y, bounds.width, bounds.height);
         if (health < 100){
             batch.setColor(Color.BLACK);
             batch.draw(

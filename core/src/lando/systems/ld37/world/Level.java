@@ -141,7 +141,12 @@ public class Level {
             for (int x = 0; x < wallsWide; x++){
                 if (x == 0 || x == wallsWide -1 || y == 0 || y == wallsHigh -1) {
                     Rectangle rect = new Rectangle((x + wallMargin) * wallWidth, (y + wallMargin) * wallWidth, wallWidth, wallWidth);
-                    walls.add(new Wall(rect, crackSpeed));
+                    int type = 0;
+                    if (y == wallsHigh -1) type += 1;
+                    if (x == 0) type += 2;
+                    if (y == 0) type += 4;
+                    if (x == wallsWide -1) type += 8;
+                    walls.add(new Wall(type, rect, crackSpeed));
                 }
             }
         }
