@@ -25,7 +25,7 @@ public class LudumDare37 extends ApplicationAdapter {
 		game = this;
 
 		batch = Assets.batch;
-        setScreen(new GameScreen(LevelInfo.Stage.Infancy));
+        setScreen(new GameScreen());
 	}
 
 	@Override

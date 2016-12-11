@@ -32,7 +32,6 @@ public class GameScreen extends BaseScreen {
     private static float clickDistance = 50;
 
     private boolean showDetail = false;
-    private LevelInfo.Stage stage;
     private GameInfo gameInfo;
 
     public Rectangle gameBounds;
@@ -41,7 +40,6 @@ public class GameScreen extends BaseScreen {
 
     public float gameTimer;
     public LevelInfo levelInfo;
-    public Texture debugTex;
     public TiledMap map;
     TiledMapRenderer mapRenderer;
     Array<Wall> walls;
@@ -51,29 +49,17 @@ public class GameScreen extends BaseScreen {
     Rectangle tempRec;
     Player player;
 
-    public GameScreen(LevelInfo.Stage stage){
+    public GameScreen(){
         super();
-        this.stage = stage;
-        levelInfo = new LevelInfo(stage);
-        buildWalls(levelInfo.crackSpeed);
-        map = (new TmxMapLoader()).load(levelInfo.mapName);
-        mapRenderer = new OrthoCachedTiledMapRenderer(map);
-        ((OrthoCachedTiledMapRenderer) mapRenderer).setBlending(true);
-        debugTex = Assets.whitePixel;
-        gameTimer = 60;
-        movementVec = new Vector2();
-        tempVec2 = new Vector2();
-        tempRec = new Rectangle();
-        player = new Player(levelInfo);
         gameInfo = new GameInfo();
+        startLevel();
     }
 
     @Override
     public void update(float dt) {
         gameTimer -= dt;
         if (gameTimer < 0){
-            gameInfo.addStageComplete(stage, false);
-            stageCompleted();
+            stageCompleted(false);
         }
 
         crackTimer -= dt;
@@ -84,8 +70,7 @@ public class GameScreen extends BaseScreen {
         for (Wall w : walls){
             w.update(dt);
             if (w.destroyed()){
-                gameInfo.addStageComplete(stage, true);
-                stageCompleted();
+                stageCompleted(true);
             }
         }
 
@@ -184,6 +169,19 @@ public class GameScreen extends BaseScreen {
 
     }
 
+    private void startLevel(){
+        levelInfo = new LevelInfo(gameInfo.currentStage);
+        buildWalls(levelInfo.crackSpeed);
+        map = (new TmxMapLoader()).load(levelInfo.mapName);
+        mapRenderer = new OrthoCachedTiledMapRenderer(map);
+        ((OrthoCachedTiledMapRenderer) mapRenderer).setBlending(true);
+        gameTimer = 60;
+        movementVec = new Vector2();
+        tempVec2 = new Vector2();
+        tempRec = new Rectangle();
+        player = new Player(levelInfo);
+    }
+
     private void buildWalls(float crackSpeed){
         walls = new Array<Wall>();
 
@@ -203,7 +201,11 @@ public class GameScreen extends BaseScreen {
         }
     }
 
-    private void stageCompleted(){
-        // TODO show things on end, move to next stage, etc.
+    private void stageCompleted(boolean contracted){
+        gameInfo.addStageComplete(gameInfo.currentStage, contracted);
+
+        gameInfo.nextStage();
+        startLevel();
+        // TODO show things on end, etc.
     }
 }

@@ -11,7 +11,7 @@ public class GameInfo {
 
 
     public GameInfo(){
-        currentStage = null;
+        currentStage = LevelInfo.Stage.Infancy;
         neurosis = new ObjectMap<LevelInfo.Stage, Boolean>();
     }
 
@@ -19,7 +19,40 @@ public class GameInfo {
         neurosis.put(stage, contracted);
     }
 
-    public LevelInfo.Stage nextStage(){
-        return LevelInfo.Stage.Toddler; // TODO make this real.
+    public void nextStage(){
+        switch(currentStage){
+            case Infancy:
+                currentStage = LevelInfo.Stage.Toddler;
+                break;
+            case Toddler:
+                currentStage = LevelInfo.Stage.Primary;
+                break;
+            case Primary:
+                currentStage = LevelInfo.Stage.Secondary;
+                break;
+            case Secondary:
+                currentStage = LevelInfo.Stage.College;
+                break;
+            case College:
+                currentStage = LevelInfo.Stage.Work;
+                break;
+            case Work:
+                currentStage = LevelInfo.Stage.Marriage;
+                break;
+            case Marriage:
+                currentStage = LevelInfo.Stage.Career;
+                break;
+            case Career:
+                currentStage = LevelInfo.Stage.Family;
+                break;
+            case Family:
+                currentStage = LevelInfo.Stage.Retirement;
+                break;
+            case Retirement:
+                currentStage = LevelInfo.Stage.Death;
+                break;
+            default:
+                currentStage = LevelInfo.Stage.Death;
+        }
     }
 }
