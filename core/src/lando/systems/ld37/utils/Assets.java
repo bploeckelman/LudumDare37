@@ -31,6 +31,7 @@ public class Assets {
     public static ShapeRenderer shapes;
     public static GlyphLayout layout;
     public static BitmapFont font;
+    public static BitmapFont font8pt;
     public static ShaderProgram fontShader;
     public static ShaderProgram shimmerShader;
     public static ShaderProgram featherShader;
@@ -119,7 +120,9 @@ public class Assets {
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);
-        font = new BitmapFont(Gdx.files.internal("fonts/ubuntu.fnt"), new TextureRegion(distText), false);
+//        font = new BitmapFont(Gdx.files.internal("fonts/ubuntu.fnt"), new TextureRegion(distText), false);
+        font = new BitmapFont(Gdx.files.internal("fonts/emulogic-16pt.fnt"));
+        font8pt = new BitmapFont(Gdx.files.internal("fonts/emulogic-8pt.fnt"));
 
         fontShader = new ShaderProgram(Gdx.files.internal("shaders/dist.vert"),
                 Gdx.files.internal("shaders/dist.frag"));
@@ -147,6 +150,7 @@ public class Assets {
         batch.dispose();
         shapes.dispose();
         font.dispose();
+        font8pt.dispose();
         mgr.clear();
     }
 
@@ -164,13 +168,11 @@ public class Assets {
 
     public static void drawString(SpriteBatch batch, String text, float x, float y, Color c, float scale){
         batch.setShader(fontShader);
-        fontShader.setUniformf("u_scale", scale);
+        float prevScale = font.getData().scaleX;
         font.getData().setScale(scale);
         font.setColor(c);
         font.draw(batch, text, x, y);
-        font.getData().setScale(1f);
-        fontShader.setUniformf("u_scale", 1f);
-        font.getData().setScale(scale);
+        font.getData().setScale(prevScale);
         batch.setShader(null);
     }
 

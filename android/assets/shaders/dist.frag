@@ -3,7 +3,6 @@ precision mediump float;
 #endif
 
 uniform sampler2D u_texture;
-uniform float u_scale;
 uniform vec4 u_shadow;
 
 varying vec4 v_color;

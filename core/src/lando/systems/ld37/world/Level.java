@@ -1,9 +1,15 @@
 package lando.systems.ld37.world;
 
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.equations.Linear;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -13,8 +19,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import lando.systems.ld37.accessors.RectangleAccessor;
+import lando.systems.ld37.gameobjects.Npc;
 import lando.systems.ld37.gameobjects.Player;
 import lando.systems.ld37.gameobjects.Wall;
+import lando.systems.ld37.utils.Assets;
 import lando.systems.ld37.utils.Config;
 
 /**
@@ -37,11 +46,13 @@ public class Level {
     TiledMap map;
     TiledMapRenderer mapRenderer;
     Array<Wall> walls;
+    Array<Npc> npcs;
 
     private Vector2 movementVec = new Vector2();
     private Vector3 touchPoint = new Vector3();
     private boolean wallDestroyed;
     private boolean timeUp;
+    private boolean inScript;
 
 
     public Level(LevelInfo.Stage stage) {
@@ -51,13 +62,25 @@ public class Level {
         mapRenderer = new OrthoCachedTiledMapRenderer(map);
         ((OrthoCachedTiledMapRenderer) mapRenderer).setBlending(true);
         crackTimer = levelInfo.crackTimer;
+        npcs = new Array<Npc>();
 
         buildWalls(levelInfo.crackSpeed);
         wallDestroyed = false;
         timeUp = false;
+
+        inScript = true;
+        initializeScript(stage);
     }
 
     public void update(float dt, OrthographicCamera camera) {
+        for (Npc npc : npcs) {
+            npc.update(dt);
+        }
+        if (inScript) {
+            // DO SCRIPTED THINGS UNTIL DONE...
+            return;
+        }
+
         gameTimer -= dt;
         if (gameTimer < 0) {
             timeUp = true;
@@ -117,6 +140,11 @@ public class Level {
         for (Wall w : walls){
             w.render(batch, player);
         }
+
+        for (Npc n : npcs) {
+            n.draw(batch);
+        }
+
         player.render(batch);
     }
 
@@ -182,6 +210,43 @@ public class Level {
         }
 
         player.update(dt);
+    }
+
+    private void initializeScript(LevelInfo.Stage stage) {
+        if (stage == LevelInfo.Stage.Infancy) {
+            // spawn npcs
+            final Npc mom = new Npc(
+                    "Mom",
+                    gameBounds.x + gameBounds.width / 2f,
+                    gameBounds.y + gameBounds.height / 2f + 64f,
+                    32f, 32f,
+                    new TextureRegion(Assets.whiteBox)
+            );
+            npcs.add(mom);
+
+            // start dialog sequences
+            mom.say("Fuck this shit", 10f);
+
+            // trigger movements
+            float doorPosY = gameBounds.y + gameBounds.height;
+            Timeline.createSequence()
+                    .push(
+                Tween.to(mom.bounds, RectangleAccessor.Y, 10f)
+                        .target(doorPosY)
+                        .ease(Linear.INOUT)
+                    )
+                    .push(
+                Tween.call(new TweenCallback() {
+                               @Override
+                               public void onEvent(int type, BaseTween<?> source) {
+                                   npcs.removeValue(mom, true);
+                                   inScript = false;
+                               }
+                           }
+                    ))
+                    .start(Assets.tween);
+        }
+        // else if (stage == ...) {}
     }
 
 }
