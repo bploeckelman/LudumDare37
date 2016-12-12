@@ -34,12 +34,9 @@ public class KeyItem {
         sparkle = false;
 
         switch(stage){
-            case Infancy:
-                tex = Assets.keyInfant;
-                break;
-            default:
-                tex = Assets.keyInfant;
-
+            case Infancy: tex = Assets.keyInfant; break;
+            case Toddler: tex = Assets.keyToddler; break;
+            default:      tex = Assets.keyInfant;
         }
 
         if (active && mapBounds != null){

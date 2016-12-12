@@ -16,16 +16,23 @@ public class LevelInfo {
             case Infancy:
                 mapName = "levels/level-nursery.tmx";
                 crackTimer = 3f;
-                crackSpeed = 2f;
+                crackSpeed = 200f;
                 playerFixSpeed = 10f;
                 playerSpeed = 100;
                 break;
             case Toddler:
-                mapName = "levels/level-hospital.tmx";
+                mapName = "levels/level-bathroom.tmx";
                 crackTimer = 2.5f;
                 crackSpeed = 2.5f;
                 playerFixSpeed = 8f;
                 playerSpeed = 110;
+                break;
+            case Primary:
+                mapName = "levels/level-hospital.tmx";
+                crackTimer = 2f;
+                crackSpeed = 1.5f;
+                playerFixSpeed = 15f;
+                playerSpeed = 90;
                 break;
             default:
                 crackTimer = 1f;

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="14" height="9" tilewidth="32" tileheight="32" nextobjectid="5">
+ <tileset firstgid="1" name="spritesheet-tiles" tilewidth="32" tileheight="32" spacing="5" tilecount="729" columns="27">
+  <image source="../images/spritesheet-tiles.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="730" name="objects" tilewidth="32" tileheight="64" tilecount="3" columns="0">
+  <tile id="0">
+   <image width="32" height="32" source="../images/sink.png"/>
+  </tile>
+  <tile id="1">
+   <image width="32" height="64" source="../images/table-flower.png"/>
+  </tile>
+  <tile id="2">
+   <image width="32" height="64" source="../images/toilet.png"/>
+  </tile>
+ </tileset>
+ <layer name="background" width="14" height="9">
+  <data encoding="base64">
+   BwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAAIgAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAHAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAABwAAACIAAAAHAAAAIgAAAAcAAAAiAAAA
+  </data>
+ </layer>
+ <layer name="decorations" width="14" height="9">
+  <data encoding="base64">
+   iAAAAKUAAAClAAAApQAAAKUAAAClAAAApQAAAKUAAAClAAAApQAAAKUAAAClAAAApQAAAIkAAACKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiwAAAIoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACLAAAAigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIsAAACKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiwAAAIoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACLAAAAigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIsAAACKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiwAAAKMAAACmAAAApgAAAKYAAACmAAAApgAAAKYAAACmAAAApgAAAKYAAACmAAAApgAAAKYAAACkAAAA
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="1" name="keyitem" type="keyitem" gid="732" x="208" y="144" width="32" height="64"/>
+  <object id="3" name="table-flower" type="gameobject" gid="731" x="136" y="152" width="32" height="64"/>
+  <object id="4" name="sink" type="gameobject" gid="730" x="272" y="120" width="32" height="32"/>
+ </objectgroup>
+</map>

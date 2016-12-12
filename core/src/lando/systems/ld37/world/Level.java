@@ -398,24 +398,7 @@ public class Level {
                         }
                     }
                     break;
-                    case 1:
-                    {
-                        if (!dialogue.isActive()) {
-                            scriptSegment++;
-                            showDialogue("Well, its a long story, but I'm going to tell you anyway.");
-                        }
-                    }
-                    break;
-                    case 2:
-                    {
-                        if (!dialogue.isActive()) {
-                            scriptSegment++;
-                            showDialogue("A long time ago, in the year 1876, ramble... ramble...",
-                                         "Gotta catch 'em all!");
-                        }
-                    }
-                    break;
-                    case 3:{
+                    case 1:{
                         if (!dialogue.isActive()){
                             inScript = false;
                         }
@@ -430,7 +413,7 @@ public class Level {
                         }
                     }
                     break;
-                    case 4:
+                    case 2:
                         if (!dialogue.isActive()){
                             inScript = false;
                             scriptSegment++;
