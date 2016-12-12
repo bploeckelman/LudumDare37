@@ -351,8 +351,8 @@ public class Level {
                         "Mom",
                         gameBounds.x + gameBounds.width / 2f,
                         gameBounds.y + gameBounds.height / 2f + 64f,
-                        32f, 32f,
-                        new TextureRegion(Assets.whiteBox)
+                        25f, 25*1.8f,
+                        Npc.npcType.MOM
                 );
                 npcs.add(mom);
 
@@ -373,6 +373,7 @@ public class Level {
                 switch (scriptSegment) {
                     case 0:
                         final Npc mom = npcs.get(0);
+                        mom.moving = true;
                         float duration = 4f;
                         mom.say("$%#@ $# )#*@#", duration);
 

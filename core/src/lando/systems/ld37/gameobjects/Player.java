@@ -57,21 +57,8 @@ public class Player {
     }
 
     public void render(SpriteBatch batch){
-        TextureRegion tex = Assets.playerUp;
-        switch(facing){
-            case 0:
-                tex = moving ? Assets.playerUpAnimation.getKeyFrame(accum) : Assets.playerUp;
-                break;
-            case 1:
-                tex = moving ? Assets.playerLeftAnimation.getKeyFrame(accum) : Assets.playerLeft;
-                break;
-            case 2:
-                tex = moving ? Assets.playerDownAnimation.getKeyFrame(accum) : Assets.playerDown;
-                break;
-            case 3:
-                tex = moving ? Assets.playerRightAnimation.getKeyFrame(accum) : Assets.playerRight;
-                break;
-        }
+        TextureRegion tex = moving ? Assets.playerAnimations[facing].getKeyFrame(accum) : Assets.playerStanding[facing];
+
         batch.draw(tex, pos.x, pos.y, width, width*1.8f);
     }
 }

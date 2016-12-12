@@ -52,14 +52,11 @@ public class Assets {
     public static TextureRegion keySecondary;
     public static TextureRegion clockFace;
     public static TextureRegion vignette;
-    public static TextureRegion playerUp;
-    public static TextureRegion playerLeft;
-    public static TextureRegion playerDown;
-    public static TextureRegion playerRight;
-    public static Animation playerUpAnimation;
-    public static Animation playerRightAnimation;
-    public static Animation playerLeftAnimation;
-    public static Animation playerDownAnimation;
+    public static TextureRegion[] playerStanding;
+    public static Animation[] playerAnimations;
+
+    public static TextureRegion[] momStanding;
+    public static Animation[] momAnimations;
 
     public static ObjectMap<String, TextureRegion> gameObjectTextures;
 
@@ -188,33 +185,14 @@ public class Assets {
         keySecondary = atlas.findRegion("key-secondary");
 
         TextureRegion chars = atlas.findRegion("chars");
-        Array<TextureRegion> playerUpRegs = new Array<TextureRegion>();
-        playerUpRegs.add(new TextureRegion(chars, 0, 0, 18, 26));
-        playerUpRegs.add(new TextureRegion(chars, 18, 0, 18, 26));
-        playerUpRegs.add(new TextureRegion(chars, 36, 0, 18, 26));
-        playerUpAnimation = new Animation(.25f, playerUpRegs, Animation.PlayMode.LOOP_PINGPONG);
-        playerUp = new TextureRegion(chars, 18, 0, 18, 26);
+        playerAnimations = new Animation[4];
+        playerStanding = new TextureRegion[4];
+        setAnimations(chars, 0, 0, playerAnimations, playerStanding);
 
-        Array<TextureRegion> playerLeftRegs = new Array<TextureRegion>();
-        playerLeftRegs.add(new TextureRegion(chars, 0, 78, 18, 26));
-        playerLeftRegs.add(new TextureRegion(chars, 18, 78, 18, 26));
-        playerLeftRegs.add(new TextureRegion(chars, 36, 78, 18, 26));
-        playerLeftAnimation = new Animation(.25f, playerLeftRegs, Animation.PlayMode.LOOP_PINGPONG);
-        playerLeft = new TextureRegion(chars, 18, 78, 18, 26);
+        momAnimations = new Animation[4];
+        momStanding = new TextureRegion[4];
+        setAnimations(chars, 54, 0, momAnimations, momStanding);
 
-        Array<TextureRegion> playerDownRegs = new Array<TextureRegion>();
-        playerDownRegs.add(new TextureRegion(chars, 0, 52, 18, 26));
-        playerDownRegs.add(new TextureRegion(chars, 18, 52, 18, 26));
-        playerDownRegs.add(new TextureRegion(chars, 36, 52, 18, 26));
-        playerDownAnimation = new Animation(.25f, playerDownRegs, Animation.PlayMode.LOOP_PINGPONG);
-        playerDown = new TextureRegion(chars, 18, 52, 18, 26);
-
-        Array<TextureRegion> playerRightRegs = new Array<TextureRegion>();
-        playerRightRegs.add(new TextureRegion(chars, 0, 26, 18, 26));
-        playerRightRegs.add(new TextureRegion(chars, 18, 26, 18, 26));
-        playerRightRegs.add(new TextureRegion(chars, 36, 26, 18, 26));
-        playerRightAnimation = new Animation(.25f, playerRightRegs, Animation.PlayMode.LOOP_PINGPONG);
-        playerRight = new TextureRegion(chars, 18, 26, 18, 26);
 
         gameObjectTextures = new ObjectMap<String, TextureRegion>();
         gameObjectTextures.put("chair-brown", atlas.findRegion("chair-brown"));
@@ -290,6 +268,17 @@ public class Assets {
     public static TextureRegion getTextureRegionForGameObject(String name) {
         TextureRegion region = gameObjectTextures.get(name);
         return (region != null) ? region : new TextureRegion(Assets.whiteBox);
+    }
+
+    public static void setAnimations(TextureRegion chars, int xOffset, int yOffset, Animation[] animations, TextureRegion[] standings){
+        for (int i = 0; i < 4; i++){
+            Array<TextureRegion> anim = new Array<TextureRegion>();
+            for (int j = 0; j < 3; j++){
+                anim.add(new TextureRegion(chars, xOffset + 18 * j, yOffset +26 * i, 18, 26));
+            }
+            animations[i] = new Animation(.25f, anim, Animation.PlayMode.LOOP_PINGPONG);
+            standings[i] = new TextureRegion(chars, xOffset + 18, yOffset + 26*i, 18, 26);
+        }
     }
 
 }

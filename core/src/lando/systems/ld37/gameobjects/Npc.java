@@ -3,6 +3,7 @@ package lando.systems.ld37.gameobjects;
 import aurelienribon.tweenengine.primitives.MutableFloat;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -13,6 +14,7 @@ import lando.systems.ld37.utils.Assets;
  * Created by Brian on 12/10/2016.
  */
 public class Npc {
+    public enum npcType { MOM }
 
     public String name;
     public Vector2 centerPos;
@@ -22,10 +24,17 @@ public class Npc {
     private float speechTimer = 0f;
     private String speechText = "";
     private Color textColor;
+    public boolean moving;
+    public int facing;
+    float accum;
+    npcType type;
+    Animation[] animations;
+    TextureRegion[] standingTex;
 
     public Npc() {}
 
-    public Npc(String name, Rectangle bounds, TextureRegion keyframe) {
+    public Npc(String name, Rectangle bounds, npcType type) {
+        this.type = type;
         this.name = name;
         this.bounds = bounds;
         this.keyframe = keyframe;
@@ -33,13 +42,18 @@ public class Npc {
         alpha = new MutableFloat(1);
         bounds.getCenter(this.centerPos);
         textColor = new Color(0,0,0,1);
+        moving = false;
+        facing = 0;
+        accum = 0;
+        setAnimations();
     }
 
-    public Npc(String name, float x, float y, float w, float h, TextureRegion keyframe) {
-        this(name, new Rectangle(x, y, w, h), keyframe);
+    public Npc(String name, float x, float y, float w, float h, npcType type) {
+        this(name, new Rectangle(x, y, w, h), type);
     }
 
     public void update(float dt) {
+        accum += dt;
         bounds.getCenter(centerPos);
         if (speechTimer > 0f) {
             speechTimer -= dt;
@@ -51,6 +65,8 @@ public class Npc {
 
     public void draw(SpriteBatch batch) {
         batch.setColor(1,1,1,alpha.floatValue());
+        keyframe  = moving ? animations[facing].getKeyFrame(accum) : standingTex[facing];
+
         if (keyframe != null) {
             batch.draw(keyframe, bounds.x, bounds.y, bounds.width, bounds.height);
         }
@@ -84,6 +100,15 @@ public class Npc {
                 textColor,
                 scale
         );
+    }
+
+    private void setAnimations(){
+        switch(type){
+            case MOM:
+                animations = Assets.momAnimations;
+                standingTex = Assets.momStanding;
+                break;
+        }
     }
 
 }
