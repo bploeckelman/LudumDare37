@@ -57,6 +57,7 @@ public class Npc {
         if (speechTimer > 0f) {
             drawSpeechBubble(batch);
         }
+        batch.setColor(Color.WHITE);
     }
 
     public void say(String text, float duration) {

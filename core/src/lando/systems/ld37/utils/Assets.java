@@ -43,6 +43,7 @@ public class Assets {
     public static Texture brainOutline;
     public static Texture brainDetail;
     public static TextureRegion[] walls;
+    public static TextureRegion[] wallsDamaged;
     public static Array<TextureAtlas.AtlasRegion> sparkles;
     public static TextureRegion keyInfant;
     public static TextureRegion clockFace;
@@ -127,6 +128,24 @@ public class Assets {
         walls[13] = atlas.findRegion("wall-top"); //BS
         walls[14] = atlas.findRegion("wall-top"); // BS
         walls[15] = atlas.findRegion("wall-top"); // BS
+
+        wallsDamaged = new TextureRegion[16];
+        wallsDamaged[0] = atlas.findRegion("wall-top");  // BS
+        wallsDamaged[1] = new TextureRegion(wallRegion, 64, 0, 64, 64);  // TOP
+        wallsDamaged[2] = new TextureRegion(wallRegion, 0, 64, 64, 64); // LEFT
+        wallsDamaged[3] = new TextureRegion(wallRegion, 0, 0, 64, 64);  // TOP LEFT
+        wallsDamaged[4] = new TextureRegion(wallRegion, 64, 128, 64, 64); // BOTTOM
+        wallsDamaged[5] = atlas.findRegion("wall-top"); // BS can't happen
+        wallsDamaged[6] = new TextureRegion(wallRegion, 0, 128, 64, 64); // BOTTOM LEFT
+        wallsDamaged[7] = atlas.findRegion("wall-top"); // BS can't happen
+        wallsDamaged[8] = new TextureRegion(wallRegion, 128, 64, 64, 64); // RIGHT
+        wallsDamaged[9] = new TextureRegion(wallRegion, 128, 0, 64, 64); // TOP RIGHT
+        wallsDamaged[10] = atlas.findRegion("wall-top"); // can't happen
+        wallsDamaged[11] = atlas.findRegion("wall-top"); // BS
+        wallsDamaged[12] = new TextureRegion(wallRegion, 128, 128, 64, 64); // BOTTOM RIGHT
+        wallsDamaged[13] = atlas.findRegion("wall-top"); //BS
+        wallsDamaged[14] = atlas.findRegion("wall-top"); // BS
+        wallsDamaged[15] = atlas.findRegion("wall-top"); // BS
 
         sparkles = atlas.findRegions("sparkle");
         whitePixel = atlas.findRegion("white-pixel");

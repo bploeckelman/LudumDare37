@@ -9,7 +9,7 @@ project.ext.assetsDir = new File("../android/assets");
 task sprites(dependsOn: classes, type: JavaExec) {
     main = 'com.badlogic.gdx.tools.texturepacker.TexturePacker'
     classpath = sourceSets.main.runtimeClasspath
-    args = ['../sprites', '../android/assets/images/sheets', 'sprites']
+    args = ['../sprites', '../android/assets/images/sheets', 'sprites', '../sprites/pack.json']
 }
 
 task run(dependsOn: classes, type: JavaExec) {

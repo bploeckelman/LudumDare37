@@ -173,11 +173,11 @@ public class Level {
             w.render(batch, player);
         }
 
+        batch.draw(Assets.vignette, gameBounds.x, gameBounds.y, gameBounds.width, gameBounds.height);
+
         for (Wall w : walls){
             w.renderOutline(batch);
         }
-
-        batch.draw(Assets.vignette, gameBounds.x, gameBounds.y, gameBounds.width, gameBounds.height);
 
         player.render(batch);
 
@@ -360,11 +360,11 @@ public class Level {
                 Timeline.createSequence()
                         .beginParallel()
                         .push(Tween.to(mom.bounds, RectangleAccessor.Y, duration)
-                                   .target(doorPosY)
-                                   .ease(Linear.INOUT))
+                                .target(doorPosY)
+                                .ease(Linear.INOUT))
                         .push(Tween.to(mom.alpha, 1, 2)
-                                    .target(0)
-                                    .delay(duration - 2))
+                                .target(0)
+                                .delay(duration - 2))
                         .end()
                         .push(Tween.call(new TweenCallback() {
                             @Override

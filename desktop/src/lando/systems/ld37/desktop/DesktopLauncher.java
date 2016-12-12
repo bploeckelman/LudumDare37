@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = Config.gameWidth;
 		config.height = Config.gameHeight;
+		config.samples = 2;
 		new LwjglApplication(new LudumDare37(), config);
 	}
 }

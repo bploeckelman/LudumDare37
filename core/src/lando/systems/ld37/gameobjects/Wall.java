@@ -2,6 +2,7 @@ package lando.systems.ld37.gameobjects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld37.utils.Assets;
@@ -55,7 +56,11 @@ public class Wall {
         }  else {
                 batch.setColor(Color.WHITE);
         }
-        batch.draw(Assets.walls[type], bounds.x, bounds.y, bounds.width, bounds.height);
+        TextureRegion tex = Assets.walls[type];
+        if (health < 100){
+            tex = Assets.wallsDamaged[type];
+        }
+        batch.draw(tex, bounds.x, bounds.y, bounds.width, bounds.height);
 
         if (health < 100){
             if ((type & 1) == 1 || (type & 4) == 4) {
