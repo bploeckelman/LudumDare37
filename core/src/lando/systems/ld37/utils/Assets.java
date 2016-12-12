@@ -120,6 +120,8 @@ public class Assets {
         initialized = true;
 
         whiteBox = mgr.get("images/white-box.png", Texture.class);
+        whitePixel = new TextureRegion(mgr.get("images/white-pixel.png", Texture.class));
+
         brainOutline = mgr.get("images/brain-outline.png", Texture.class);
         brainDetail = mgr.get("images/brain-detail.png", Texture.class);
         speechBubble = new NinePatch(mgr.get("images/speech-bubble.png", Texture.class), 3, 11, 3, 10);
@@ -181,7 +183,7 @@ public class Assets {
         wallsCracked[15] = atlas.findRegion("wall-top"); // BS
 
         sparkles = atlas.findRegions("sparkle");
-        whitePixel = atlas.findRegion("white-pixel");
+//        whitePixel = atlas.findRegion("white-pixel");
         outline = new NinePatch(atlas.findRegion("outline"), 5, 5, 5, 5);
         clockFace    = atlas.findRegion("clock-face");
         vignette     = atlas.findRegion("vignette");

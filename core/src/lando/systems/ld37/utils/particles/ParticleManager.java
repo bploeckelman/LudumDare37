@@ -59,15 +59,18 @@ public class ParticleManager {
             float py = y;
             float vx = MathUtils.sinDeg(dir) * speed;
             float vy = MathUtils.cosDeg(dir) * speed;
-            float scale = MathUtils.random(3, 6f);
-            float ttl = MathUtils.random(0.5f, 2f);
+            float scale = MathUtils.random(4, 6f);
+            float ttl = MathUtils.random(1f, 4f);
+            float r = MathUtils.random(.2f,1);
+            float g = MathUtils.random(.2f,1);
+            float b = MathUtils.random(.2f,1);
             TextureRegion tex = Assets.sparkles.get(MathUtils.random(Assets.sparkles.size -1));
             part.init(
                     px, py,
                     vx, vy,
-                    -vx/2f, -2, 1,
-                    1,1,0,1,
-                    0.5f,0.5f,0,0.5f,
+                    0, -2, 1,
+                    r,g,b,1,
+                    r,g,b,0f,
                     scale, ttl, tex);
 
             activeParticles.add(part);

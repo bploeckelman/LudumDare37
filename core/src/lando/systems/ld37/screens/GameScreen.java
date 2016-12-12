@@ -10,8 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import lando.systems.ld37.utils.Assets;
 import lando.systems.ld37.utils.Config;
-import lando.systems.ld37.world.GameInfo;
-import lando.systems.ld37.world.Level;
+import lando.systems.ld37.world.*;
 
 /**
  * Created by dsgraham on 12/10/16.
@@ -21,7 +20,7 @@ public class GameScreen extends BaseScreen {
     private float runningTime;
     public MutableFloat detailAlpha = new MutableFloat(0f);
     private GameInfo gameInfo;
-    private Level level;
+    private BaseLevel level;
 
     public GameScreen(){
         super();
@@ -29,9 +28,7 @@ public class GameScreen extends BaseScreen {
         level = new Level(gameInfo);
         runningTime = 0;
 
-        Gdx.input.setInputProcessor(
-                new InputMultiplexer(level.dialogue, this)
-        );
+
     }
 
     @Override
@@ -43,10 +40,10 @@ public class GameScreen extends BaseScreen {
             stageCompleted();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && detailAlpha.floatValue() == 0f) {
-            detailAlpha.setValue(0.05f);
-            Tween.to(detailAlpha, -1, 1.0f).target(0f).ease(Quint.OUT).start(Assets.tween);
-        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && detailAlpha.floatValue() == 0f) {
+//            detailAlpha.setValue(0.05f);
+//            Tween.to(detailAlpha, -1, 1.0f).target(0f).ease(Quint.OUT).start(Assets.tween);
+//        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
@@ -90,7 +87,11 @@ public class GameScreen extends BaseScreen {
 
     private void stageCompleted(){
         gameInfo.nextStage();
-        level = new Level(gameInfo);
+        if (gameInfo.currentStage == LevelInfo.Stage.Death){
+            level = new FinalLevel(gameInfo);
+        } else {
+            level = new Level(gameInfo);
+        }
         // TODO show things on end, etc.
     }
 }

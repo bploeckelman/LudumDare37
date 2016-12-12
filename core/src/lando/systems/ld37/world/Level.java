@@ -32,7 +32,7 @@ import lando.systems.ld37.utils.Dialogue;
 /**
  * Created by Brian on 12/10/2016.
  */
-public class Level {
+public class Level extends BaseLevel{
 
     private static int wallsWide = 16;
     private static int wallMargin = 2;
@@ -43,17 +43,14 @@ public class Level {
     public Vector2 upperRight;
     public float crackTimer = .5f;
     public float gameTimer = 60;
-    public Dialogue dialogue;
 
     LevelInfo levelInfo;
-    LevelInfo.Stage currentStage;
     Player player;
     TiledMap map;
     TiledMapRenderer mapRenderer;
     Array<Wall> walls;
     Array<Npc> npcs;
 
-    private Rectangle dialogueRect = new Rectangle();
     private Vector2 movementVec = new Vector2();
     private Vector3 touchPoint = new Vector3();
     private int scriptSegment;
@@ -64,12 +61,11 @@ public class Level {
 
     private Array<KeyItem> keyItems;
     private Array<GameObject> gameObjects;
-    private GameInfo gameInfo;
     private MutableFloat overlayAlpha;
 
 
     public Level(GameInfo gameInfo) {
-        this.gameInfo = gameInfo;
+        super(gameInfo);
         LevelInfo.Stage stage = gameInfo.currentStage;
         levelInfo = new LevelInfo(stage);
         currentStage = stage;
@@ -91,8 +87,6 @@ public class Level {
 
         loadMapObjects();
 
-        dialogue = new Dialogue();
-        dialogueRect = new Rectangle(10, (int) (3f / 4f * Config.gameHeight) - 10, Config.gameWidth - 20, Config.gameHeight / 4);
         initializeLevel();
         initializeScript();
 
@@ -436,9 +430,7 @@ public class Level {
         }
     }
 
-    private void showDialogue(String... messages) {
-        dialogue.show((int) dialogueRect.x, (int) dialogueRect.y, (int) dialogueRect.width, (int) dialogueRect.height, messages);
-    }
+
 
     private void initializeLevel(){
         levelStarted = false;
