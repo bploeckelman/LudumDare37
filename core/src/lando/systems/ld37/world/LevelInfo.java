@@ -24,15 +24,22 @@ public class LevelInfo {
                 mapName = "levels/level-bathroom.tmx";
                 crackTimer = 2.5f;
                 crackSpeed = 2.5f;
-                playerFixSpeed = 8f;
+                playerFixSpeed = 12f;
                 playerSpeed = 110;
                 break;
             case Primary:
-                mapName = "levels/level-hospital.tmx";
+                mapName = "levels/level-playground.tmx";
                 crackTimer = 2f;
-                crackSpeed = 1.5f;
+                crackSpeed = 3.5f;
                 playerFixSpeed = 15f;
-                playerSpeed = 90;
+                playerSpeed = 120;
+                break;
+            case Secondary:
+                mapName = "levels/level-hospital.tmx";
+                crackTimer = 1.5f;
+                crackSpeed = 4.5f;
+                playerFixSpeed = 18f;
+                playerSpeed = 130;
                 break;
             default:
                 crackTimer = 1f;

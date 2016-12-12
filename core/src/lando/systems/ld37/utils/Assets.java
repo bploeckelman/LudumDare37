@@ -48,6 +48,7 @@ public class Assets {
     public static Array<TextureAtlas.AtlasRegion> sparkles;
     public static TextureRegion keyInfant;
     public static TextureRegion keyToddler;
+    public static TextureRegion keyPrimary;
     public static TextureRegion clockFace;
     public static TextureRegion vignette;
 
@@ -174,6 +175,7 @@ public class Assets {
         vignette = atlas.findRegion("vignette");
         keyInfant = atlas.findRegion("key-infancy");
         keyToddler = atlas.findRegion("key-toddler");
+        keyPrimary = atlas.findRegion("key-primary");
 
         gameObjectTextures = new ObjectMap<String, TextureRegion>();
         gameObjectTextures.put("chair-brown", atlas.findRegion("chair-brown"));

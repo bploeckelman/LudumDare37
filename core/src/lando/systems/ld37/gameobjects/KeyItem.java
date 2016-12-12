@@ -36,6 +36,7 @@ public class KeyItem {
         switch(stage){
             case Infancy: tex = Assets.keyInfant; break;
             case Toddler: tex = Assets.keyToddler; break;
+            case Primary: tex = Assets.keyPrimary; break;
             default:      tex = Assets.keyInfant;
         }
 
@@ -83,6 +84,8 @@ public class KeyItem {
                 return new Rectangle(Config.gameWidth/2, Config.gameHeight - 60, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
             case Toddler:
                 return new Rectangle(Config.gameWidth/2 - 60, Config.gameHeight - 60, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
+            case Primary:
+                return new Rectangle(Config.gameWidth/2 + 80, Config.gameHeight - 60, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
             default:
                 return new Rectangle(Config.gameWidth/2, Config.gameHeight - 60, 40, 40);
         }
