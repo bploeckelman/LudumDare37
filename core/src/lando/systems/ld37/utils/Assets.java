@@ -52,6 +52,14 @@ public class Assets {
     public static TextureRegion keySecondary;
     public static TextureRegion clockFace;
     public static TextureRegion vignette;
+    public static TextureRegion playerUp;
+    public static TextureRegion playerLeft;
+    public static TextureRegion playerDown;
+    public static TextureRegion playerRight;
+    public static Animation playerUpAnimation;
+    public static Animation playerRightAnimation;
+    public static Animation playerLeftAnimation;
+    public static Animation playerDownAnimation;
 
     public static ObjectMap<String, TextureRegion> gameObjectTextures;
 
@@ -178,6 +186,35 @@ public class Assets {
         keyToddler = atlas.findRegion("key-toddler");
         keyPrimary = atlas.findRegion("key-primary");
         keySecondary = atlas.findRegion("key-secondary");
+
+        TextureRegion chars = atlas.findRegion("chars");
+        Array<TextureRegion> playerUpRegs = new Array<TextureRegion>();
+        playerUpRegs.add(new TextureRegion(chars, 0, 0, 18, 26));
+        playerUpRegs.add(new TextureRegion(chars, 18, 0, 18, 26));
+        playerUpRegs.add(new TextureRegion(chars, 36, 0, 18, 26));
+        playerUpAnimation = new Animation(.25f, playerUpRegs, Animation.PlayMode.LOOP_PINGPONG);
+        playerUp = new TextureRegion(chars, 18, 0, 18, 26);
+
+        Array<TextureRegion> playerLeftRegs = new Array<TextureRegion>();
+        playerLeftRegs.add(new TextureRegion(chars, 0, 78, 18, 26));
+        playerLeftRegs.add(new TextureRegion(chars, 18, 78, 18, 26));
+        playerLeftRegs.add(new TextureRegion(chars, 36, 78, 18, 26));
+        playerLeftAnimation = new Animation(.25f, playerLeftRegs, Animation.PlayMode.LOOP_PINGPONG);
+        playerLeft = new TextureRegion(chars, 18, 78, 18, 26);
+
+        Array<TextureRegion> playerDownRegs = new Array<TextureRegion>();
+        playerDownRegs.add(new TextureRegion(chars, 0, 52, 18, 26));
+        playerDownRegs.add(new TextureRegion(chars, 18, 52, 18, 26));
+        playerDownRegs.add(new TextureRegion(chars, 36, 52, 18, 26));
+        playerDownAnimation = new Animation(.25f, playerDownRegs, Animation.PlayMode.LOOP_PINGPONG);
+        playerDown = new TextureRegion(chars, 18, 52, 18, 26);
+
+        Array<TextureRegion> playerRightRegs = new Array<TextureRegion>();
+        playerRightRegs.add(new TextureRegion(chars, 0, 26, 18, 26));
+        playerRightRegs.add(new TextureRegion(chars, 18, 26, 18, 26));
+        playerRightRegs.add(new TextureRegion(chars, 36, 26, 18, 26));
+        playerRightAnimation = new Animation(.25f, playerRightRegs, Animation.PlayMode.LOOP_PINGPONG);
+        playerRight = new TextureRegion(chars, 18, 26, 18, 26);
 
         gameObjectTextures = new ObjectMap<String, TextureRegion>();
         gameObjectTextures.put("chair-brown", atlas.findRegion("chair-brown"));

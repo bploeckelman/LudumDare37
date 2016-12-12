@@ -269,7 +269,7 @@ public class Level {
 
         player.pos.add(movementVec);
 
-        player.update(dt);
+        player.update(dt, movementVec);
     }
 
     Vector2 tmpUL = new Vector2();
