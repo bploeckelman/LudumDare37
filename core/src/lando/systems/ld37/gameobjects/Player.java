@@ -23,7 +23,7 @@ public class Player {
 
     public Player(LevelInfo levelInfo){
         pos = new Vector2(Config.gameWidth /2, Config.gameHeight/2);
-        width = 20;
+        width = 25;
         wallFixSpeed = levelInfo.playerFixSpeed;
         center = new Vector2();
         accum = 0;
@@ -72,6 +72,6 @@ public class Player {
                 tex = moving ? Assets.playerRightAnimation.getKeyFrame(accum) : Assets.playerRight;
                 break;
         }
-        batch.draw(tex, pos.x, pos.y, width, width*1.5f);
+        batch.draw(tex, pos.x, pos.y, width, width*1.8f);
     }
 }
