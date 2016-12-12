@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 import lando.systems.ld37.utils.Config;
 import lando.systems.ld37.utils.Dialogue;
 
@@ -35,6 +36,17 @@ public class BaseLevel {
 
     protected void showDialogue(String... messages) {
         dialogue.show((int) dialogueRect.x, (int) dialogueRect.y, (int) dialogueRect.width, (int) dialogueRect.height, messages);
+    }
+
+    protected void showDialogue(Array<String> messages) {
+        dialogue.show((int) dialogueRect.x, (int) dialogueRect.y, (int) dialogueRect.width, (int) dialogueRect.height, messages);
+    }
+
+    protected void showFinalDialogue(String msg){
+        Array<String> messages = new Array<String>();
+        messages.add(msg);
+        dialogue.show((int) dialogueRect.x, (int) dialogueRect.y, (int) dialogueRect.width, (int) dialogueRect.height, messages, false, 20f, false);
+
     }
 
     public boolean isLevelComplete() {

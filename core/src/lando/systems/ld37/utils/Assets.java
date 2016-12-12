@@ -234,6 +234,7 @@ public class Assets {
         gameObjectTextures.put("tv", atlas.findRegion("tv"));
         gameObjectTextures.put("baby", atlas.findRegion("baby"));
         gameObjectTextures.put("baby-alt", atlas.findRegion("baby-alt"));
+        gameObjectTextures.put("empty-bed", atlas.findRegion("bed-queen-empty"));
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);

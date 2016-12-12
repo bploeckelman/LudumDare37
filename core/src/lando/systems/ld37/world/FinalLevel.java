@@ -4,19 +4,32 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.equations.Linear;
 import aurelienribon.tweenengine.equations.Quad;
 import aurelienribon.tweenengine.equations.Quint;
 import aurelienribon.tweenengine.primitives.MutableFloat;
+import aurelienribon.tweenengine.primitives.MutableInteger;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import lando.systems.ld37.accessors.ColorAccessor;
 import lando.systems.ld37.accessors.RectangleAccessor;
+import lando.systems.ld37.gameobjects.GameObject;
+import lando.systems.ld37.gameobjects.KeyItem;
 import lando.systems.ld37.gameobjects.Player;
 import lando.systems.ld37.utils.Assets;
 import lando.systems.ld37.utils.Config;
@@ -28,6 +41,7 @@ public class FinalLevel extends BaseLevel {
     Rectangle brainRect;
     MutableFloat brainAlpha;
     MutableFloat playerAlpha;
+    MutableFloat momAlpha;
     int scriptSegment;
     boolean scriptRunning;
     Color overlayColor;
@@ -39,6 +53,7 @@ public class FinalLevel extends BaseLevel {
     TextureRegion keyItemTex;
     MutableFloat keyItemAlpha;
     MutableFloat keyItemAngle;
+    MutableInteger currentMapIndex;
     Rectangle keyItemRect;
 
     public FinalLevel(GameInfo gameInfo) {
@@ -47,10 +62,14 @@ public class FinalLevel extends BaseLevel {
         scriptSegment = 0;
         brainAlpha = new MutableFloat(0);
         playerAlpha = new MutableFloat(0);
+        momAlpha = new MutableFloat(0);
         scriptRunning = false;
         backgroundColor = new Color(0,0,0,1);
         overlayColor = new Color(1,1,1,0);
         player = new Player(new LevelInfo(LevelInfo.Stage.Death));
+        player.facing = 2;
+        player.pos.x = Config.gameWidth/2 - player.width/2;
+        player.pos.y = Config.gameHeight/2 - 10;
         keyItemAlpha = new MutableFloat(0);
         accum = 0;
         floatOffset = new Vector2();
@@ -61,6 +80,8 @@ public class FinalLevel extends BaseLevel {
                 .start(Assets.tween);
         setKeyItem(LevelInfo.Stage.Infancy);
         setStrings();
+        loadMaps();
+        currentMapIndex = new MutableInteger(-1);
     }
 
     public void update(float dt, OrthographicCamera camera) {
@@ -81,12 +102,50 @@ public class FinalLevel extends BaseLevel {
         batch.setColor(backgroundColor);
         batch.draw(Assets.whitePixel, 0, 0, camera.viewportWidth, camera.viewportHeight);
 
+        if (currentMapIndex.intValue() >= 0) {
+            batch.end();
+            {
+                // push camera pos
+                float prevX = camera.position.x;
+                float prevY = camera.position.y;
+
+                // move tiled map to play area
+                camera.translate(-96, -96);
+                camera.update();
+
+                // draw the tiled map
+                mapRenderers[currentMapIndex.intValue()].setView(camera);
+                mapRenderers[currentMapIndex.intValue()].render();
+
+                // pop the camera pos
+                camera.position.set(prevX, prevY, 0f);
+                camera.update();
+            }
+            batch.begin();
+
+            for (GameObject obj : gameObjects[currentMapIndex.intValue()]) {
+                if (obj != null) obj.render(batch);
+            }
+
+            KeyItem k = keyItems[currentMapIndex.intValue()];
+            if (k != null){
+                k.render(batch);
+            }
+        }
+
+
+        batch.setColor(1,1,1, playerAlpha.floatValue());
+        TextureRegion bed = Assets.gameObjectTextures.get("empty-bed");
+        batch.draw(bed, camera.viewportWidth/2 - 50, camera.viewportHeight/2 - 50, 100, 100);
+        player.render(batch);
+
+        batch.setColor(1,1,1,momAlpha.floatValue());
+        batch.draw(Assets.momStanding[2], 210, 230, 25, 25 * 1.8f);
+        batch.draw(Assets.gameObjectTextures.get("baby"), 209, 235, 27, 15);
+
         batch.setColor(1f, 1f, 1f, brainAlpha.floatValue());
         batch.draw(Assets.brainDetail, brainRect.x, brainRect.y, brainRect.width, brainRect.height);
         batch.setColor(Color.WHITE);
-
-        batch.setColor(1,1,1, playerAlpha.floatValue());
-        player.render(batch);
 
         Assets.particleManager.render(batch);
         batch.setColor(1,1,1,keyItemAlpha.floatValue());
@@ -135,7 +194,9 @@ public class FinalLevel extends BaseLevel {
                             public void onEvent(int i, BaseTween<?> baseTween) {
                                 scriptSegment++;
                                 scriptRunning = false;
-                                showDialogue("Ahh yes I remember my life fondly.", "Many things tried to get the best of me.", "Some I was able to deal with, others affected me throughout my life.");
+                                showDialogue("Ahh yes I remember my life fondly.",
+                                        "Many things tried to break down the walls of my mind.",
+                                        "Some I was able to deal with, others affected me throughout my life.");
                             }
                         }))
                         .start(Assets.tween);
@@ -152,6 +213,7 @@ public class FinalLevel extends BaseLevel {
                     Timeline.createSequence()
 //                            .push(Tween.to(backgroundColor, ColorAccessor.RGB, 1).target(0,0,0))
                             .push(Tween.to(playerAlpha, 1, 1).target(0))
+                            .pushPause(2f)
                             .push(Tween.to(keyItemAlpha, 1, 1).target(1))
                             .push(Tween.call(new TweenCallback() {
                                 @Override
@@ -208,6 +270,25 @@ public class FinalLevel extends BaseLevel {
                     stageTransition(LevelInfo.Stage.Retirement);
                 }
                 break;
+            case 11:
+                if (!dialogue.isActive()){
+                    scriptRunning = true;
+                    scriptSegment++;
+                    Timeline.createSequence()
+                            .push(Tween.to(keyItemAlpha, 1, 1).target(0))
+                            .pushPause(2f)
+                            .push(Tween.set(currentMapIndex, 1).target(LevelInfo.Stage.values().length -1))
+                            .push(Tween.to(currentMapIndex, 1, 4).target(0).ease(Linear.INOUT))
+                            .pushPause(1)
+                            .push(Tween.to(momAlpha, 1, 1).target(1))
+                            .push(Tween.call(new TweenCallback() {
+                                @Override
+                                public void onEvent(int i, BaseTween<?> baseTween) {
+                                    showFinalDialogue("{TITLE} made for LD37 by Brian Ploeckleman and Doug Graham.");
+                                }
+                            }))
+                            .start(Assets.tween);
+                }
         }
 
     }
@@ -266,7 +347,7 @@ public class FinalLevel extends BaseLevel {
                         setKeyItem(stage);
                     }
                 }))
-                .delay(2f)
+                .pushPause(2f)
                 .push(Tween.to(keyItemAlpha, 1, 1).target(1))
                 .push(Tween.call(new TweenCallback() {
                     @Override
@@ -313,6 +394,54 @@ public class FinalLevel extends BaseLevel {
 
         contractedStrings.put(LevelInfo.Stage.Retirement, "The stress of potty training stayed with me.");
         notContractedStrings.put(LevelInfo.Stage.Retirement, "I overcame potty training");
+
+    }
+
+    TiledMapRenderer[] mapRenderers;
+    GameObject[][] gameObjects;
+    KeyItem[] keyItems;
+    private void loadMaps(){
+        mapRenderers = new TiledMapRenderer[LevelInfo.Stage.values().length];
+        gameObjects = new GameObject[LevelInfo.Stage.values().length][];
+        keyItems = new KeyItem[LevelInfo.Stage.values().length];
+        int count = 0;
+        for (LevelInfo.Stage stage : LevelInfo.Stage.values()){
+            LevelInfo li = new LevelInfo(stage);
+            TiledMap map = (new TmxMapLoader()).load(li.mapName);
+            mapRenderers[count] = new OrthoCachedTiledMapRenderer(map);
+            ((OrthoCachedTiledMapRenderer) mapRenderers[count]).setBlending(true);
+
+            MapLayer objectLayer = map.getLayers().get("objects");
+
+            gameObjects[count] = new  GameObject[objectLayer.getObjects().getCount()];
+
+
+            for (int i = 0; i < objectLayer.getObjects().getCount(); i++) {
+                MapObject object = objectLayer.getObjects().get(i);
+                MapProperties props = object.getProperties();
+                // Shift x,y by map position
+                float x = (Float) props.get("x") + 96;
+                float y = (Float) props.get("y") + 96;
+                float w = (Float) props.get("width");
+                float h = (Float) props.get("height");
+                String name = object.getName();
+                String type = (String) props.get("type");
+
+                Rectangle bounds = new Rectangle(x, y, w, h);
+
+                // Instantiate based on type
+                if (type.equals("keyitem")) {
+                    keyItems[count] = (new KeyItem(stage, true, bounds));
+                } else if (type.equals("gameobject")) {
+                    gameObjects[count][i] = (new GameObject(name, bounds));
+                }
+//            else if (type.equals("...")) {
+//
+//            }
+            }
+
+            count++;
+        }
 
     }
 
