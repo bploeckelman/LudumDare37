@@ -43,6 +43,6 @@ public class Player {
     }
 
     public void render(SpriteBatch batch){
-        batch.draw(Assets.whiteBox, pos.x, pos.y, width, width);
+        batch.draw(Assets.whiteBox, pos.x, pos.y, width, width*2);
     }
 }

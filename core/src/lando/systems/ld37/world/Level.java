@@ -42,7 +42,7 @@ public class Level {
     public Vector2 lowerLeft;
     public Vector2 upperRight;
     public float crackTimer = .5f;
-    public float gameTimer = 30;
+    public float gameTimer = 60;
     public Dialogue dialogue;
 
     LevelInfo levelInfo;
@@ -94,6 +94,8 @@ public class Level {
         dialogue = new Dialogue();
         dialogueRect = new Rectangle(10, (int) (3f / 4f * Config.gameHeight) - 10, Config.gameWidth - 20, Config.gameHeight / 4);
         initializeLevel();
+        initializeScript();
+
     }
 
     public void update(float dt, OrthographicCamera camera) {
@@ -179,7 +181,6 @@ public class Level {
             w.renderOutline(batch);
         }
 
-        player.render(batch);
 
         for (GameObject obj : gameObjects) {
             obj.render(batch);
@@ -194,6 +195,9 @@ public class Level {
         for (Npc n : npcs) {
             n.draw(batch);
         }
+
+        player.render(batch);
+
 
         batch.draw(Assets.clockFace, camera.viewportWidth - 60, 10, 50, 50);
         batch.setColor(Color.RED);
@@ -352,27 +356,7 @@ public class Level {
                 );
                 npcs.add(mom);
 
-                float duration = 4f;
-                mom.say("$%#@ $# )#*@#", duration);
 
-                float doorPosY = gameBounds.y + gameBounds.height - mom.bounds.height;
-                Timeline.createSequence()
-                        .beginParallel()
-                        .push(Tween.to(mom.bounds, RectangleAccessor.Y, duration)
-                                .target(doorPosY)
-                                .ease(Linear.INOUT))
-                        .push(Tween.to(mom.alpha, 1, 2)
-                                .target(0)
-                                .delay(duration - 2))
-                        .end()
-                        .push(Tween.call(new TweenCallback() {
-                            @Override
-                            public void onEvent(int type, BaseTween<?> source) {
-                                npcs.removeValue(mom, true);
-                                scriptReady = true;
-                            }
-                        }))
-                        .start(Assets.tween);
             }
             break;
 //        case FOO: {}
@@ -388,6 +372,31 @@ public class Level {
             {
                 switch (scriptSegment) {
                     case 0:
+                        final Npc mom = npcs.get(0);
+                        float duration = 4f;
+                        mom.say("$%#@ $# )#*@#", duration);
+
+                        float doorPosY = gameBounds.y + gameBounds.height - mom.bounds.height;
+                        Timeline.createSequence()
+                                .beginParallel()
+                                .push(Tween.to(mom.bounds, RectangleAccessor.Y, duration)
+                                        .target(doorPosY)
+                                        .ease(Linear.INOUT))
+                                .push(Tween.to(mom.alpha, 1, 2)
+                                        .target(0)
+                                        .delay(duration - 2))
+                                .end()
+                                .push(Tween.call(new TweenCallback() {
+                                    @Override
+                                    public void onEvent(int type, BaseTween<?> source) {
+                                        npcs.removeValue(mom, true);
+                                        scriptReady = true;
+                                    }
+                                }))
+                                .start(Assets.tween);
+                        scriptSegment++;
+                        break;
+                    case 1:
                     {
                         if (scriptReady) {
                             scriptSegment++;
@@ -396,7 +405,7 @@ public class Level {
                         }
                     }
                     break;
-                    case 1:{
+                    case 2:{
                         if (!dialogue.isActive()){
                             inScript = false;
                         }
@@ -411,7 +420,7 @@ public class Level {
                         }
                     }
                     break;
-                    case 2:
+                    case 3:
                         if (!dialogue.isActive()){
                             inScript = false;
                             scriptSegment++;
@@ -438,7 +447,6 @@ public class Level {
                 .setCallback(new TweenCallback() {
                     @Override
                     public void onEvent(int i, BaseTween<?> baseTween) {
-                        initializeScript();
                         levelStarted = true;
                     }
                 })
