@@ -193,6 +193,7 @@ public class Level {
         batch.draw(Assets.whitePixel, camera.viewportWidth - 36, 35, 1, 0, 2, 17, 1, 1, gameTimer * 6f);
         batch.setColor(Color.WHITE);
 
+        batch.draw(Assets.vignette, gameBounds.x, gameBounds.y, gameBounds.width, gameBounds.height);
 
         batch.setColor(0,0,0,overlayAlpha.floatValue());
         batch.draw(Assets.whitePixel, 0, 0, camera.viewportWidth, camera.viewportHeight);

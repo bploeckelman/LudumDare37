@@ -45,6 +45,7 @@ public class Assets {
     public static Array<TextureAtlas.AtlasRegion> sparkles;
     public static TextureRegion keyInfant;
     public static TextureRegion clockFace;
+    public static TextureRegion vignette;
 
     public static TextureAtlas atlas;
 
@@ -128,7 +129,7 @@ public class Assets {
         whitePixel = atlas.findRegion("white-pixel");
         outline = new NinePatch(atlas.findRegion("outline"), 5, 5, 5, 5);
         clockFace = atlas.findRegion("clock-face");
-
+        vignette = atlas.findRegion("vignette");
         keyInfant = atlas.findRegion("key-infancy");
 
 
