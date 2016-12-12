@@ -157,6 +157,8 @@ public class Assets {
         gameObjectTextures = new ObjectMap<String, TextureRegion>();
         gameObjectTextures.put("chair-brown", atlas.findRegion("chair-brown"));
         gameObjectTextures.put("lamp", atlas.findRegion("lamp"));
+        gameObjectTextures.put("hospital-bed", atlas.findRegion("hospital-bed"));
+        gameObjectTextures.put("hospital-iv", atlas.findRegion("hospital-iv"));
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);

@@ -21,6 +21,7 @@ public class LevelInfo {
                 playerSpeed = 100;
                 break;
             case Toddler:
+                mapName = "levels/level-hospital.tmx";
                 crackTimer = 2.5f;
                 crackSpeed = 2.5f;
                 playerFixSpeed = 8f;
