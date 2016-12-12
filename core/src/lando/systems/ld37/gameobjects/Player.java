@@ -18,7 +18,7 @@ public class Player {
     public Wall wall;
     public Vector2 center;
     public float accum;
-    public int facing;
+    public int facing = 2;
     public boolean moving;
 
     public Player(LevelInfo levelInfo){
