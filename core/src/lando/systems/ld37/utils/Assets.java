@@ -164,6 +164,7 @@ public class Assets {
         gameObjectTextures.put("toilet", atlas.findRegion("toilet"));
         gameObjectTextures.put("sink", atlas.findRegion("sink"));
         gameObjectTextures.put("table-flower", atlas.findRegion("table-flower"));
+        gameObjectTextures.put("table-sink", atlas.findRegion("table-sink"));
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);
