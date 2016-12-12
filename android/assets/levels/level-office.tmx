@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="14" height="9" tilewidth="32" tileheight="32" nextobjectid="26">
+ <tileset firstgid="1" name="spritesheet-tiles" tilewidth="32" tileheight="32" spacing="5" tilecount="729" columns="27">
+  <image source="../images/spritesheet-tiles.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="730" name="objects" tilewidth="64" tileheight="47" tilecount="4" columns="0">
+  <tile id="0">
+   <image width="22" height="22" source="../images/chair-office.png"/>
+  </tile>
+  <tile id="1">
+   <image width="49" height="47" source="../images/copymachine.png"/>
+  </tile>
+  <tile id="2">
+   <image width="64" height="34" source="../images/desk-office.png"/>
+  </tile>
+  <tile id="3">
+   <image width="31" height="31" source="../images/key-work.png"/>
+  </tile>
+ </tileset>
+ <layer name="background" width="14" height="9">
+  <data encoding="base64">
+   JQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAAJQAAACUAAAAlAAAA
+  </data>
+ </layer>
+ <layer name="decorations" width="14" height="9">
+  <data encoding="base64">
+   iAAAAKUAAAClAAAApQAAAKUAAAClAAAApQAAAKUAAAClAAAApQAAAKUAAAClAAAApQAAAIkAAACKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiwAAAIoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACLAAAAigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIsAAACKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiwAAAIoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACLAAAAigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIsAAACKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiwAAAKMAAACmAAAApgAAAKYAAACmAAAApgAAAKYAAACmAAAApgAAAKYAAACmAAAApgAAAKYAAACkAAAA
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="4" name="desk-office" type="gameobject" gid="732" x="320" y="112" width="64" height="34"/>
+  <object id="5" name="desk-office" type="gameobject" gid="732" x="80" y="112" width="64" height="34"/>
+  <object id="6" name="desk-office" type="gameobject" gid="732" x="80" y="208" width="64" height="34"/>
+  <object id="8" name="desk-office" type="gameobject" gid="732" x="320" y="208" width="64" height="34"/>
+  <object id="9" name="chair-office" type="gameobject" gid="730" x="200" y="128" width="22" height="22"/>
+  <object id="11" name="chair-office" type="gameobject" gid="730" x="88" y="128" width="22" height="22"/>
+  <object id="12" name="chair-office" type="gameobject" gid="730" x="88" y="224" width="22" height="22"/>
+  <object id="14" name="chair-office" type="gameobject" gid="730" x="328" y="224" width="22" height="22"/>
+  <object id="15" name="chair-office" type="gameobject" gid="730" x="328" y="128" width="22" height="22"/>
+  <object id="16" name="keyitem" type="keyitem" gid="733" x="192" y="96" width="31" height="31"/>
+  <object id="24" name="desk-office" type="gameobject" gid="732" x="192" y="112" width="64" height="34"/>
+  <object id="25" name="copymachine" type="gameobject" gid="731" x="200" y="232" width="49" height="47"/>
+ </objectgroup>
+</map>
