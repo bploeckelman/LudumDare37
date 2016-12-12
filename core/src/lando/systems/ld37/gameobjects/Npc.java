@@ -14,7 +14,7 @@ import lando.systems.ld37.utils.Assets;
  * Created by Brian on 12/10/2016.
  */
 public class Npc {
-    public enum npcType { MOM }
+    public enum npcType { MOM, BABY }
 
     public String name;
     public Vector2 centerPos;
@@ -55,10 +55,12 @@ public class Npc {
     public void update(float dt) {
         accum += dt;
         bounds.getCenter(centerPos);
-        if (speechTimer > 0f) {
-            speechTimer -= dt;
-            if (speechTimer < 0f) {
-                speechTimer = 0f;
+        if (speechTimer != -1f) {
+            if (speechTimer > 0f) {
+                speechTimer -= dt;
+                if (speechTimer < 0f) {
+                    speechTimer = 0f;
+                }
             }
         }
     }
@@ -70,7 +72,7 @@ public class Npc {
         if (keyframe != null) {
             batch.draw(keyframe, bounds.x, bounds.y, bounds.width, bounds.height);
         }
-        if (speechTimer > 0f) {
+        if (speechTimer > 0f || (speechText.length() != 0 && speechTimer == -1f)) {
             drawSpeechBubble(batch);
         }
         batch.setColor(Color.WHITE);
@@ -107,6 +109,10 @@ public class Npc {
             case MOM:
                 animations = Assets.momAnimations;
                 standingTex = Assets.momStanding;
+                break;
+            case BABY:
+                moving = false;
+                standingTex = new TextureRegion[] { Assets.gameObjectTextures.get("baby") };
                 break;
         }
     }

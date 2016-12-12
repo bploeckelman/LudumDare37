@@ -348,9 +348,14 @@ public class Level extends BaseLevel{
                         25f, 25*1.8f,
                         Npc.npcType.MOM
                 );
-                npcs.add(mom);
-
-
+                final Npc baby = new Npc(
+                        "Baby",
+                        lowerLeft.x + 10 * 32f,
+                        lowerLeft.y + 4.5f * 32f + 8f,
+                        31f, 19f,
+                        Npc.npcType.BABY
+                );
+                npcs.addAll(mom, baby);
             }
             break;
 //        case FOO: {}
@@ -367,19 +372,38 @@ public class Level extends BaseLevel{
                 switch (scriptSegment) {
                     case 0:
                         final Npc mom = npcs.get(0);
+                        final Npc baby = npcs.get(1);
                         mom.moving = true;
-                        float duration = 4f;
-                        mom.say("$%#@ $# )#*@#", duration);
+
+                        final float duration = 4f;
 
                         float doorPosY = gameBounds.y + gameBounds.height - mom.bounds.height;
                         Timeline.createSequence()
                                 .beginParallel()
-                                .push(Tween.to(mom.bounds, RectangleAccessor.Y, duration)
+                                .push(Tween.call(new TweenCallback() {
+                                    @Override
+                                    public void onEvent(int type, BaseTween<?> source) {
+                                        baby.say("wahhhh!", duration + 1f);
+                                    }
+                                }))
+                                .push(Tween.call(new TweenCallback() {
+                                    @Override
+                                    public void onEvent(int type, BaseTween<?> source) {
+                                        mom.say("shhhh little one...", duration);
+                                    }
+                                }).delay(1.5f))
+                                .push(Tween.call(new TweenCallback() {
+                                    @Override
+                                    public void onEvent(int type, BaseTween<?> source) {
+                                        mom.say("Off to work.", duration);
+                                    }
+                                }).delay(3.5f))
+                                .push(Tween.to(mom.bounds, RectangleAccessor.Y, duration + 2f)
                                         .target(doorPosY)
                                         .ease(Linear.INOUT))
                                 .push(Tween.to(mom.alpha, 1, 2)
                                         .target(0)
-                                        .delay(duration - 2))
+                                        .delay(duration))
                                 .end()
                                 .push(Tween.call(new TweenCallback() {
                                     @Override
@@ -450,6 +474,9 @@ public class Level extends BaseLevel{
     private void finishLevel(boolean contracted){
         gameInfo.addStageComplete(gameInfo.currentStage, contracted);
         inScript = true;
+        for (Npc npc : npcs) {
+            Tween.to(npc.alpha, -1, 0.5f).target(0f).start(Assets.tween);
+        }
         KeyItem keyItem = null;
         for (KeyItem k : keyItems){
             if (k.active) keyItem = k;
@@ -479,6 +506,7 @@ public class Level extends BaseLevel{
                     @Override
                     public void onEvent(int i, BaseTween<?> baseTween) {
                         levelCompleted = true;
+                        npcs.clear();
                         Assets.particleManager.clearParticles();
                     }
                 })).start(Assets.tween);
