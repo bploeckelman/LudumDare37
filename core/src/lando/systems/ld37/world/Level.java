@@ -182,6 +182,8 @@ public class Level {
 
         player.render(batch);
 
+        Assets.particleManager.render(batch);
+
         for (KeyItem k : keyItems){
             k.render(batch);
         }
@@ -458,6 +460,7 @@ public class Level {
             if (k.active) keyItem = k;
         }
         if (keyItem == null) return; // Shouldn't happen
+        keyItem.sparkle = true;
         Tween outcomeTween;
         if (contracted){
             Rectangle b = keyItem.getInactiveBounds();
@@ -481,6 +484,7 @@ public class Level {
                     @Override
                     public void onEvent(int i, BaseTween<?> baseTween) {
                         levelCompleted = true;
+                        Assets.particleManager.clearParticles();
                     }
                 })).start(Assets.tween);
     }

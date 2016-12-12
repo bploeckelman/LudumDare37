@@ -23,6 +23,7 @@ public class KeyItem {
     public MutableFloat angle;
     public Vector2 accum;
     public Vector2 floatOffset;
+    public boolean sparkle;
 
     public KeyItem(LevelInfo.Stage stage, boolean active){
         this.stage = stage;
@@ -30,7 +31,7 @@ public class KeyItem {
         angle = new MutableFloat(0);
         floatOffset = new Vector2();
         this.accum = new Vector2(0,0);
-
+        sparkle = false;
 
         switch(stage){
             case Infancy:
@@ -64,6 +65,9 @@ public class KeyItem {
     }
 
     public void render(SpriteBatch batch){
+        if (sparkle){
+            Assets.particleManager.addSparkles(bounds.x + bounds.width/2, bounds.y + bounds.height /2);
+        }
         batch.draw(tex,
                 bounds.x + floatOffset.x,
                 bounds.y + floatOffset.y,

@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import lando.systems.ld37.accessors.*;
 import lando.systems.ld37.utils.particles.ParticleManager;
@@ -41,6 +42,7 @@ public class Assets {
     public static Texture brainOutline;
     public static Texture brainDetail;
     public static TextureRegion[] walls;
+    public static Array<TextureAtlas.AtlasRegion> sparkles;
     public static TextureRegion keyInfant;
     public static TextureRegion clockFace;
 
@@ -122,6 +124,7 @@ public class Assets {
         walls[14] = atlas.findRegion("wall-top"); // BS
         walls[15] = atlas.findRegion("wall-top"); // BS
 
+        sparkles = atlas.findRegions("sparkle");
         whitePixel = atlas.findRegion("white-pixel");
         outline = new NinePatch(atlas.findRegion("outline"), 5, 5, 5, 5);
         clockFace = atlas.findRegion("clock-face");

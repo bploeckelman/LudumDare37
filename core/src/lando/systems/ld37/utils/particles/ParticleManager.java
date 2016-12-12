@@ -50,6 +50,31 @@ public class ParticleManager {
 
     }
 
+    public void addSparkles(float x, float y){
+        for (int i = 0; i < 5; i++) {
+            Particle part = particlePool.obtain();
+            float speed = 20 + MathUtils.random(20f);
+            float dir = (MathUtils.random(360f));
+            float px = x;
+            float py = y;
+            float vx = MathUtils.sinDeg(dir) * speed;
+            float vy = MathUtils.cosDeg(dir) * speed;
+            float scale = MathUtils.random(3, 6f);
+            float ttl = MathUtils.random(0.5f, 2f);
+            TextureRegion tex = Assets.sparkles.get(MathUtils.random(Assets.sparkles.size -1));
+            part.init(
+                    px, py,
+                    vx, vy,
+                    -vx/2f, -2, 1,
+                    1,1,0,1,
+                    0.5f,0.5f,0,0.5f,
+                    scale, ttl, tex);
+
+            activeParticles.add(part);
+        }
+
+    }
+
     public void addParticle(Rectangle bounds, Color c){
         int tiles = 10;
         float boundDx = bounds.width / tiles;
@@ -97,5 +122,10 @@ public class ParticleManager {
         }
     }
 
+
+    public void clearParticles(){
+        particlePool.freeAll(activeParticles);
+        activeParticles.clear();
+    }
 
 }
