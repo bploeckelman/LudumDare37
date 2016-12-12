@@ -185,12 +185,11 @@ public class Level {
             obj.render(batch);
         }
 
+        Assets.particleManager.render(batch);
+
         for (KeyItem k : keyItems){
             k.render(batch);
         }
-
-
-        Assets.particleManager.render(batch);
 
         for (Npc n : npcs) {
             n.draw(batch);
