@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="14" height="9" tilewidth="32" tileheight="32" nextobjectid="13">
+ <tileset firstgid="1" name="spritesheet-tiles" tilewidth="32" tileheight="32" spacing="5" tilecount="729" columns="27">
+  <image source="../images/spritesheet-tiles.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="730" name="objects" tilewidth="64" tileheight="64" tilecount="7" columns="0">
+  <tile id="0">
+   <image width="32" height="28" source="../images/chair-living-room-back.png"/>
+  </tile>
+  <tile id="1">
+   <image width="64" height="28" source="../images/couch-living-room-back.png"/>
+  </tile>
+  <tile id="2">
+   <image width="32" height="64" source="../images/lamp.png"/>
+  </tile>
+  <tile id="3">
+   <image width="40" height="51" source="../images/table-coffee.png"/>
+  </tile>
+  <tile id="4">
+   <image width="32" height="32" source="../images/table-end.png"/>
+  </tile>
+  <tile id="5">
+   <image width="40" height="52" source="../images/tv.png"/>
+  </tile>
+  <tile id="7">
+   <image width="20" height="20" source="../images/key-family.png"/>
+  </tile>
+ </tileset>
+ <layer name="background" width="14" height="9">
+  <data encoding="base64">
+   jAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAA
+  </data>
+ </layer>
+ <layer name="decorations" width="14" height="9">
+  <data encoding="base64">
+   jQAAAJAAAACQAAAAkAAAAJAAAACQAAAAkAAAAJAAAACQAAAAkAAAAJAAAACQAAAAkAAAAI4AAACPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqgAAAI8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACqAAAAjwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKoAAACPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqgAAAI8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACqAAAAjwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKoAAACPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqgAAAKgAAACrAAAAqwAAAKsAAACrAAAAqwAAAKsAAACrAAAAqwAAAKsAAACrAAAAqwAAAKsAAACpAAAA
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="1" name="couch-living-room-back" type="gameobject" gid="731" x="192" y="224" width="64" height="28"/>
+  <object id="2" name="chair-living-room-back" type="gameobject" gid="730" x="288" y="208" width="32" height="28"/>
+  <object id="4" name="chair-living-room-back" type="gameobject" gid="730" x="128" y="208" width="32" height="28"/>
+  <object id="5" name="lamp" type="gameobject" gid="732" x="160" y="224" width="32" height="64"/>
+  <object id="6" name="lamp" type="gameobject" gid="732" x="256" y="224" width="32" height="64"/>
+  <object id="7" name="tv" type="gameobject" gid="735" x="200" y="88" width="40" height="52"/>
+  <object id="8" name="table-end" type="gameobject" gid="734" x="256" y="80" width="32" height="32"/>
+  <object id="9" name="table-end" type="gameobject" gid="734" x="152" y="80" width="32" height="32"/>
+  <object id="10" name="table-coffee" type="gameobject" gid="733" x="72" y="152" width="40" height="51"/>
+  <object id="12" name="keyitem" type="keyitem" gid="737" x="88" y="120" width="20" height="20"/>
+ </objectgroup>
+</map>

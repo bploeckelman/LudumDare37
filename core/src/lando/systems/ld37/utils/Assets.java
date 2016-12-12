@@ -54,6 +54,8 @@ public class Assets {
     public static TextureRegion keyWork;
     public static TextureRegion keyMarriage;
     public static TextureRegion keyCareer;
+    public static TextureRegion keyFamily;
+    public static TextureRegion keyRetirement;
     public static TextureRegion clockFace;
     public static TextureRegion vignette;
     public static TextureRegion[] playerStanding;
@@ -191,6 +193,8 @@ public class Assets {
         keyWork      = atlas.findRegion("key-work");
         keyMarriage  = atlas.findRegion("key-marriage");
         keyCareer    = atlas.findRegion("key-career");
+        keyFamily    = atlas.findRegion("key-family");
+        keyRetirement= atlas.findRegion("key-retirement");
 
         TextureRegion chars = atlas.findRegion("chars");
         playerAnimations = new Animation[4];
@@ -205,7 +209,6 @@ public class Assets {
         gameObjectTextures.put("chair-brown", atlas.findRegion("chair-brown"));
         gameObjectTextures.put("lamp", atlas.findRegion("lamp"));
         gameObjectTextures.put("hospital-bed", atlas.findRegion("hospital-bed"));
-        gameObjectTextures.put("hospital-iv", atlas.findRegion("hospital-iv"));
         gameObjectTextures.put("toilet", atlas.findRegion("toilet"));
         gameObjectTextures.put("sink", atlas.findRegion("sink"));
         gameObjectTextures.put("table-flower", atlas.findRegion("table-flower"));
@@ -222,6 +225,11 @@ public class Assets {
         gameObjectTextures.put("plant-fern", atlas.findRegion("plant-fern"));
         gameObjectTextures.put("table-end-lamp", atlas.findRegion("table-end-lamp"));
         gameObjectTextures.put("desk-office-nice", atlas.findRegion("desk-office-nice"));
+        gameObjectTextures.put("table-end", atlas.findRegion("table-end"));
+        gameObjectTextures.put("table-coffee", atlas.findRegion("table-coffee"));
+        gameObjectTextures.put("chair-living-room-back", atlas.findRegion("chair-living-room-back"));
+        gameObjectTextures.put("couch-living-room-back", atlas.findRegion("couch-living-room-back"));
+        gameObjectTextures.put("tv", atlas.findRegion("tv"));
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);

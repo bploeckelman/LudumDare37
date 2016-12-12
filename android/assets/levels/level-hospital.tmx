@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="14" height="9" tilewidth="32" tileheight="32" nextobjectid="3">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="14" height="9" tilewidth="32" tileheight="32" nextobjectid="4">
  <tileset firstgid="1" name="spritesheet-tiles" tilewidth="32" tileheight="32" spacing="5" tilecount="729" columns="27">
   <image source="../images/spritesheet-tiles.png" width="1024" height="1024"/>
  </tileset>
@@ -7,8 +7,8 @@
   <tile id="0">
    <image width="64" height="128" source="../images/hospital-bed.png"/>
   </tile>
-  <tile id="1">
-   <image width="32" height="64" source="../images/hospital-iv.png"/>
+  <tile id="2">
+   <image width="32" height="64" source="../images/key-retirement.png"/>
   </tile>
  </tileset>
  <layer name="background" width="14" height="9">
@@ -23,6 +23,6 @@
  </layer>
  <objectgroup name="objects">
   <object id="1" name="hospital-bed" type="gameobject" gid="730" x="152" y="208" width="64" height="128"/>
-  <object id="2" name="hospital-iv" type="gameobject" gid="731" x="264" y="112" width="32" height="64"/>
+  <object id="3" name="keyitem" type="keyitem" gid="732" x="240" y="112" width="32" height="64"/>
  </objectgroup>
 </map>

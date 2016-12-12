@@ -77,17 +77,18 @@ public class LevelInfo {
                 playerSpeed = 140;
                 break;
             case Family:
-                // TODO: living room
-                mapName = "levels/level-hospital.tmx";
+                mapName = "levels/level-livingroom.tmx";
                 crackTimer = 1f;
-                crackSpeed = 8.5f;
+//                crackSpeed = 8.5f;
+                crackSpeed = 200f;
                 playerFixSpeed = 20f;
                 playerSpeed = 140;
                 break;
             case Retirement:
                 mapName = "levels/level-hospital.tmx";
                 crackTimer = 1f;
-                crackSpeed = 9.5f;
+//                crackSpeed = 9.5f;
+                crackSpeed = 200f;
                 playerFixSpeed = 20f;
                 playerSpeed = 140;
                 break;
