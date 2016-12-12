@@ -38,6 +38,7 @@ public class KeyItem {
             case Toddler:   tex = Assets.keyToddler;   break;
             case Primary:   tex = Assets.keyPrimary;   break;
             case Secondary: tex = Assets.keySecondary; break;
+            case College:   tex = Assets.keyCollege; break;
             default:        tex = Assets.keyInfant;
         }
 
@@ -89,6 +90,8 @@ public class KeyItem {
                 return new Rectangle(Config.gameWidth/2 + 80, Config.gameHeight - 60, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
             case Secondary:
                 return new Rectangle(Config.gameWidth/2 + 80, 20, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
+            case College:
+                return new Rectangle(Config.gameWidth/2 + 140, 20, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
             default:
                 return new Rectangle(Config.gameWidth/2, Config.gameHeight - 60, 40, 40);
         }

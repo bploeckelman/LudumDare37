@@ -50,6 +50,7 @@ public class Assets {
     public static TextureRegion keyToddler;
     public static TextureRegion keyPrimary;
     public static TextureRegion keySecondary;
+    public static TextureRegion keyCollege;
     public static TextureRegion clockFace;
     public static TextureRegion vignette;
     public static TextureRegion[] playerStanding;
@@ -183,6 +184,7 @@ public class Assets {
         keyToddler = atlas.findRegion("key-toddler");
         keyPrimary = atlas.findRegion("key-primary");
         keySecondary = atlas.findRegion("key-secondary");
+        keyCollege = atlas.findRegion("key-college");
 
         TextureRegion chars = atlas.findRegion("chars");
         playerAnimations = new Animation[4];
@@ -204,6 +206,8 @@ public class Assets {
         gameObjectTextures.put("table-flower", atlas.findRegion("table-flower"));
         gameObjectTextures.put("table-sink", atlas.findRegion("table-sink"));
         gameObjectTextures.put("locker", atlas.findRegion("locker"));
+        gameObjectTextures.put("bed-bunk", atlas.findRegion("bed-bunk"));
+        gameObjectTextures.put("desk-dorm", atlas.findRegion("desk-dorm"));
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);

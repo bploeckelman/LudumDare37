@@ -48,6 +48,13 @@ public class LevelInfo {
                 playerFixSpeed = 20f;
                 playerSpeed = 140;
                 break;
+            case Work:
+                mapName = "levels/level-hospital.tmx";
+                crackTimer = 1f;
+                crackSpeed = 5.5f;
+                playerFixSpeed = 20f;
+                playerSpeed = 140;
+                break;
             default:
                 crackTimer = 1f;
                 crackSpeed = 5f;
