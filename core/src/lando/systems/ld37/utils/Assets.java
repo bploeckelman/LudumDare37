@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.ObjectMap;
 import lando.systems.ld37.accessors.*;
 import lando.systems.ld37.utils.particles.ParticleManager;
 
@@ -46,6 +47,8 @@ public class Assets {
     public static TextureRegion keyInfant;
     public static TextureRegion clockFace;
     public static TextureRegion vignette;
+
+    public static ObjectMap<String, TextureRegion> gameObjectTextures;
 
     public static TextureAtlas atlas;
 
@@ -132,6 +135,9 @@ public class Assets {
         vignette = atlas.findRegion("vignette");
         keyInfant = atlas.findRegion("key-infancy");
 
+        gameObjectTextures = new ObjectMap<String, TextureRegion>();
+        gameObjectTextures.put("chair-brown", atlas.findRegion("chair-brown"));
+        gameObjectTextures.put("lamp", atlas.findRegion("lamp"));
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);
@@ -191,6 +197,11 @@ public class Assets {
         font.draw(batch, text, x, y);
         font.getData().setScale(prevScale);
         batch.setShader(null);
+    }
+
+    public static TextureRegion getTextureRegionForGameObject(String name) {
+        TextureRegion region = gameObjectTextures.get(name);
+        return (region != null) ? region : new TextureRegion(Assets.whiteBox);
     }
 
 }

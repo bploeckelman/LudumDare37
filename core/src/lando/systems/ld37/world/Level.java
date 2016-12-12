@@ -14,6 +14,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -21,10 +24,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.Array;
 import lando.systems.ld37.accessors.RectangleAccessor;
-import lando.systems.ld37.gameobjects.KeyItem;
-import lando.systems.ld37.gameobjects.Npc;
-import lando.systems.ld37.gameobjects.Player;
-import lando.systems.ld37.gameobjects.Wall;
+import lando.systems.ld37.gameobjects.*;
 import lando.systems.ld37.utils.Assets;
 import lando.systems.ld37.utils.Config;
 import lando.systems.ld37.utils.Dialogue;
@@ -63,13 +63,13 @@ public class Level {
     private boolean scriptReady;
 
     private Array<KeyItem> keyItems;
+    private Array<GameObject> gameObjects;
     private GameInfo gameInfo;
     private MutableFloat overlayAlpha;
 
 
     public Level(GameInfo gameInfo) {
         this.gameInfo = gameInfo;
-        keyItems = new Array<KeyItem>();
         LevelInfo.Stage stage = gameInfo.currentStage;
         levelInfo = new LevelInfo(stage);
         currentStage = stage;
@@ -82,12 +82,15 @@ public class Level {
 
         buildWalls(levelInfo.crackSpeed);
 
-        keyItems.add(new KeyItem(stage, true));
+        keyItems = new Array<KeyItem>();
         for (LevelInfo.Stage s :gameInfo.neurosis.keys()){
             if (gameInfo.neurosis.get(s)){
-                keyItems.add(new KeyItem(s, false));
+                keyItems.add(new KeyItem(s, false, null));
             }
         }
+
+        loadMapObjects();
+
         dialogue = new Dialogue();
         dialogueRect = new Rectangle(10, (int) (3f / 4f * Config.gameHeight) - 10, Config.gameWidth - 20, Config.gameHeight / 4);
         initializeLevel();
@@ -184,6 +187,10 @@ public class Level {
 
         Assets.particleManager.render(batch);
 
+        for (GameObject obj : gameObjects) {
+            obj.render(batch);
+        }
+
         for (KeyItem k : keyItems){
             k.render(batch);
         }
@@ -254,8 +261,9 @@ public class Level {
         for (KeyItem k : keyItems){
             movementWithRect(movementVec, k.bounds);
         }
-
-        // TODO check game objects here
+        for (GameObject obj : gameObjects) {
+            movementWithRect(movementVec, obj.bounds);
+        }
 
         player.pos.add(movementVec);
 
@@ -490,5 +498,34 @@ public class Level {
                 })).start(Assets.tween);
     }
 
+    private void loadMapObjects() {
+        if (map == null) return;
+        if (gameObjects == null) {
+            gameObjects = new Array<GameObject>();
+        }
+
+        MapLayer objectLayer = map.getLayers().get("objects");
+        for (MapObject object : objectLayer.getObjects()) {
+            MapProperties props = object.getProperties();
+            // Shift x,y by map position
+            float x = (Float) props.get("x") + lowerLeft.x;
+            float y = (Float) props.get("y") + lowerLeft.y;
+            float w = (Float) props.get("width");
+            float h = (Float) props.get("height");
+            String type = (String) props.get("type");
+            String name = object.getName();
+            Rectangle bounds = new Rectangle(x, y, w, h);
+
+            // Instantiate based on type
+            if (type.equals("keyitem")) {
+                keyItems.add(new KeyItem(currentStage, true, bounds));
+            } else if (type.equals("gameobject")) {
+                gameObjects.add(new GameObject(name, bounds));
+            }
+//            else if (type.equals("...")) {
+//
+//            }
+        }
+    }
 
 }

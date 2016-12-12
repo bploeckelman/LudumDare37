@@ -25,7 +25,7 @@ public class KeyItem {
     public Vector2 floatOffset;
     public boolean sparkle;
 
-    public KeyItem(LevelInfo.Stage stage, boolean active){
+    public KeyItem(LevelInfo.Stage stage, boolean active, Rectangle mapBounds){
         this.stage = stage;
         this.active = active;
         angle = new MutableFloat(0);
@@ -42,8 +42,8 @@ public class KeyItem {
 
         }
 
-        if (active){
-            bounds = new Rectangle(Config.gameWidth /2 - 20, Config.gameHeight/2, 20, 20);
+        if (active && mapBounds != null){
+            bounds = mapBounds;
         } else {
             bounds = getInactiveBounds();
             this.accum = new Vector2(MathUtils.random(0.1f, 1f),
