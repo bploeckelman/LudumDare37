@@ -55,7 +55,8 @@ public class LevelInfo {
             case Work:
                 mapName = "levels/level-office.tmx";
                 crackTimer = 1f;
-                crackSpeed = 5.5f;
+//                crackSpeed = 5.5f;
+                crackSpeed = 200f;
                 playerFixSpeed = 20f;
                 playerSpeed = 140;
                 break;
@@ -68,14 +69,15 @@ public class LevelInfo {
                 playerSpeed = 140;
                 break;
             case Career:
-                mapName = "levels/level-hospital.tmx";
+                mapName = "levels/level-exec-office.tmx";
                 crackTimer = 1f;
-                crackSpeed = //7.5f;
+//                crackSpeed = 7.5f;
                 crackSpeed = 200f;
                 playerFixSpeed = 20f;
                 playerSpeed = 140;
                 break;
             case Family:
+                // TODO: living room
                 mapName = "levels/level-hospital.tmx";
                 crackTimer = 1f;
                 crackSpeed = 8.5f;

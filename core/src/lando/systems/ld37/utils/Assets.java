@@ -53,6 +53,7 @@ public class Assets {
     public static TextureRegion keyCollege;
     public static TextureRegion keyWork;
     public static TextureRegion keyMarriage;
+    public static TextureRegion keyCareer;
     public static TextureRegion clockFace;
     public static TextureRegion vignette;
     public static TextureRegion[] playerStanding;
@@ -189,6 +190,7 @@ public class Assets {
         keyCollege   = atlas.findRegion("key-college");
         keyWork      = atlas.findRegion("key-work");
         keyMarriage  = atlas.findRegion("key-marriage");
+        keyCareer    = atlas.findRegion("key-career");
 
         TextureRegion chars = atlas.findRegion("chars");
         playerAnimations = new Animation[4];
@@ -214,7 +216,12 @@ public class Assets {
         gameObjectTextures.put("desk-office", atlas.findRegion("desk-office"));
         gameObjectTextures.put("chair-office", atlas.findRegion("chair-office"));
         gameObjectTextures.put("copymachine", atlas.findRegion("copymachine"));
-        gameObjectTextures.put("bed-queen-empty", atlas.findRegion("bed-queen-empty"));
+        gameObjectTextures.put("bookshelf", atlas.findRegion("bookshelf"));
+        gameObjectTextures.put("chair-office-nice-back", atlas.findRegion("chair-office-nice-back"));
+        gameObjectTextures.put("chair-office-nice-front", atlas.findRegion("chair-office-nice-front"));
+        gameObjectTextures.put("plant-fern", atlas.findRegion("plant-fern"));
+        gameObjectTextures.put("table-end-lamp", atlas.findRegion("table-end-lamp"));
+        gameObjectTextures.put("desk-office-nice", atlas.findRegion("desk-office-nice"));
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);
