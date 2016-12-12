@@ -181,8 +181,6 @@ public class Level {
 
         player.render(batch);
 
-        Assets.particleManager.render(batch);
-
         for (GameObject obj : gameObjects) {
             obj.render(batch);
         }
