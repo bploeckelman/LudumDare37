@@ -60,6 +60,9 @@ public class Wall {
         if (health < 100){
             tex = Assets.wallsDamaged[type];
         }
+        if (health < 50){
+            tex = Assets.wallsCracked[type];
+        }
         batch.draw(tex, bounds.x, bounds.y, bounds.width, bounds.height);
 
         if (health < 100){
