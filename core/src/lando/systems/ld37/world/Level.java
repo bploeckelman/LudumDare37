@@ -169,8 +169,6 @@ public class Level {
         }
         batch.begin();
 
-
-
         for (Wall w : walls){
             w.render(batch, player);
         }
@@ -179,9 +177,7 @@ public class Level {
             w.renderOutline(batch);
         }
 
-        for (Npc n : npcs) {
-            n.draw(batch);
-        }
+        batch.draw(Assets.vignette, gameBounds.x, gameBounds.y, gameBounds.width, gameBounds.height);
 
         player.render(batch);
 
@@ -195,12 +191,17 @@ public class Level {
             k.render(batch);
         }
 
+
+        Assets.particleManager.render(batch);
+
+        for (Npc n : npcs) {
+            n.draw(batch);
+        }
+
         batch.draw(Assets.clockFace, camera.viewportWidth - 60, 10, 50, 50);
         batch.setColor(Color.RED);
         batch.draw(Assets.whitePixel, camera.viewportWidth - 36, 35, 1, 0, 2, 17, 1, 1, gameTimer * 6f);
         batch.setColor(Color.WHITE);
-
-        batch.draw(Assets.vignette, gameBounds.x, gameBounds.y, gameBounds.width, gameBounds.height);
 
         batch.setColor(0,0,0,overlayAlpha.floatValue());
         batch.draw(Assets.whitePixel, 0, 0, camera.viewportWidth, camera.viewportHeight);
@@ -354,21 +355,26 @@ public class Level {
                 );
                 npcs.add(mom);
 
-                float duration = 5f;
+                float duration = 4f;
                 mom.say("$%#@ $# )#*@#", duration);
 
-                float doorPosY = gameBounds.y + gameBounds.height;
+                float doorPosY = gameBounds.y + gameBounds.height - mom.bounds.height;
                 Timeline.createSequence()
+                        .beginParallel()
                         .push(Tween.to(mom.bounds, RectangleAccessor.Y, duration)
                                    .target(doorPosY)
                                    .ease(Linear.INOUT))
+                        .push(Tween.to(mom.alpha, 1, 2)
+                                    .target(0)
+                                    .delay(duration - 2))
+                        .end()
                         .push(Tween.call(new TweenCallback() {
-                                   @Override
-                                   public void onEvent(int type, BaseTween<?> source) {
-                                       npcs.removeValue(mom, true);
-                                       scriptReady = true;
-                                   }
-                              }))
+                            @Override
+                            public void onEvent(int type, BaseTween<?> source) {
+                                npcs.removeValue(mom, true);
+                                scriptReady = true;
+                            }
+                        }))
                         .start(Assets.tween);
             }
             break;

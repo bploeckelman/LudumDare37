@@ -1,5 +1,6 @@
 package lando.systems.ld37.gameobjects;
 
+import aurelienribon.tweenengine.primitives.MutableFloat;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,9 +18,10 @@ public class Npc {
     public Vector2 centerPos;
     public Rectangle bounds;
     public TextureRegion keyframe;
-
+    public MutableFloat alpha;
     private float speechTimer = 0f;
     private String speechText = "";
+    private Color textColor;
 
     public Npc() {}
 
@@ -28,7 +30,9 @@ public class Npc {
         this.bounds = bounds;
         this.keyframe = keyframe;
         this.centerPos = new Vector2();
+        alpha = new MutableFloat(1);
         bounds.getCenter(this.centerPos);
+        textColor = new Color(0,0,0,1);
     }
 
     public Npc(String name, float x, float y, float w, float h, TextureRegion keyframe) {
@@ -46,6 +50,7 @@ public class Npc {
     }
 
     public void draw(SpriteBatch batch) {
+        batch.setColor(1,1,1,alpha.floatValue());
         if (keyframe != null) {
             batch.draw(keyframe, bounds.x, bounds.y, bounds.width, bounds.height);
         }
@@ -65,7 +70,7 @@ public class Npc {
         Assets.font.getData().setScale(scale);
         Assets.layout.setText(Assets.font, speechText);
         Assets.font.getData().setScale(prevScale);
-
+        textColor.set(0,0,0,alpha.floatValue());
         Assets.speechBubble.draw(batch,
                 centerPos.x - Assets.layout.width - 20,
                 centerPos.y + 5,
@@ -75,7 +80,7 @@ public class Npc {
         Assets.drawString(batch, speechText,
                 centerPos.x - Assets.layout.width - 10,
                 centerPos.y + 20 + Assets.layout.height,
-                Color.BLACK,
+                textColor,
                 scale
         );
     }
