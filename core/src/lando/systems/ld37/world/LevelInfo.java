@@ -35,11 +35,18 @@ public class LevelInfo {
                 playerSpeed = 120;
                 break;
             case Secondary:
-                mapName = "levels/level-hospital.tmx";
+                mapName = "levels/level-hallway.tmx";
                 crackTimer = 1.5f;
                 crackSpeed = 4.5f;
                 playerFixSpeed = 18f;
                 playerSpeed = 130;
+                break;
+            case College:
+                mapName = "levels/level-hospital.tmx";
+                crackTimer = 1f;
+                crackSpeed = 5.5f;
+                playerFixSpeed = 20f;
+                playerSpeed = 140;
                 break;
             default:
                 crackTimer = 1f;

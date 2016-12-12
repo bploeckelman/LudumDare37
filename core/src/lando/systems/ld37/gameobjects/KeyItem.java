@@ -34,10 +34,11 @@ public class KeyItem {
         sparkle = false;
 
         switch(stage){
-            case Infancy: tex = Assets.keyInfant; break;
-            case Toddler: tex = Assets.keyToddler; break;
-            case Primary: tex = Assets.keyPrimary; break;
-            default:      tex = Assets.keyInfant;
+            case Infancy:   tex = Assets.keyInfant;    break;
+            case Toddler:   tex = Assets.keyToddler;   break;
+            case Primary:   tex = Assets.keyPrimary;   break;
+            case Secondary: tex = Assets.keySecondary; break;
+            default:        tex = Assets.keyInfant;
         }
 
         if (active && mapBounds != null){
@@ -86,6 +87,8 @@ public class KeyItem {
                 return new Rectangle(Config.gameWidth/2 - 60, Config.gameHeight - 60, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
             case Primary:
                 return new Rectangle(Config.gameWidth/2 + 80, Config.gameHeight - 60, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
+            case Secondary:
+                return new Rectangle(Config.gameWidth/2 + 80, 20, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
             default:
                 return new Rectangle(Config.gameWidth/2, Config.gameHeight - 60, 40, 40);
         }

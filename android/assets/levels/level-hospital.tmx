@@ -22,7 +22,7 @@
   </data>
  </layer>
  <objectgroup name="objects">
-  <object id="1" name="hospital-bed" type="gameobject" gid="730" x="176" y="208" width="64" height="128"/>
+  <object id="1" name="hospital-bed" type="gameobject" gid="730" x="152" y="208" width="64" height="128"/>
   <object id="2" name="hospital-iv" type="gameobject" gid="731" x="264" y="112" width="32" height="64"/>
  </objectgroup>
 </map>

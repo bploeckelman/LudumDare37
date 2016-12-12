@@ -42,7 +42,7 @@ public class Level {
     public Vector2 lowerLeft;
     public Vector2 upperRight;
     public float crackTimer = .5f;
-    public float gameTimer = 60;
+    public float gameTimer = 30;
     public Dialogue dialogue;
 
     LevelInfo levelInfo;
@@ -389,7 +389,6 @@ public class Level {
                 switch (scriptSegment) {
                     case 0:
                     {
-//                        if (!dialogue.isActive()) {
                         if (scriptReady) {
                             scriptSegment++;
                             showDialogue("Record scratch... freeze frame...",
