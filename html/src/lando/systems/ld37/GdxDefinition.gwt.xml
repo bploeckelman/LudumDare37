@@ -8,4 +8,6 @@
 	<entry-point class='lando.systems.ld37.client.HtmlLauncher' />
 	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
 	<set-configuration-property name="gdx.assetpath" value="../android/assets" />
+
+	<extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld37.utils.particles.Particle" />
 </module>
