@@ -1,6 +1,7 @@
 package lando.systems.ld37.world;
 
 import com.badlogic.gdx.utils.ObjectMap;
+import lando.systems.ld37.screens.GameScreen;
 
 /**
  * Created by dsgraham on 12/10/16.
@@ -8,9 +9,10 @@ import com.badlogic.gdx.utils.ObjectMap;
 public class GameInfo {
     public LevelInfo.Stage currentStage;
     public ObjectMap<LevelInfo.Stage, Boolean> neurosis;
+    public GameScreen gameScreen;
 
-
-    public GameInfo(){
+    public GameInfo(GameScreen gameScreen){
+        this.gameScreen = gameScreen;
         currentStage = LevelInfo.Stage.Infancy;
         neurosis = new ObjectMap<LevelInfo.Stage, Boolean>();
     }

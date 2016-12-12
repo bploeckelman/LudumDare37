@@ -22,14 +22,14 @@ import lando.systems.ld37.world.Level;
 public class GameScreen extends BaseScreen {
 
     private float runningTime;
-    private MutableFloat detailAlpha = new MutableFloat(0f);
+    public MutableFloat detailAlpha = new MutableFloat(0f);
     private GameInfo gameInfo;
     private Array<String> messages;
     private Level level;
 
     public GameScreen(){
         super();
-        gameInfo = new GameInfo();
+        gameInfo = new GameInfo(this);
         messages = new Array<String>();
         level = new Level(gameInfo);
         runningTime = 0;

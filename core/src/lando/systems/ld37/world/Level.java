@@ -6,6 +6,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.equations.Elastic;
 import aurelienribon.tweenengine.equations.Linear;
+import aurelienribon.tweenengine.equations.Quint;
 import aurelienribon.tweenengine.primitives.MutableFloat;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -469,8 +470,10 @@ public class Level {
                     .target(b.x + b.width/2,b.y + b.height/2, 0, 0)
                     .ease(Elastic.IN);
         }
+        gameInfo.gameScreen.detailAlpha.setValue(0.05f * keyItems.size);
 
         Timeline.createSequence()
+                .push(Tween.to(gameInfo.gameScreen.detailAlpha, -1, 1.0f).target(0f).ease(Quint.OUT))
                 .push(outcomeTween)
                 .push(Tween.to(overlayAlpha, 1, 2)
                            .target(1))
