@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="14" height="9" tilewidth="32" tileheight="32" nextobjectid="7">
+ <tileset firstgid="1" name="spritesheet-tiles" tilewidth="32" tileheight="32" spacing="5" tilecount="729" columns="27">
+  <image source="../images/spritesheet-tiles.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="730" name="objects" tilewidth="96" tileheight="96" tilecount="3" columns="0">
+  <tile id="0">
+   <image width="64" height="64" source="../images/chair-brown.png"/>
+  </tile>
+  <tile id="1">
+   <image width="32" height="64" source="../images/lamp.png"/>
+  </tile>
+  <tile id="3">
+   <image width="96" height="96" source="../images/bed-queen.png"/>
+  </tile>
+ </tileset>
+ <layer name="background" width="14" height="9">
+  <data encoding="base64">
+   IwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAA
+  </data>
+ </layer>
+ <layer name="decorations" width="14" height="9">
+  <data encoding="base64">
+   iAAAAKUAAAClAAAApQAAAKUAAAClAAAApQAAAKUAAAClAAAApQAAAKUAAAClAAAApQAAAIkAAACKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiwAAAIoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACLAAAAigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIsAAACKAAAAAAAAAAAAAAAAAAAAAAAAAA8BAAAQAQAAEQEAABIBAAAAAAAAAAAAAAAAAAAAAAAAiwAAAIoAAAAAAAAAAAAAAAAAAAAAAAAAKgEAACsBAAAsAQAALQEAAAAAAAAAAAAAAAAAAAAAAACLAAAAigAAAAAAAAAAAAAAAAAAAAAAAABFAQAARgEAAEcBAABIAQAAAAAAAAAAAAAAAAAAAAAAAIsAAACKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiwAAAKMAAACmAAAApgAAAKYAAACmAAAApgAAAKYAAACmAAAApgAAAKYAAACmAAAApgAAAKYAAACkAAAA
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="1" name="chair-brown" type="gameobject" gid="730" x="72" y="168" width="64" height="64"/>
+  <object id="2" name="lamp" type="gameobject" gid="731" x="280" y="120" width="32" height="64"/>
+  <object id="3" name="lamp" type="gameobject" gid="731" x="128" y="112" width="32" height="64"/>
+  <object id="6" name="keyitem" type="keyitem" gid="733" x="176" y="176" width="96" height="96"/>
+ </objectgroup>
+</map>

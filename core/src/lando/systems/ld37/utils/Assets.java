@@ -52,6 +52,7 @@ public class Assets {
     public static TextureRegion keySecondary;
     public static TextureRegion keyCollege;
     public static TextureRegion keyWork;
+    public static TextureRegion keyMarriage;
     public static TextureRegion clockFace;
     public static TextureRegion vignette;
     public static TextureRegion[] playerStanding;
@@ -179,14 +180,15 @@ public class Assets {
         sparkles = atlas.findRegions("sparkle");
         whitePixel = atlas.findRegion("white-pixel");
         outline = new NinePatch(atlas.findRegion("outline"), 5, 5, 5, 5);
-        clockFace = atlas.findRegion("clock-face");
-        vignette = atlas.findRegion("vignette");
-        keyInfant = atlas.findRegion("key-infancy");
-        keyToddler = atlas.findRegion("key-toddler");
-        keyPrimary = atlas.findRegion("key-primary");
+        clockFace    = atlas.findRegion("clock-face");
+        vignette     = atlas.findRegion("vignette");
+        keyInfant    = atlas.findRegion("key-infancy");
+        keyToddler   = atlas.findRegion("key-toddler");
+        keyPrimary   = atlas.findRegion("key-primary");
         keySecondary = atlas.findRegion("key-secondary");
-        keyCollege = atlas.findRegion("key-college");
-        keyWork = atlas.findRegion("key-work");
+        keyCollege   = atlas.findRegion("key-college");
+        keyWork      = atlas.findRegion("key-work");
+        keyMarriage  = atlas.findRegion("key-marriage");
 
         TextureRegion chars = atlas.findRegion("chars");
         playerAnimations = new Animation[4];
@@ -212,6 +214,7 @@ public class Assets {
         gameObjectTextures.put("desk-office", atlas.findRegion("desk-office"));
         gameObjectTextures.put("chair-office", atlas.findRegion("chair-office"));
         gameObjectTextures.put("copymachine", atlas.findRegion("copymachine"));
+        gameObjectTextures.put("bed-queen-empty", atlas.findRegion("bed-queen-empty"));
 
         final Texture distText = new Texture(Gdx.files.internal("fonts/ubuntu.png"), true);
         distText.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);

@@ -8,11 +8,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Array;
 import lando.systems.ld37.utils.Assets;
 import lando.systems.ld37.utils.Config;
-import lando.systems.ld37.utils.Dialogue;
-import lando.systems.ld37.utils.TextHelper;
 import lando.systems.ld37.world.GameInfo;
 import lando.systems.ld37.world.Level;
 
@@ -24,13 +21,11 @@ public class GameScreen extends BaseScreen {
     private float runningTime;
     public MutableFloat detailAlpha = new MutableFloat(0f);
     private GameInfo gameInfo;
-    private Array<String> messages;
     private Level level;
 
     public GameScreen(){
         super();
         gameInfo = new GameInfo(this);
-        messages = new Array<String>();
         level = new Level(gameInfo);
         runningTime = 0;
 

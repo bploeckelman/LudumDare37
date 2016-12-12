@@ -40,6 +40,7 @@ public class KeyItem {
             case Secondary: tex = Assets.keySecondary; break;
             case College:   tex = Assets.keyCollege;   break;
             case Work:      tex = Assets.keyWork;      break;
+            case Marriage:  tex = Assets.keyMarriage;  break;
             default:        tex = Assets.keyInfant;
         }
 
@@ -95,6 +96,8 @@ public class KeyItem {
                 return new Rectangle(Config.gameWidth/2 + 140, 20, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
             case Work:
                 return new Rectangle(20, Config.gameHeight/2 - 20, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
+            case Marriage:
+                return new Rectangle(20, Config.gameHeight/2 - 80, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
             default:
                 return new Rectangle(Config.gameWidth/2, Config.gameHeight - 60, 40, 40);
         }
