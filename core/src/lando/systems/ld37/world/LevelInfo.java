@@ -16,7 +16,7 @@ public class LevelInfo {
             case Infancy:
                 mapName = "levels/level-nursery.tmx";
                 crackTimer = 3f;
-                crackSpeed = 200f;
+                crackSpeed = 2f;
                 playerFixSpeed = 10f;
                 playerSpeed = 100;
                 break;

@@ -80,7 +80,9 @@ public class KeyItem {
     public Rectangle getInactiveBounds(){
         switch (stage){
             case Infancy:
-                return new Rectangle(Config.gameWidth/2, Config.gameHeight - 60, 40, 40);
+                return new Rectangle(Config.gameWidth/2, Config.gameHeight - 60, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
+            case Toddler:
+                return new Rectangle(Config.gameWidth/2 - 60, Config.gameHeight - 60, 40 * tex.getRegionWidth() / tex.getRegionHeight(), 40);
             default:
                 return new Rectangle(Config.gameWidth/2, Config.gameHeight - 60, 40, 40);
         }
