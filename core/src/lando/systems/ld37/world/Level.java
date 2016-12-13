@@ -456,8 +456,8 @@ public class Level extends BaseLevel{
                             if (w.cracking) {
                                 w.tutorialWall = true;
                                 inScript = true;
-                                showDialogue("There is a crack forming in your walls.",
-                                            "Move(WASD) next to it and click on it to repair it.");
+                                showDialogue("There are cracks forming in your walls.",
+                                            "Move(WASD) next to it and click on a crack to repair it.");
                                 scriptSegment++;
                             }
                         }
