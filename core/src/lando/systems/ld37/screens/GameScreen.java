@@ -45,9 +45,10 @@ public class GameScreen extends BaseScreen {
 //            Tween.to(detailAlpha, -1, 1.0f).target(0f).ease(Quint.OUT).start(Assets.tween);
 //        }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
+        // There is no exiting the web hahahaha
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+//            Gdx.app.exit();
+//        }
     }
 
     @Override
