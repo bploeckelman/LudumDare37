@@ -23,6 +23,7 @@ public class Player {
     public int facing = 2;
     public boolean moving;
     public MutableFloat alpha;
+    public float repairSoundAccum = 0f;
 
     public Player(LevelInfo levelInfo){
         pos = new Vector2(Config.gameWidth /2, Config.gameHeight/2);
@@ -45,6 +46,12 @@ public class Player {
 
         center.set(pos.x + width/2, pos.y + width/2);
         if (wall != null){
+            repairSoundAccum += dt;
+            if (repairSoundAccum > 0.8f) {
+                Assets.repairSound.play(1f);
+                repairSoundAccum = 0f;
+            }
+
             wall.health += wallFixSpeed * dt;
             if (wall.health >= 100){
                 wall.health = 100;
@@ -52,6 +59,8 @@ public class Player {
                 wall.tutorialWall = false;
                 wall = null;
             }
+        } else {
+            repairSoundAccum = 0f;
         }
         if (wall != null){
             if (center.dst(wall.center) > Level.clickDistance){

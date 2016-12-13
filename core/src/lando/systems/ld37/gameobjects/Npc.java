@@ -109,6 +109,8 @@ public class Npc {
             case MOM:
                 animations = Assets.momAnimations;
                 standingTex = Assets.momStanding;
+                moving = false;
+                facing = 2;
                 break;
             case BABY:
                 moving = false;

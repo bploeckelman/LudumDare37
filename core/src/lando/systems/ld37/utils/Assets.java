@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -77,6 +78,10 @@ public class Assets {
     public static NinePatch speechBubble;
     public static NinePatch outline;
 
+    public static Sound repairSound;
+    public static Sound transitionSound;
+    public static Sound crackSound;
+
     public static boolean initialized;
 
     public static void load() {
@@ -98,6 +103,9 @@ public class Assets {
         mgr.load("images/speech-bubble.png", Texture.class, nearestParams);
         mgr.load("images/title-screen.png", Texture.class, linearParams);
         mgr.load("audio/music.mp3", Music.class);
+        mgr.load("audio/repair.ogg", Sound.class);
+        mgr.load("audio/transition.ogg", Sound.class);
+        mgr.load("audio/crack.ogg", Sound.class);
 
         if (tween == null) {
             tween = new TweenManager();
@@ -284,6 +292,10 @@ public class Assets {
         music.setLooping(true);
         music.play();
 
+        repairSound = mgr.get("audio/repair.ogg", Sound.class);
+        transitionSound = mgr.get("audio/transition.ogg", Sound.class);
+        crackSound = mgr.get("audio/crack.ogg", Sound.class);
+
         return 1f;
     }
 
@@ -330,6 +342,18 @@ public class Assets {
             }
             animations[i] = new Animation(.25f, anim, Animation.PlayMode.LOOP_PINGPONG);
             standings[i] = new TextureRegion(chars, xOffset + 18, yOffset + 26*i, 18, 26);
+        }
+    }
+
+    public static void playSound(String name, float volume) {
+        if (name.equals("repair")) {
+            repairSound.play(volume);
+        }
+        else if (name.equals("transition")) {
+            transitionSound.play(volume);
+        }
+        else if (name.equals("crack")) {
+            crackSound.play(volume);
         }
     }
 

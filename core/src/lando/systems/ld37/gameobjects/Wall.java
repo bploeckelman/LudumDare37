@@ -22,11 +22,13 @@ public class Wall {
     public Vector2 center;
     public boolean tutorialWall;
     public float accum;
+    public float lastHealth;
 
     public Wall(int type, Rectangle bounds, float crackSpeed){
         this.type = type;
         this.bounds = bounds;
         this.health = 100;
+        this.lastHealth = health;
         this.cracking = false;
         this.crackSpeed = crackSpeed;
         healthColor = new Color();
@@ -40,6 +42,10 @@ public class Wall {
         accum += dt;
         if (cracking){
             health -= crackSpeed * dt;
+            if (lastHealth >= 50f && health < 50f) {
+                Assets.crackSound.play(1f);
+            }
+            lastHealth = health;
         }
         if (health < 0){
             health = 0;

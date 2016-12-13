@@ -118,6 +118,7 @@ public class Level extends BaseLevel{
         if (crackTimer < 0){
             crackTimer = levelInfo.crackTimer;
             walls.get(MathUtils.random(walls.size -1)).cracking = true;
+            Assets.crackSound.play(1f);
         }
 
         for (Wall w : walls){
@@ -135,6 +136,7 @@ public class Level extends BaseLevel{
                     w.hovered = true;
                     if (Gdx.input.justTouched()){
                         player.wall = w;
+                        Assets.repairSound.play(1f);
                     }
                     break;
                 }
@@ -392,9 +394,8 @@ public class Level extends BaseLevel{
                     case 0:
                         final Npc mom = npcs.get(0);
                         final Npc baby = npcs.get(1);
-                        mom.moving = true;
 
-                        final float duration = 4f;
+                        final float duration = 6f;
 
                         float doorPosY = gameBounds.y + gameBounds.height - mom.bounds.height;
                         Timeline.createSequence()
@@ -408,21 +409,25 @@ public class Level extends BaseLevel{
                                 .push(Tween.call(new TweenCallback() {
                                     @Override
                                     public void onEvent(int type, BaseTween<?> source) {
-                                        mom.say("shhhh little one...", duration);
+                                        mom.say("shhhh little one...", 3f);
                                     }
-                                }).delay(1.5f))
-                                .push(Tween.call(new TweenCallback() {
-                                    @Override
-                                    public void onEvent(int type, BaseTween<?> source) {
-                                        mom.say("I'm off to work.", duration);
-                                    }
-                                }).delay(3.5f))
-                                .push(Tween.to(mom.bounds, RectangleAccessor.Y, duration + 2f)
-                                        .target(doorPosY)
-                                        .ease(Linear.INOUT))
-                                .push(Tween.to(mom.alpha, 1, 2)
-                                        .target(0)
-                                        .delay(duration))
+                                }).delay(0.5f))
+                                .push(Timeline.createSequence()
+                                    .push(Tween.call(new TweenCallback() {
+                                        @Override
+                                        public void onEvent(int type, BaseTween<?> source) {
+                                            mom.say("I'm off to work.", 3f);
+                                            mom.facing = 0;
+                                            mom.moving = true;
+                                        }
+                                    })).delay(3.5f)
+                                    .beginParallel()
+                                        .push(Tween.to(mom.bounds, RectangleAccessor.Y, 4f)
+                                                .target(doorPosY)
+                                                .ease(Linear.INOUT))
+                                        .push(Tween.to(mom.alpha, 1, 4f).target(0))
+                                    .end()
+                                )
                                 .end()
                                 .push(Tween.call(new TweenCallback() {
                                     @Override
@@ -438,9 +443,8 @@ public class Level extends BaseLevel{
                     {
                         if (scriptReady) {
                             scriptSegment++;
-                            Tween.to(player.alpha, 1, 1).target(1).start(Assets.tween);
-                            showDialogue("Record scratch... freeze frame...",
-                                         "I bet you're wondering how I got here.");
+                            showDialogue("Hush, little baby...");
+                            Tween.to(player.alpha, -1, 1f).target(1f).start(Assets.tween);
                         }
                     }
                     break;
@@ -563,7 +567,7 @@ public class Level extends BaseLevel{
             case College:
                 switch(scriptSegment){
                     case 0:
-                        showDialogue("College a time to experiment");
+                        showDialogue("College, a time to experiment");
                         scriptSegment++;
                         inScript = true;
                         break;
@@ -702,6 +706,7 @@ public class Level extends BaseLevel{
                         levelCompleted = true;
                         npcs.clear();
                         Assets.particleManager.clearParticles();
+                        Assets.transitionSound.play(1f);
                     }
                 })).start(Assets.tween);
     }

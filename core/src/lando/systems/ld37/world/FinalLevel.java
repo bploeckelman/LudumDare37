@@ -401,7 +401,7 @@ public class FinalLevel extends BaseLevel {
         contractedStrings.put(LevelInfo.Stage.Family, "Raising a family was hard. I couldn't let go of trying to control my kids, they eventually resented me.");
         notContractedStrings.put(LevelInfo.Stage.Family, "Raising a family was hard, but so is anything worth doing. The key was learning to give up control.");
 
-        contractedStrings.put(LevelInfo.Stage.Retirement, "Health problems hit me hard. I never thought about my death, and so never really thought about life.");
+        contractedStrings.put(LevelInfo.Stage.Retirement, "Health problems hit me hard. I never thought about my death, and so never really gave much though to life.");
         notContractedStrings.put(LevelInfo.Stage.Retirement, "I had health problems as I aged, same as others. It reminded me of the importance of every moment.");
     }
 
