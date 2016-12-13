@@ -15,82 +15,82 @@ public class LevelInfo {
         switch (stage){
             case Infancy:
                 mapName = "levels/level-nursery.tmx";
-                crackTimer = 3f;
-//                crackSpeed = 2f;
-                crackSpeed = 200f;
-                playerFixSpeed = 10f;
+                crackTimer = 4f;
+                crackSpeed = 2.5f;
+//                crackSpeed = 200f;
+                playerFixSpeed = 20f;
                 playerSpeed = 100;
                 break;
             case Toddler:
                 mapName = "levels/level-bathroom.tmx";
-                crackTimer = 2.5f;
-//                crackSpeed = 2.5f;
-                crackSpeed = 200f;
+                crackTimer = 4f;
+                crackSpeed = 4f;
+//                crackSpeed = 200f;
                 playerFixSpeed = 12f;
                 playerSpeed = 110;
                 break;
             case Primary:
                 mapName = "levels/level-playground.tmx";
-                crackTimer = 2f;
-//                crackSpeed = 3.5f;
-                crackSpeed = 200f;
+                crackTimer = 3f;
+                crackSpeed = 5f;
+//                crackSpeed = 200f;
                 playerFixSpeed = 15f;
                 playerSpeed = 120;
                 break;
             case Secondary:
                 mapName = "levels/level-hallway.tmx";
-                crackTimer = 1.5f;
-//                crackSpeed = 4.5f;
-                crackSpeed = 200f;
-                playerFixSpeed = 18f;
+                crackTimer = 3f;
+                crackSpeed = 6f;
+//                crackSpeed = 200f;
+                playerFixSpeed = 21f;
                 playerSpeed = 130;
                 break;
             case College:
                 mapName = "levels/level-dorm.tmx";
-                crackTimer = 1f;
-                crackSpeed = 200f;//5.5f;
-                playerFixSpeed = 20f;
+                crackTimer = 3f;
+                crackSpeed = 7f;
+                playerFixSpeed = 22f;
                 playerSpeed = 140;
                 break;
             case Work:
                 mapName = "levels/level-office.tmx";
-                crackTimer = 1f;
-//                crackSpeed = 5.5f;
-                crackSpeed = 200f;
-                playerFixSpeed = 20f;
+                crackTimer = 3f;
+                crackSpeed = 8f;
+//                crackSpeed = 200f;
+                playerFixSpeed = 25f;
                 playerSpeed = 140;
                 break;
             case Marriage:
                 mapName = "levels/level-bedroom.tmx";
-                crackTimer = 1f;
-//                crackSpeed = 6.5f;
-                crackSpeed = 200f;
-                playerFixSpeed = 20f;
-                playerSpeed = 140;
+                crackTimer = 3f;
+                crackSpeed = 9f;
+//                crackSpeed = 200f;
+                playerFixSpeed = 30f;
+                playerSpeed = 145;
                 break;
             case Career:
                 mapName = "levels/level-exec-office.tmx";
-                crackTimer = 1f;
-//                crackSpeed = 7.5f;
-                crackSpeed = 200f;
-                playerFixSpeed = 20f;
-                playerSpeed = 140;
+                crackTimer = 3f;
+                crackSpeed = 10f;
+//                crackSpeed = 200f;
+                playerFixSpeed = 35f;
+                playerSpeed = 160;
                 break;
             case Family:
                 mapName = "levels/level-livingroom.tmx";
-                crackTimer = 1f;
-//                crackSpeed = 8.5f;
-                crackSpeed = 200f;
-                playerFixSpeed = 20f;
-                playerSpeed = 140;
+                crackTimer = 2.7f;
+                crackSpeed = 9f;
+//                crackSpeed = 200f;
+                playerFixSpeed = 40f;
+                playerSpeed = 160;
                 break;
             case Retirement:
                 mapName = "levels/level-hospital.tmx";
-                crackTimer = 1f;
-//                crackSpeed = 9.5f;
-                crackSpeed = 200f;
-                playerFixSpeed = 20f;
-                playerSpeed = 140;
+                crackTimer = 3f;
+                crackSpeed = 8f;
+//                crackSpeed = 200f;
+                playerFixSpeed = 30f;
+                playerSpeed = 100;
                 break;
             default:
                 crackTimer = 1f;

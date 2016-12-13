@@ -55,6 +55,7 @@ public class FinalLevel extends BaseLevel {
     MutableFloat keyItemAngle;
     MutableInteger currentMapIndex;
     Rectangle keyItemRect;
+    Rectangle momRect;
 
     public FinalLevel(GameInfo gameInfo) {
         super(gameInfo);
@@ -63,6 +64,7 @@ public class FinalLevel extends BaseLevel {
         brainAlpha = new MutableFloat(0);
         playerAlpha = new MutableFloat(0);
         momAlpha = new MutableFloat(0);
+        momRect = new Rectangle(210, 230, 25, 25 * 1.8f);
         scriptRunning = false;
         backgroundColor = new Color(0,0,0,1);
         overlayColor = new Color(1,1,1,0);
@@ -122,7 +124,7 @@ public class FinalLevel extends BaseLevel {
                 camera.update();
             }
             batch.begin();
-
+            batch.setColor(Color.WHITE);
             for (GameObject obj : gameObjects[currentMapIndex.intValue()]) {
                 if (obj != null) obj.render(batch);
             }
@@ -140,8 +142,8 @@ public class FinalLevel extends BaseLevel {
         player.render(batch);
 
         batch.setColor(1,1,1,momAlpha.floatValue());
-        batch.draw(Assets.momStanding[2], 210, 230, 25, 25 * 1.8f);
-        batch.draw(Assets.gameObjectTextures.get("baby"), 209, 235, 27, 15);
+        batch.draw(Assets.momStanding[2], momRect.x, momRect.y, momRect.width, momRect.height);
+        batch.draw(Assets.gameObjectTextures.get("baby"), momRect.x, momRect.y + 5/45f * momRect.height, momRect.width, momRect.height * 15f / 45f);
 
         batch.setColor(1f, 1f, 1f, brainAlpha.floatValue());
         batch.draw(Assets.brainDetail, brainRect.x, brainRect.y, brainRect.width, brainRect.height);
@@ -281,10 +283,17 @@ public class FinalLevel extends BaseLevel {
                             .push(Tween.to(currentMapIndex, 1, 4).target(0).ease(Linear.INOUT))
                             .pushPause(1)
                             .push(Tween.to(momAlpha, 1, 1).target(1))
+                            .pushPause(1)
+                            .push(Tween.set(currentMapIndex,1).target(-1))
+                            .push(Tween.to(momRect, RectangleAccessor.XY, 1).target(Config.gameWidth/2 - momRect.width/2, Config.gameHeight/2 - momRect.height/2))
+                            .beginParallel()
+                                .push(Tween.to(momRect, RectangleAccessor.XYWH, 3).target(209, 40, 222, 400))
+                                .push(Tween.to(overlayColor, ColorAccessor.RGBA, 2f).target(1, 93f/255f, 128f/255, 1f).delay(1f))
+                            .end()
                             .push(Tween.call(new TweenCallback() {
                                 @Override
                                 public void onEvent(int i, BaseTween<?> baseTween) {
-                                    showFinalDialogue("{TITLE} made for LD37 by Brian Ploeckleman and Doug Graham.");
+                                    showFinalDialogue("\"What we carry with us\" made for LD37 by Brian Ploeckleman and Doug Graham.");
                                 }
                             }))
                             .start(Assets.tween);
