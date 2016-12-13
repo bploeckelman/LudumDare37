@@ -49,6 +49,7 @@ public class LevelInfo {
                 mapName = "levels/level-dorm.tmx";
                 crackTimer = 3f;
                 crackSpeed = 7f;
+//                crackSpeed = 200f;
                 playerFixSpeed = 22f;
                 playerSpeed = 140;
                 break;

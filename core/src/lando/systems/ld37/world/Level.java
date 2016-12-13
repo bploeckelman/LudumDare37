@@ -468,58 +468,180 @@ public class Level extends BaseLevel{
                 }
             }
             break;
+            case Toddler:
+                switch(scriptSegment){
+                    case 0:
+                        showDialogue("A grown up Toilet!");
+                        scriptSegment++;
+                        inScript = true;
+                        break;
+                    case 1:
+                        if (!dialogue.isActive()){
+                            inScript = false;
+                            scriptSegment++;
+                        }
+                }
+                break;
+
             case Primary: {
-                if (npcs.size < 2) break;
-                final Npc kidGirl = npcs.get(0);
-                final Npc kidBoy = npcs.get(1);
-                kidGirl.moving = true;
-                kidBoy.moving = true;
-                kidGirl.facing = 3;
-                kidBoy.facing = 1;
+
                 switch (scriptSegment) {
                     case 0:
+                        showDialogue("Grade School: A time to make friends.");
+                        inScript = true;
                         scriptSegment++;
-                        Timeline.createSequence()
-                                .beginParallel()
-                                .push(Tween.call(new TweenCallback() {
-                                    @Override
-                                    public void onEvent(int type, BaseTween<?> source) {
-                                        kidGirl.say("Let's play!", 3f);
-                                        kidBoy.say("Let's be friends", 3f);
-                                    }
-                                }))
-                                .push(Tween.to(kidGirl.bounds, RectangleAccessor.X, 4f)
-                                        .target(gameBounds.x + gameBounds.width / 2f - 32f)
-                                        .setCallback(new TweenCallback() {
-                                            @Override
-                                            public void onEvent(int type, BaseTween<?> source) {
-                                                kidGirl.moving = false;
-                                                kidGirl.facing = 2;
-                                            }
-                                        })
-                                        .ease(Linear.INOUT))
-                                .push(Tween.to(kidBoy.bounds, RectangleAccessor.X, 4f)
-                                        .target(gameBounds.x + gameBounds.width / 2f + 32f)
-                                        .setCallback(new TweenCallback() {
-                                            @Override
-                                            public void onEvent(int type, BaseTween<?> source) {
-                                                kidBoy.moving = false;
-                                                kidBoy.facing = 2;
-                                            }
-                                        })
-                                        .ease(Linear.INOUT))
-                                .end()
-                                .setCallback(new TweenCallback() {
-                                    @Override
-                                    public void onEvent(int type, BaseTween<?> source) {
-                                        inScript = false;
-                                    }
-                                })
-                                .start(Assets.tween);
+                        break;
+                    case 1:
+                        if (!dialogue.isActive()) {
+                            inScript = false;
+                            if (npcs.size < 2) break;
+                            final Npc kidGirl = npcs.get(0);
+                            final Npc kidBoy = npcs.get(1);
+                            kidGirl.moving = true;
+                            kidBoy.moving = true;
+                            kidGirl.facing = 3;
+                            kidBoy.facing = 1;
+                            scriptSegment++;
+                            Timeline.createSequence()
+                                    .beginParallel()
+                                    .push(Tween.call(new TweenCallback() {
+                                        @Override
+                                        public void onEvent(int type, BaseTween<?> source) {
+                                            kidGirl.say("Let's play!", 3f);
+                                            kidBoy.say("Let's be friends", 3f);
+                                        }
+                                    }))
+                                    .push(Tween.to(kidGirl.bounds, RectangleAccessor.X, 4f)
+                                            .target(gameBounds.x + gameBounds.width / 2f - 32f)
+                                            .setCallback(new TweenCallback() {
+                                                @Override
+                                                public void onEvent(int type, BaseTween<?> source) {
+                                                    kidGirl.moving = false;
+                                                    kidGirl.facing = 2;
+                                                }
+                                            })
+                                            .ease(Linear.INOUT))
+                                    .push(Tween.to(kidBoy.bounds, RectangleAccessor.X, 4f)
+                                            .target(gameBounds.x + gameBounds.width / 2f + 32f)
+                                            .setCallback(new TweenCallback() {
+                                                @Override
+                                                public void onEvent(int type, BaseTween<?> source) {
+                                                    kidBoy.moving = false;
+                                                    kidBoy.facing = 2;
+                                                }
+                                            })
+                                            .ease(Linear.INOUT))
+                                    .end()
+                                    .setCallback(new TweenCallback() {
+                                        @Override
+                                        public void onEvent(int type, BaseTween<?> source) {
+                                            inScript = false;
+                                        }
+                                    })
+                                    .start(Assets.tween);
+                        }
                     break;
                 }
             }
             break;
+            case Secondary:
+                switch(scriptSegment){
+                    case 0:
+                        showDialogue("Find some friends in High School");
+                        scriptSegment++;
+                        inScript = true;
+                        break;
+                    case 1:
+                        if (!dialogue.isActive()){
+                            inScript = false;
+                            scriptSegment++;
+                        }
+                }
+                break;
+            case College:
+                switch(scriptSegment){
+                    case 0:
+                        showDialogue("College a time to experiment");
+                        scriptSegment++;
+                        inScript = true;
+                        break;
+                    case 1:
+                        if (!dialogue.isActive()){
+                            inScript = false;
+                            scriptSegment++;
+                        }
+                }
+                break;
+            case Work:
+                switch(scriptSegment){
+                    case 0:
+                        showDialogue("Your first job.");
+                        scriptSegment++;
+                        inScript = true;
+                        break;
+                    case 1:
+                        if (!dialogue.isActive()){
+                            inScript = false;
+                            scriptSegment++;
+                        }
+                }
+                break;
+            case Marriage:
+                switch(scriptSegment){
+                    case 0:
+                        showDialogue("Make the marriage work.");
+                        scriptSegment++;
+                        inScript = true;
+                        break;
+                    case 1:
+                        if (!dialogue.isActive()){
+                            inScript = false;
+                            scriptSegment++;
+                        }
+                }
+                break;
+            case Career:
+                switch(scriptSegment){
+                    case 0:
+                        showDialogue("Earn enough money to retire.");
+                        scriptSegment++;
+                        inScript = true;
+                        break;
+                    case 1:
+                        if (!dialogue.isActive()){
+                            inScript = false;
+                            scriptSegment++;
+                        }
+                }
+                break;
+            case Family:
+                switch(scriptSegment){
+                    case 0:
+                        showDialogue("Don't let your kids run over you.");
+                        scriptSegment++;
+                        inScript = true;
+                        break;
+                    case 1:
+                        if (!dialogue.isActive()){
+                            inScript = false;
+                            scriptSegment++;
+                        }
+                }
+                break;
+            case Retirement:
+                switch(scriptSegment){
+                    case 0:
+                        showDialogue("Old age catches up to all of us.");
+                        scriptSegment++;
+                        inScript = true;
+                        break;
+                    case 1:
+                        if (!dialogue.isActive()){
+                            inScript = false;
+                            scriptSegment++;
+                        }
+                }
+                break;
             // case FOO: {} break;
         }
     }
