@@ -40,7 +40,6 @@ import lando.systems.ld37.utils.Config;
 public class FinalLevel extends BaseLevel {
     Rectangle brainRect;
     MutableFloat brainAlpha;
-    MutableFloat playerAlpha;
     MutableFloat momAlpha;
     int scriptSegment;
     boolean scriptRunning;
@@ -62,7 +61,6 @@ public class FinalLevel extends BaseLevel {
         brainRect = new Rectangle(0, -60, Assets.brainDetail.getWidth(), Assets.brainDetail.getHeight());
         scriptSegment = 0;
         brainAlpha = new MutableFloat(0);
-        playerAlpha = new MutableFloat(0);
         momAlpha = new MutableFloat(0);
         momRect = new Rectangle(210, 230, 25, 25 * 1.8f);
         scriptRunning = false;
@@ -72,6 +70,7 @@ public class FinalLevel extends BaseLevel {
         player.facing = 2;
         player.pos.x = Config.gameWidth/2 - player.width/2;
         player.pos.y = Config.gameHeight/2 - 10;
+        player.alpha.setValue(0);
         keyItemAlpha = new MutableFloat(0);
         accum = 0;
         floatOffset = new Vector2();
@@ -136,7 +135,7 @@ public class FinalLevel extends BaseLevel {
         }
 
 
-        batch.setColor(1,1,1, playerAlpha.floatValue());
+        batch.setColor(1,1,1, player.alpha.floatValue());
         TextureRegion bed = Assets.gameObjectTextures.get("empty-bed");
         batch.draw(bed, camera.viewportWidth/2 - 50, camera.viewportHeight/2 - 50, 100, 100);
         player.render(batch);
@@ -189,7 +188,7 @@ public class FinalLevel extends BaseLevel {
                         .push(Tween.to(brainRect, RectangleAccessor.XYWH, 1).target(player.pos.x + 5, player.pos.y + 25, 10, 8))
                         .beginParallel()
                             .push(Tween.to(brainAlpha, 1, .5f).target(0).ease(Quint.IN))
-                            .push(Tween.to(playerAlpha, 1, .5f).target(1).ease(Quint.OUT))
+                            .push(Tween.to(player.alpha, 1, .5f).target(1).ease(Quint.OUT))
                         .end()
                         .push(Tween.call(new TweenCallback() {
                             @Override
@@ -215,7 +214,7 @@ public class FinalLevel extends BaseLevel {
                     final boolean c = gameInfo.neurosis.get(LevelInfo.Stage.Infancy);
                     Timeline.createSequence()
 //                            .push(Tween.to(backgroundColor, ColorAccessor.RGB, 1).target(0,0,0))
-                            .push(Tween.to(playerAlpha, 1, 1).target(0))
+                            .push(Tween.to(player.alpha, 1, 1).target(0))
                             .pushPause(2f)
                             .push(Tween.to(keyItemAlpha, 1, 1).target(1))
                             .push(Tween.call(new TweenCallback() {

@@ -1,5 +1,7 @@
 package lando.systems.ld37.gameobjects;
 
+import aurelienribon.tweenengine.primitives.MutableFloat;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +22,7 @@ public class Player {
     public float accum;
     public int facing = 2;
     public boolean moving;
+    public MutableFloat alpha;
 
     public Player(LevelInfo levelInfo){
         pos = new Vector2(Config.gameWidth /2, Config.gameHeight/2);
@@ -28,6 +31,7 @@ public class Player {
         center = new Vector2();
         accum = 0;
         moving = false;
+        alpha = new MutableFloat(1);
     }
 
     public void update(float dt, Vector2 moveVec){
@@ -58,7 +62,8 @@ public class Player {
 
     public void render(SpriteBatch batch){
         TextureRegion tex = moving ? Assets.playerAnimations[facing].getKeyFrame(accum) : Assets.playerStanding[facing];
-
+        batch.setColor(1,1,1,alpha.floatValue());
         batch.draw(tex, pos.x, pos.y, width, width*1.8f);
+        batch.setColor(Color.WHITE);
     }
 }

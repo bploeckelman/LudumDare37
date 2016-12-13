@@ -341,6 +341,7 @@ public class Level extends BaseLevel{
 
         switch (currentStage) {
             case Infancy: {
+                player.alpha.setValue(0);
                 final Npc mom = new Npc(
                         "Mom",
                         gameBounds.x + gameBounds.width / 2f,
@@ -437,6 +438,7 @@ public class Level extends BaseLevel{
                     {
                         if (scriptReady) {
                             scriptSegment++;
+                            Tween.to(player.alpha, 1, 1).target(1).start(Assets.tween);
                             showDialogue("Record scratch... freeze frame...",
                                          "I bet you're wondering how I got here.");
                         }
