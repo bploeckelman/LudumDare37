@@ -38,10 +38,11 @@ public class Assets {
     public static ShaderProgram shimmerShader;
     public static ShaderProgram featherShader;
 
-    public static TextureRegion whitePixel;
+    public static Texture titleTexture;
     public static Texture whiteBox;
     public static Texture brainOutline;
     public static Texture brainDetail;
+    public static TextureRegion whitePixel;
     public static TextureRegion[] walls;
     public static TextureRegion[] wallsDamaged;
     public static TextureRegion[] wallsCracked;
@@ -94,6 +95,7 @@ public class Assets {
         mgr.load("images/brain-outline.png", Texture.class, linearParams);
         mgr.load("images/brain-detail.png", Texture.class, linearParams);
         mgr.load("images/speech-bubble.png", Texture.class, nearestParams);
+        mgr.load("images/title-screen.png", Texture.class, linearParams);
 
         if (tween == null) {
             tween = new TweenManager();
@@ -125,6 +127,7 @@ public class Assets {
 
         whiteBox = mgr.get("images/white-box.png", Texture.class);
         whitePixel = new TextureRegion(mgr.get("images/white-pixel.png", Texture.class));
+        titleTexture = mgr.get("images/title-screen.png", Texture.class);
 
         brainOutline = mgr.get("images/brain-outline.png", Texture.class);
         brainDetail = mgr.get("images/brain-detail.png", Texture.class);
