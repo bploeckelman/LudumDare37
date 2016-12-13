@@ -358,7 +358,25 @@ public class Level extends BaseLevel{
                 npcs.addAll(mom, baby);
             }
             break;
-//        case FOO: {}
+            case Primary: {
+                final Npc kidGirl = new Npc(
+                        "Kid Girl",
+                        gameBounds.x + gameBounds.width / 2f - 160f,
+                        gameBounds.y + gameBounds.height / 2f - 32f,
+                        25f, 25*1.8f,
+                        Npc.npcType.KID_GIRL
+                );
+                final Npc kidBoy = new Npc(
+                        "Kid Boy",
+                        gameBounds.x + gameBounds.width / 2f + 160f,
+                        gameBounds.y + gameBounds.height / 2f - 96f,
+                        25f, 25*1.8f,
+                        Npc.npcType.KID_BOY
+                );
+                npcs.addAll(kidGirl, kidBoy);
+                scriptReady = true;
+            }
+            break;
             default: {
                 inScript = false;
             }
@@ -447,6 +465,58 @@ public class Level extends BaseLevel{
                         break;
 
                     // case N: {} break;
+                }
+            }
+            break;
+            case Primary: {
+                if (npcs.size < 2) break;
+                final Npc kidGirl = npcs.get(0);
+                final Npc kidBoy = npcs.get(1);
+                kidGirl.moving = true;
+                kidBoy.moving = true;
+                kidGirl.facing = 3;
+                kidBoy.facing = 1;
+                switch (scriptSegment) {
+                    case 0:
+                        scriptSegment++;
+                        Timeline.createSequence()
+                                .beginParallel()
+                                .push(Tween.call(new TweenCallback() {
+                                    @Override
+                                    public void onEvent(int type, BaseTween<?> source) {
+                                        kidGirl.say("Let's play!", 3f);
+                                        kidBoy.say("Let's be friends", 3f);
+                                    }
+                                }))
+                                .push(Tween.to(kidGirl.bounds, RectangleAccessor.X, 4f)
+                                        .target(gameBounds.x + gameBounds.width / 2f - 32f)
+                                        .setCallback(new TweenCallback() {
+                                            @Override
+                                            public void onEvent(int type, BaseTween<?> source) {
+                                                kidGirl.moving = false;
+                                                kidGirl.facing = 2;
+                                            }
+                                        })
+                                        .ease(Linear.INOUT))
+                                .push(Tween.to(kidBoy.bounds, RectangleAccessor.X, 4f)
+                                        .target(gameBounds.x + gameBounds.width / 2f + 32f)
+                                        .setCallback(new TweenCallback() {
+                                            @Override
+                                            public void onEvent(int type, BaseTween<?> source) {
+                                                kidBoy.moving = false;
+                                                kidBoy.facing = 2;
+                                            }
+                                        })
+                                        .ease(Linear.INOUT))
+                                .end()
+                                .setCallback(new TweenCallback() {
+                                    @Override
+                                    public void onEvent(int type, BaseTween<?> source) {
+                                        inScript = false;
+                                    }
+                                })
+                                .start(Assets.tween);
+                    break;
                 }
             }
             break;

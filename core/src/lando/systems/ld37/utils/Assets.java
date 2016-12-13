@@ -61,8 +61,12 @@ public class Assets {
     public static TextureRegion[] playerStanding;
     public static Animation[] playerAnimations;
 
-    public static TextureRegion[] momStanding;
     public static Animation[] momAnimations;
+    public static TextureRegion[] momStanding;
+    public static Animation[] kidGirlAnimations;
+    public static TextureRegion[] kidGirlStanding;
+    public static Animation[] kidBoyAnimations;
+    public static TextureRegion[] kidBoyStanding;
 
     public static ObjectMap<String, TextureRegion> gameObjectTextures;
 
@@ -206,6 +210,14 @@ public class Assets {
         momAnimations = new Animation[4];
         momStanding = new TextureRegion[4];
         setAnimations(chars, 54, 0, momAnimations, momStanding);
+
+        kidGirlAnimations = new Animation[4];
+        kidGirlStanding = new TextureRegion[4];
+        setAnimations(chars, 108, 0, kidGirlAnimations, kidGirlStanding);
+
+        kidBoyAnimations = new Animation[4];
+        kidBoyStanding = new TextureRegion[4];
+        setAnimations(chars, 162, 0, kidBoyAnimations, kidBoyStanding);
 
         gameObjectTextures = new ObjectMap<String, TextureRegion>();
         gameObjectTextures.put("chair-brown", atlas.findRegion("chair-brown"));

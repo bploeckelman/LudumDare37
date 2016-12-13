@@ -14,7 +14,7 @@ import lando.systems.ld37.utils.Assets;
  * Created by Brian on 12/10/2016.
  */
 public class Npc {
-    public enum npcType { MOM, BABY }
+    public enum npcType { MOM, BABY, KID_GIRL, KID_BOY }
 
     public String name;
     public Vector2 centerPos;
@@ -113,6 +113,16 @@ public class Npc {
             case BABY:
                 moving = false;
                 standingTex = new TextureRegion[] { Assets.gameObjectTextures.get("baby") };
+                break;
+            case KID_GIRL:
+                animations = Assets.kidGirlAnimations;
+                standingTex = Assets.kidGirlStanding;
+                facing = 2;
+                break;
+            case KID_BOY:
+                animations = Assets.kidBoyAnimations;
+                standingTex = Assets.kidBoyStanding;
+                facing = 2;
                 break;
         }
     }
