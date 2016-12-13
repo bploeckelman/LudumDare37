@@ -196,9 +196,10 @@ public class FinalLevel extends BaseLevel {
                             public void onEvent(int i, BaseTween<?> baseTween) {
                                 scriptSegment++;
                                 scriptRunning = false;
-                                showDialogue("Ahh yes I remember my life fondly.",
-                                        "Many things tried to break down the walls of my mind.",
-                                        "Some I was able to deal with, others affected me throughout my life.");
+                                showDialogue("Well, it seems that old age comes for us all...",
+                                        "Thinking back on my life, I realize how much baggage I carried with me the whole time.",
+                                        "Many things caused anxiety or stress and tried to break down the walls of my mind.",
+                                        "Some I was able to integrate and move past, others stuck with me for the rest of my life.");
                             }
                         }))
                         .start(Assets.tween);
@@ -374,36 +375,35 @@ public class FinalLevel extends BaseLevel {
         contractedStrings = new ObjectMap<LevelInfo.Stage, String>();
         notContractedStrings = new ObjectMap<LevelInfo.Stage, String>();
 
-        contractedStrings.put(LevelInfo.Stage.Infancy, "I picked up abandonment issues at an early age.");
-        notContractedStrings.put(LevelInfo.Stage.Infancy, "I was confronted with abandonment and learned to cope with it.");
+        contractedStrings.put(LevelInfo.Stage.Infancy, "My parents worked a lot when I was very young. I learned to fear abandonment at an early age.");
+        notContractedStrings.put(LevelInfo.Stage.Infancy, "My parents worked a lot when I was very young. They always came back, so I never felt abandoned.");
 
-        contractedStrings.put(LevelInfo.Stage.Toddler, "The stress of potty training stayed with me.");
-        notContractedStrings.put(LevelInfo.Stage.Toddler, "I overcame potty training");
+        contractedStrings.put(LevelInfo.Stage.Toddler, "The stress of potty training must have stayed with me, I'm so anal retentive.");
+        notContractedStrings.put(LevelInfo.Stage.Toddler, "My parents helped make potty training pretty stress free. Nothing to worry about there.");
 
-        contractedStrings.put(LevelInfo.Stage.Primary, "The stress of potty training stayed with me.");
-        notContractedStrings.put(LevelInfo.Stage.Primary, "I overcame potty training");
+        contractedStrings.put(LevelInfo.Stage.Primary, "Making friends was always hard as a child. Social anxiety has been a constant companion.");
+        notContractedStrings.put(LevelInfo.Stage.Primary, "Making friends was sometimes hard, but by persevering I overcame my social anxiety.");
 
-        contractedStrings.put(LevelInfo.Stage.Secondary, "The stress of potty training stayed with me.");
-        notContractedStrings.put(LevelInfo.Stage.Secondary, "I overcame potty training");
+        contractedStrings.put(LevelInfo.Stage.Secondary, "High school, greatest years of our lives right? Forget it, always outcast, no group would have me.");
+        notContractedStrings.put(LevelInfo.Stage.Secondary, "High school... The search for inclusion and acceptance. I met a great group of friends there.");
 
-        contractedStrings.put(LevelInfo.Stage.College, "The stress of potty training stayed with me.");
-        notContractedStrings.put(LevelInfo.Stage.College, "I overcame potty training");
+        contractedStrings.put(LevelInfo.Stage.College, "Studying in college wasn't really a priority, and I've abused alcohol and drugs ever since.");
+        notContractedStrings.put(LevelInfo.Stage.College, "Partying in college was fun, but studies were a priority and I never felt the need for escape.");
 
-        contractedStrings.put(LevelInfo.Stage.Work, "The stress of potty training stayed with me.");
-        notContractedStrings.put(LevelInfo.Stage.Work, "I overcame potty training");
+        contractedStrings.put(LevelInfo.Stage.Work, "I never went to the trouble to develop a very strong work ethic, and I've always regretted it.");
+        notContractedStrings.put(LevelInfo.Stage.Work, "I learned early on that work ethic was very important, and it has served me well over the years.");
 
-        contractedStrings.put(LevelInfo.Stage.Marriage, "The stress of potty training stayed with me.");
-        notContractedStrings.put(LevelInfo.Stage.Marriage, "I overcame potty training");
+        contractedStrings.put(LevelInfo.Stage.Marriage, "Marriage was rough. I never found compromise to be very important. In hindsight, big mistake.");
+        notContractedStrings.put(LevelInfo.Stage.Marriage, "Marriage was a priceless experience. I learned the great value of compromise early.");
 
-        contractedStrings.put(LevelInfo.Stage.Career, "The stress of potty training stayed with me.");
-        notContractedStrings.put(LevelInfo.Stage.Career, "I overcame potty training");
+        contractedStrings.put(LevelInfo.Stage.Career, "Throughout my career, money was always the goal. Sadly, I was never able to relax and enjoy it.");
+        notContractedStrings.put(LevelInfo.Stage.Career, "While money was certainly important I never let it rule me, so I could relax and enjoy life.");
 
-        contractedStrings.put(LevelInfo.Stage.Family, "The stress of potty training stayed with me.");
-        notContractedStrings.put(LevelInfo.Stage.Family, "I overcame potty training");
+        contractedStrings.put(LevelInfo.Stage.Family, "Raising a family was hard. I couldn't let go of trying to control my kids, they eventually resented me.");
+        notContractedStrings.put(LevelInfo.Stage.Family, "Raising a family was hard, but so is anything worth doing. The key was learning to give up control.");
 
-        contractedStrings.put(LevelInfo.Stage.Retirement, "The stress of potty training stayed with me.");
-        notContractedStrings.put(LevelInfo.Stage.Retirement, "I overcame potty training");
-
+        contractedStrings.put(LevelInfo.Stage.Retirement, "Health problems hit me hard. I never thought about my death, and so never really thought about life.");
+        notContractedStrings.put(LevelInfo.Stage.Retirement, "I had health problems as I aged, same as others. It reminded me of the importance of every moment.");
     }
 
     TiledMapRenderer[] mapRenderers;
