@@ -5,6 +5,7 @@ import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -96,6 +97,7 @@ public class Assets {
         mgr.load("images/brain-detail.png", Texture.class, linearParams);
         mgr.load("images/speech-bubble.png", Texture.class, nearestParams);
         mgr.load("images/title-screen.png", Texture.class, linearParams);
+        mgr.load("audio/music.mp3", Music.class);
 
         if (tween == null) {
             tween = new TweenManager();
@@ -277,6 +279,10 @@ public class Assets {
         }
 
         TextHelper.load();
+
+        Music music = mgr.get("audio/music.mp3", Music.class);
+        music.setLooping(true);
+        music.play();
 
         return 1f;
     }
